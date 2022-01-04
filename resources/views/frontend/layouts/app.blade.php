@@ -9,6 +9,12 @@
 @php
     $seosetting = \App\SeoSetting::first();
 @endphp
+<head>
+
+
+    @php
+    $seosetting = \App\SeoSetting::first();
+@endphp
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,46 +55,46 @@
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
-<!-- Bootstrap -->
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all">
+    {{-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upachar Pharmacy</title> --}}
+    <!-- Bootstrap link Starts -->
+    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map">
+    <!-- Bootstrap link Ends -->
+    <!-- Font Awesome Link Starts -->
+    <link rel="stylesheet" href="frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- Font Awesome Link Ends -->
+    <!-- Slick Css -->
+    <link rel="stylesheet" href="frontend/assets/slick/slick.css">
+    <link rel="stylesheet" href="frontend/assets/slick/slick-theme.css">
+    <!-- Slick Css Ends-->
+    <!-- Custom Links -->
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Vidaloka&display=swap"
+        rel="stylesheet">
+    <!-- Font Link Ends -->
+    <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
+    <!-- Bootstrap range slider -->
+    <link rel="stylesheet" href="frontend/assets/bootstrap-range-slider-js/css/bootstrap-slider.min.css">
+    <!-- Bootstrap range slider Ends -->
+    <!-- Toastr -->
+    <link rel="stylesheet" href="frontend/assets/toastr/toastr.min.css">
+    <!-- Toastr Ends -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+    <link rel="stylesheet" href="frontend/assets/css/responsive.css">
+    <!-- Custom Links Ends -->
 
-<!-- Icons -->
-<link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
-<link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
-
-<link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
-<link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-
-<!-- Global style (main) -->
-<link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
-
-
-<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
-
-@if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
+    @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
 @endif
-
-<!-- color theme -->
-<link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all">
-
-<!-- Custom style -->
-<link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all">
-
-<!-- jQuery -->
-<script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
-
 
 @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -122,466 +128,73 @@
 </noscript>
 <!-- End Facebook Pixel Code -->
 @endif
-
 </head>
-<body>
 
 
-<!-- MAIN WRAPPER -->
-<div class="body-wrap shop-default shop-cards shop-tech gry-bg">
 
-    <!-- Header -->
-    @include('frontend.inc.nav')
+<body onload="myFunction()">
+    <div id="loading"></div>
+    <!-- Whole Body Wrapper Starts -->
+    <section id="index-wrapper">
+        <section id="top-ads-wrapper">
+            <div class="alert alert-dismissible fade show position-relative border-0 m-0 p-0" role="alert">
+                <img src="frontend/assets/images/product-images/5.jpg" alt="top-window-ads-banner" class="img-fluid">
+                <button type="button" class="close position-absolute text-white" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        </section>
+     
 
-    @yield('content')
 
-    @include('frontend.inc.footer')
+ <!-- Header -->
+ @include('frontend.inc.nav')
+
+ @yield('content')
+      
+        @include('frontend.inc.footer')
+
+
+    </section>
+        <!-- Scroll Button -->
+        <section id="scroll-btn">
+            <a href="#"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+        </section>
+        <!-- Scroll Button Ends -->
+    <!-- Whole Body Wrapper Ends -->
+    <!-- 1st Jquery Link Starts-->
+    <script src="frontend/assets/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <!-- Jquery Link Ends-->
+    <!-- 2nd Popper Js Starts -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <!-- Popper Js Ends -->
+    <!-- 3rd Bootstrap Js Link Starts -->
+    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map"></script>
+    <!-- Bootstrap Js Link Ends -->
+    <!-- Slick Js -->
+    <script src="frontend/assets/slick/slick.min.js"></script>
+    <!-- Slick Js Ends-->
+    <!-- Isotope Js -->
+    <script src="frontend/assets/isotope-js/isotope.pkgd.min.js"></script>
+    <!-- Isotope Js Ends-->
+    <!-- Bootstrap range slider js -->
+    <script src="frontend/assets/bootstrap-range-slider-js/bootstrap-slider.min.js"></script>
+    <!-- Bootstrap range slider js Ends-->
+    <!-- Toastr -->
+    <script src="frontend/assets/toastr/toastr.min.js"></script>
+    <!-- Toastr Ends -->
+    <!-- Custom Js Starts -->
+    <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
+    <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
+    <script src="frontend/assets/js/main.js"></script>
+    <!-- Custom Js Ends -->
+    <!-- Popup Search Modal -->
+    
 
     @include('frontend.partials.modal')
-
-    @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
-        <div id="fb-root"></div>
-        <!-- Your customer chat code -->
-        <div class="fb-customerchat"
-          attribution=setup_tool
-          page_id="{{ env('FACEBOOK_PAGE_ID') }}">
-        </div>
-    @endif
-
-    <div class="modal fade" id="addToCart">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
-            <div class="modal-content position-relative">
-                <div class="c-preloader">
-                    <i class="fa fa-spin fa-spinner"></i>
-                </div>
-                <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div id="addToCart-modal-body">
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div><!-- END: body-wrap -->
-
-<!-- SCRIPTS -->
-<!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
-
-<!-- Core -->
-<script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
-
-<!-- Plugins: Sorted A-Z -->
-<script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
-<script src="{{ asset('frontend/js/select2.min.js') }}"></script>
-<script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
-<script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
-<script src="{{ asset('frontend/js/slick.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jodit.min.js') }}"></script>
-<script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
-<script src="{{ asset('frontend/js/fb-script.js') }}"></script>
-<script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
-
-<!-- App JS -->
-<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script>
-
-
-<script>
-    function showFrontendAlert(type, message){
-        if(type == 'danger'){
-            type = 'error';
-        }
-        swal({
-            position: 'top-end',
-            type: type,
-            title: message,
-            showConfirmButton: false,
-            timer: 3000
-        });
-    }
-</script>
-
-@foreach (session('flash_notification', collect())->toArray() as $message)
-    <script>
-        showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
-    </script>
-@endforeach
-<script>
-
-    $(document).ready(function() {
-        $('.category-nav-element').each(function(i, el) {
-            $(el).on('mouseover', function(){
-                if(!$(el).find('.sub-cat-menu').hasClass('loaded')){
-                    $.post('{{ route('category.elements') }}', {_token: '{{ csrf_token()}}', id:$(el).data('id')}, function(data){
-                        $(el).find('.sub-cat-menu').addClass('loaded').html(data);
-                    });
-                }
-            });
-        });
-        if ($('#lang-change').length > 0) {
-            $('#lang-change .dropdown-item a').each(function() {
-                $(this).on('click', function(e){
-                    e.preventDefault();
-                    var $this = $(this);
-                    var locale = $this.data('flag');
-                    $.post('{{ route('language.change') }}',{_token:'{{ csrf_token() }}', locale:locale}, function(data){
-                        location.reload();
-                    });
-
-                });
-            });
-        }
-
-        if ($('#currency-change').length > 0) {
-            $('#currency-change .dropdown-item a').each(function() {
-                $(this).on('click', function(e){
-                    e.preventDefault();
-                    var $this = $(this);
-                    var currency_code = $this.data('currency');
-                    $.post('{{ route('currency.change') }}',{_token:'{{ csrf_token() }}', currency_code:currency_code}, function(data){
-                        location.reload();
-                    });
-
-                });
-            });
-        }
-    });
-
-    $('#search').on('keyup', function(){
-        search();
-    });
-
-    $('#search').on('focus', function(){
-        search();
-    });
-
-    function search(){
-        var search = $('#search').val();
-        if(search.length > 0){
-            $('body').addClass("typed-search-box-shown");
-
-            $('.typed-search-box').removeClass('d-none');
-            $('.search-preloader').removeClass('d-none');
-            $.post('{{ route('search.ajax') }}', { _token: '{{ @csrf_token() }}', search:search}, function(data){
-                if(data == '0'){
-                    // $('.typed-search-box').addClass('d-none');
-                    $('#search-content').html(null);
-                    $('.typed-search-box .search-nothing').removeClass('d-none').html('Sorry, nothing found for <strong>"'+search+'"</strong>');
-                    $('.search-preloader').addClass('d-none');
-
-                }
-                else{
-                    $('.typed-search-box .search-nothing').addClass('d-none').html(null);
-                    $('#search-content').html(data);
-                    $('.search-preloader').addClass('d-none');
-                }
-            });
-        }
-        else {
-            $('.typed-search-box').addClass('d-none');
-            $('body').removeClass("typed-search-box-shown");
-        }
-    }
-
-    function updateNavCart(){
-        $.post('{{ route('cart.nav_cart') }}', {_token:'{{ csrf_token() }}'}, function(data){
-            $('#cart_items').html(data);
-        });
-    }
-
-    function removeFromCart(key){
-        $.post('{{ route('cart.removeFromCart') }}', {_token:'{{ csrf_token() }}', key:key}, function(data){
-            updateNavCart();
-            $('#cart-summary').html(data);
-            showFrontendAlert('success', 'Item has been removed from cart');
-            $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())-1);
-        });
-    }
-
-    function addToCompare(id){
-        $.post('{{ route('compare.addToCompare') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-            $('#compare').html(data);
-            showFrontendAlert('success', 'Item has been added to compare list');
-            $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html())+1);
-        });
-    }
-
-    function addToWishList(id){
-        @if (Auth::check() && (Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'seller'))
-            $.post('{{ route('wishlists.store') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-                if(data != 0){
-                    $('#wishlist').html(data);
-                    showFrontendAlert('success', 'Item has been added to wishlist');
-                }
-                else{
-                    showFrontendAlert('warning', 'Please login first');
-                }
-            });
-        @else
-            showFrontendAlert('warning', 'Please login first');
-        @endif
-    }
-
-    function showAddToCartModal(id){
-        if(!$('#modal-size').hasClass('modal-lg')){
-            $('#modal-size').addClass('modal-lg');
-        }
-        $('#addToCart-modal-body').html(null);
-        $('#addToCart').modal();
-        $('.c-preloader').show();
-        $.post('{{ route('cart.showCartModal') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-            $('.c-preloader').hide();
-            $('#addToCart-modal-body').html(data);
-            $('.xzoom, .xzoom-gallery').xzoom({
-                Xoffset: 20,
-                bg: true,
-                tint: '#000',
-                defaultScale: -1
-            });
-            getVariantPrice();
-        });
-    }
-
-    $('#option-choice-form input').on('change', function(){
-        getVariantPrice();
-    });
-
-    function getVariantPrice(){
-        if($('#option-choice-form input[name=quantity]').val() > 0 && checkAddToCartValidity()){
-            $.ajax({
-               type:"POST",
-               url: '{{ route('products.variant_price') }}',
-               data: $('#option-choice-form').serializeArray(),
-               success: function(data){
-                   $('#option-choice-form #chosen_price_div').removeClass('d-none');
-                   $('#option-choice-form #chosen_price_div #chosen_price').html(data.price);
-                   $('#available-quantity').html(data.quantity);
-                   $('.input-number').prop('max', data.quantity);
-                   //console.log(data.quantity);
-                   if(parseInt(data.quantity) < 1 && data.digital  != 1){
-                       $('.buy-now').hide();
-                       $('.add-to-cart').hide();
-                   }
-                   else{
-                       $('.buy-now').show();
-                       $('.add-to-cart').show();
-                   }
-               }
-           });
-        }
-    }
-
-    function checkAddToCartValidity(){
-        var names = {};
-        $('#option-choice-form input:radio').each(function() { // find unique names
-              names[$(this).attr('name')] = true;
-        });
-        var count = 0;
-        $.each(names, function() { // then count them
-              count++;
-        });
-
-        if($('#option-choice-form input:radio:checked').length == count){
-            return true;
-        }
-
-        return false;
-    }
-
-    function addToCart(){
-        if(checkAddToCartValidity()) {
-            $('#addToCart').modal();
-            $('.c-preloader').show();
-            $.ajax({
-               type:"POST",
-               url: '{{ route('cart.addToCart') }}',
-               data: $('#option-choice-form').serializeArray(),
-               success: function(data){
-                   $('#addToCart-modal-body').html(null);
-                   $('.c-preloader').hide();
-                   $('#modal-size').removeClass('modal-lg');
-                   $('#addToCart-modal-body').html(data);
-                   updateNavCart();
-                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
-               }
-           });
-        }
-        else{
-            showFrontendAlert('warning', 'Please choose all the options');
-        }
-    }
-
-    function buyNow(){
-        if(checkAddToCartValidity()) {
-            $('#addToCart').modal();
-            $('.c-preloader').show();
-            $.ajax({
-               type:"POST",
-               url: '{{ route('cart.addToCart') }}',
-               data: $('#option-choice-form').serializeArray(),
-               success: function(data){
-                   //$('#addToCart-modal-body').html(null);
-                   //$('.c-preloader').hide();
-                   //$('#modal-size').removeClass('modal-lg');
-                   //$('#addToCart-modal-body').html(data);
-                   updateNavCart();
-                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
-                   window.location.replace("{{ route('cart') }}");
-               }
-           });
-        }
-        else{
-            showFrontendAlert('warning', 'Please choose all the options');
-        }
-    }
-
-    function show_purchase_history_details(order_id)
-    {
-        $('#order-details-modal-body').html(null);
-
-        if(!$('#modal-size').hasClass('modal-lg')){
-            $('#modal-size').addClass('modal-lg');
-        }
-
-        $.post('{{ route('purchase_history.details') }}', { _token : '{{ @csrf_token() }}', order_id : order_id}, function(data){
-            $('#order-details-modal-body').html(data);
-            $('#order_details').modal();
-            $('.c-preloader').hide();
-        });
-    }
-
-    function show_order_details(order_id)
-    {
-        $('#order-details-modal-body').html(null);
-
-        if(!$('#modal-size').hasClass('modal-lg')){
-            $('#modal-size').addClass('modal-lg');
-        }
-
-        $.post('{{ route('orders.details') }}', { _token : '{{ @csrf_token() }}', order_id : order_id}, function(data){
-            $('#order-details-modal-body').html(data);
-            $('#order_details').modal();
-            $('.c-preloader').hide();
-        });
-    }
-
-    function cartQuantityInitialize(){
-        $('.btn-number').click(function(e) {
-            e.preventDefault();
-
-            fieldName = $(this).attr('data-field');
-            type = $(this).attr('data-type');
-            var input = $("input[name='" + fieldName + "']");
-            var currentVal = parseInt(input.val());
-
-            if (!isNaN(currentVal)) {
-                if (type == 'minus') {
-
-                    if (currentVal > input.attr('min')) {
-                        input.val(currentVal - 1).change();
-                    }
-                    if (parseInt(input.val()) == input.attr('min')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                } else if (type == 'plus') {
-
-                    if (currentVal < input.attr('max')) {
-                        input.val(currentVal + 1).change();
-                    }
-                    if (parseInt(input.val()) == input.attr('max')) {
-                        $(this).attr('disabled', true);
-                    }
-
-                }
-            } else {
-                input.val(0);
-            }
-        });
-
-        $('.input-number').focusin(function() {
-            $(this).data('oldValue', $(this).val());
-        });
-
-        $('.input-number').change(function() {
-
-            minValue = parseInt($(this).attr('min'));
-            maxValue = parseInt($(this).attr('max'));
-            valueCurrent = parseInt($(this).val());
-
-            name = $(this).attr('name');
-            if (valueCurrent >= minValue) {
-                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-            } else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-            if (valueCurrent <= maxValue) {
-                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-            } else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-
-
-        });
-        $(".input-number").keydown(function(e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
-    }
-
-     function imageInputInitialize(){
-         $('.custom-input-file').each(function() {
-             var $input = $(this),
-                 $label = $input.next('label'),
-                 labelVal = $label.html();
-
-             $input.on('change', function(e) {
-                 var fileName = '';
-
-                 if (this.files && this.files.length > 1)
-                     fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
-                 else if (e.target.value)
-                     fileName = e.target.value.split('\\').pop();
-
-                 if (fileName)
-                     $label.find('span').html(fileName);
-                 else
-                     $label.html(labelVal);
-             });
-
-             // Firefox bug fix
-             $input
-                 .on('focus', function() {
-                     $input.addClass('has-focus');
-                 })
-                 .on('blur', function() {
-                     $input.removeClass('has-focus');
-                 });
-         });
-     }
-
-</script>
-
-@yield('script')
-
+    
 </body>
 </html>
