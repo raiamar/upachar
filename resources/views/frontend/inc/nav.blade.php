@@ -4,12 +4,12 @@
         <div class="top-header py-1">
             <ul class="d-flex justify-content-end align-items-center m-0">
                 <li>
-                    <a class="nav-link text-white" href="login-register.html">
+                    <a class="nav-link text-white" href="{{route ('user.login') }}">
                         <span class=" mr-2">
                             <i class=" fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
                 </li>
                 <li>
-                    <a class="nav-link text-white" href="register-login.html">
+                    <a class="nav-link text-white" href="{{route ('user.registration')}}">
                         <span class="mr-2">
                             <i class="fa fa-paper-plane"
                                 aria-hidden="true"></i></span>Register</a>
@@ -30,7 +30,7 @@
     <nav class="navbar header-sticky justify-content-around">
         <div class="image">
             <a class="navbar-brand" href="index.html">
-                <img src="frontend/assets/images/logo/3.png" alt="navigation-logo" class="img-fluid">
+                <img src="{{ asset('frontend/assets/images/logo/3.png')}}" alt="navigation-logo" class="img-fluid">
                 <!-- <h3 class="m-0 font-weight-bold"><span>Upachar</span> Pharmacy</h3> -->
             </a>
         </div>

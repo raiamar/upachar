@@ -61,15 +61,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upachar Pharmacy</title> --}}
     <!-- Bootstrap link Starts -->
-    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}">
     <!-- Bootstrap link Ends -->
     <!-- Font Awesome Link Starts -->
-    <link rel="stylesheet" href="frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <!-- Font Awesome Link Ends -->
     <!-- Slick Css -->
-    <link rel="stylesheet" href="frontend/assets/slick/slick.css">
-    <link rel="stylesheet" href="frontend/assets/slick/slick-theme.css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/slick/slick-theme.css') }}">
     <!-- Slick Css Ends-->
     <!-- Custom Links -->
     <!-- Font Link -->
@@ -82,13 +82,13 @@
     <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
     <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
     <!-- Bootstrap range slider -->
-    <link rel="stylesheet" href="frontend/assets/bootstrap-range-slider-js/css/bootstrap-slider.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-range-slider-js/css/bootstrap-slider.min.css')}}">
     <!-- Bootstrap range slider Ends -->
     <!-- Toastr -->
-    <link rel="stylesheet" href="frontend/assets/toastr/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/toastr/toastr.min.css') }}">
     <!-- Toastr Ends -->
-    <link rel="stylesheet" href="frontend/assets/css/style.css">
-    <link rel="stylesheet" href="frontend/assets/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     <!-- Custom Links Ends -->
 
     @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
@@ -133,12 +133,12 @@
 
 
 <body onload="myFunction()">
-    <div id="loading"></div>
+    {{-- <div id="loading"></div> --}}
     <!-- Whole Body Wrapper Starts -->
     <section id="index-wrapper">
         <section id="top-ads-wrapper">
             <div class="alert alert-dismissible fade show position-relative border-0 m-0 p-0" role="alert">
-                <img src="frontend/assets/images/product-images/5.jpg" alt="top-window-ads-banner" class="img-fluid">
+                <img src="{{ asset('frontend/assets/images/product-images/5.jpg')}}" alt="top-window-ads-banner" class="img-fluid">
                 <button type="button" class="close position-absolute text-white" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -152,7 +152,7 @@
 
  @yield('content')
       
-        @include('frontend.inc.footer')
+@include('frontend.inc.footer')
 
 
     </section>
@@ -163,7 +163,7 @@
         <!-- Scroll Button Ends -->
     <!-- Whole Body Wrapper Ends -->
     <!-- 1st Jquery Link Starts-->
-    <script src="frontend/assets/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <script src="{{ asset('frontend/assets/jquery-3.5.1/jquery-3.5.1.js')}}"></script>
     <!-- Jquery Link Ends-->
     <!-- 2nd Popper Js Starts -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -171,25 +171,25 @@
         crossorigin="anonymous"></script>
     <!-- Popper Js Ends -->
     <!-- 3rd Bootstrap Js Link Starts -->
-    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map"></script>
+    <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map')}}"></script>
     <!-- Bootstrap Js Link Ends -->
     <!-- Slick Js -->
-    <script src="frontend/assets/slick/slick.min.js"></script>
+    <script src="{{ asset('frontend/assets/slick/slick.min.js')}}"></script>
     <!-- Slick Js Ends-->
     <!-- Isotope Js -->
-    <script src="frontend/assets/isotope-js/isotope.pkgd.min.js"></script>
+    <script src="{{ asset('frontend/assets/isotope-js/isotope.pkgd.min.js')}}"></script>
     <!-- Isotope Js Ends-->
     <!-- Bootstrap range slider js -->
-    <script src="frontend/assets/bootstrap-range-slider-js/bootstrap-slider.min.js"></script>
+    <script src="{{ asset('frontend/assets/bootstrap-range-slider-js/bootstrap-slider.min.js')}}"></script>
     <!-- Bootstrap range slider js Ends-->
     <!-- Toastr -->
-    <script src="frontend/assets/toastr/toastr.min.js"></script>
+    <script src="{{ asset('frontend/assets/toastr/toastr.min.js')}}"></script>
     <!-- Toastr Ends -->
     <!-- Custom Js Starts -->
     <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
     <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
-    <script src="frontend/assets/js/main.js"></script>
+    <script src="{{ asset('frontend/assets/js/main.js')}}"></script>
     <!-- Custom Js Ends -->
     <!-- Popup Search Modal -->
     

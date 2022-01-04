@@ -282,8 +282,8 @@
                     <a href ="{{ $slider->link }}"><div class="slick-item position-relative"> <img
                         src="{{ asset($slider->photo) }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo"
                             class="img-fluid w-100"> 
-                        
-                        </div></a>
+                        </div>
+                    </a>
                         @endforeach
 
                     <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/5.jpg"
