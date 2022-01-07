@@ -160,6 +160,22 @@
         <section id="scroll-btn">
             <a href="#"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
         </section>
+
+        <div class="modal fade" id="addToCart">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+                <div class="modal-content position-relative">
+                    <div class="c-preloader">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </div>
+                    <button type="button" class="close absolute-close-btn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div id="addToCart-modal-body">
+    
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Scroll Button Ends -->
     <!-- Whole Body Wrapper Ends -->
     <!-- 1st Jquery Link Starts-->

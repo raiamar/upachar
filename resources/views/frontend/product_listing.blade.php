@@ -1,374 +1,1859 @@
-@extends('frontend.layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@if(isset($subsubcategory_id))
-    @php
-        $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
-        $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
-    @endphp
-@elseif (isset($subcategory_id))
-    @php
-        $meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
-        $meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
-    @endphp
-@elseif (isset($category_id))
-    @php
-        $meta_title = \App\Category::find($category_id)->meta_title;
-        $meta_description = \App\Category::find($category_id)->meta_description;
-    @endphp
-@elseif (isset($brand_id))
-    @php
-        $meta_title = \App\Brand::find($brand_id)->meta_title;
-        $meta_description = \App\Brand::find($brand_id)->meta_description;
-    @endphp
-@else
-    @php
-        $meta_title = env('APP_NAME');
-        $meta_description = \App\SeoSetting::first()->description;
-    @endphp
-@endif
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upachar Pharmacy</title>
+    <!-- Bootstrap link Starts -->
+    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map">
+    <!-- Bootstrap link Ends -->
+    <!-- Font Awesome Link Starts -->
+    <link rel="stylesheet" href="frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- Font Awesome Link Ends -->
+    <!-- Slick Css -->
+    <link rel="stylesheet" href="frontend/assets/slick/slick.css">
+    <link rel="stylesheet" href="frontend/assets/slick/slick-theme.css">
+    <!-- Slick Css Ends-->
+    <!-- Custom Links -->
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Vidaloka&display=swap" rel="stylesheet">
+    <!-- Font Link Ends -->
+    <link rel="stylesheet" href="https://k1ngzed.com/dist/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="https://k1ngzed.com/dist/EasyZoom/easyzoom.css" />
+    <!-- Bootstrap range slider -->
+    <link rel="stylesheet" href="frontend/assets/bootstrap-range-slider-js/css/bootstrap-slider.min.css">
+    <!-- Bootstrap range slider Ends -->
+    <!-- Toastr -->
+    <link rel="stylesheet" href="frontend/assets/toastr/toastr.min.css">
+    <!-- Toastr Ends -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+    <link rel="stylesheet" href="frontend/assets/css/responsive.css">
+    <!-- Custom Links Ends -->
+</head>
 
-@section('meta_title'){{ $meta_title }}@stop
-@section('meta_description'){{ $meta_description }}@stop
+<body onload="myFunction()">
+    <div id="loading"></div>
+    <!-- Whole Body Wrapper Starts -->
+    <section id="product-listing-page">
+        <section id="top-ads-wrapper">
+            <div class="alert alert-dismissible fade show position-relative border-0 m-0 p-0" role="alert">
+                <img src="frontend/assets/images/product-images/5.jpg" alt="top-window-ads-banner" class="img-fluid">
+                <button type="button" class="close position-absolute text-white" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+        </section>
+        <!-- Top Header Navigation -->
+        <header id="top-header-navigation-wrapper">
+            <div class="container">
+                <div class="top-header py-1">
+                    <ul class="d-flex justify-content-end align-items-center m-0">
+                        <li>
+                            <a class="nav-link text-white" href="{{route('user.login')}}">
+                                <span class=" mr-2">
+                                    <i class=" fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white" href="{{route('user.login')}}">
+                                <span class="mr-2">
+                                    <i class="fa fa-paper-plane"
+                                        aria-hidden="true"></i></span>Register</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white" href="">Save more on App</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white" href="">Track my Order</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!-- Top Header Navigation Ends -->
+        <!-- Navigation Starts -->
+        <section id="navigation-wrapper" class="navigation-wrap">
+            <nav class="navbar header-sticky justify-content-around">
+                <div class="image">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="frontend/assets/images/logo/3.png" alt="navigation-logo" class="img-fluid">
+                        <!-- <h3 class="m-0 font-weight-bold"><span>Upachar</span> Pharmacy</h3> -->
+                    </a>
+                </div>
+                <div class="navbar-menus d-xl-block d-lg-block d-none" id="navbarmain">
+                    <ul class="navbar-nav py-4 py-md-0 d-flex flex-row flex-wrap" role="menu">
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="nav-link" href="product-listing.html">
+                                Products
+                                <span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="mega-menu-wrapper">
+                                <div class="row p-4">
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="nav-link toggle" data-toggle="dropdown" href="product-listing.html" role="button" aria-haspopup="true"
+                                aria-expanded="false">
+                                Recipes
+                                <span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="mega-menu-wrapper">
+                                <div class="row p-4">
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- /.col-md-3  -->
+                                    <div class="col-md-3">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 1</a>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link" href="product-listing.html">Item 2</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" href="product-listing.html" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                Categories
+                                <span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="mega-menu-wrapper">
+                                <!-- <a class="dropdown-item" href="">Product 1</a>
+                                            <a class="dropdown-item" href="">Product 2</a> -->
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-3  -->
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-3  -->
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-3  -->
+                                        <div class="col-md-3">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="product-listing.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="product-listing.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="nav-link" href="contact-us.html">Contact Us</a>
+                        </li>
+                        <!-- Popup Search Modal Anchor -->
+                        <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                            <a class="btn" data-toggle="modal" data-target="#searchpopupmodal"><i class="fa fa-search"></i></a>
+                        </li>
+                        <!-- Popup Search Modal Anchor Ends -->
+                    </ul>
+                </div>
+                <div class="cart-wishlist desk-nav d-xl-block d-lg-block d-none">
+                    <ul class="d-flex align-items-center justify-content-between m-0">
+                        <li>
+                            <a class="nav-link add-on px-xl-2 px-lg-1 px-md-2 px-2" data-toggle="modal" data-target="#nav-cart">
+                                <span class="mr-1"><i class="fa fa-shopping-bag" aria-hidden="true"></i></span> <sup
+                                    class="cart-items text-white">2</sup>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link add-on px-xl-2 px-lg-1 px-md-2 px-2" data-toggle="modal" data-target="#nav-cart">
+                                <span class="mr-1"><i class="fa fa-heart-o" aria-hidden="true"></i></span> <sup class="cart-items text-white">2</sup>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Mobile Popup Search Modal Anchor -->
+                <a class="btn d-xl-none d-lg-none d-md-block search-button" data-toggle="modal" data-target="#searchpopupmodal"><i
+                        class="fa fa-search"></i></a>
+                <!-- Mobile Popup Search Modal Anchor Ends -->
+                <!-- Small Desktop & mobile Cart-wishlist and Profile -->
+                <!-- Button trigger modal -->
+                <div class="mobile-menu d-lg-none d-md-block mr-4 position-absolute" data-toggle="modal"
+                    data-target="#rightsidebarfilter"><span class="mr-2"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></span>
+                </div>
+                <!-- Button trigger modal -->
+                <!-- Small Desktop & mobile Cart-wishlist and Profile End-->
+            </nav>
+        </section>
+        <!-- Navigation Ends -->
+        <!-- Breadcrumbs -->
+        <section id="breadcrumb-wrapper" class="position-relative">
+            <div class="image">
+                <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+            </div>
+            <div class="overlay position-absolute">
+                <div class="title p-4">Product Listing</div>
+            </div>
+        </section>
+        <!-- Breadcrumbs Ends -->
+        <!-- Product Listing -->
+        <section id="product-listing-wrapper" class="py-5">
+            <div class="container">
+                <div class="product-lists">
+                    <div class="row">
+                    
+                        <div class="col-xl-3 col-lg-3 col-12">
+                            <div class="left-side-wrapper px-4 py-4 d-lg-block d-none">
+                                <div class="row">
+                                    <!-- Content -->
+                                    <div class="col-12">
+                                        <div class="card-wrapper mb-2">
+                                            <div class="card-group-item">
+                                                <div class="card-head">
+                                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                        <div class="head">
+                                                            <h5 class="text-capitalize">Range</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="filter-content2 mt-3">
+                                                    <div class="card-body">
+                                                        <div class="slider" id="range-slider">
+                                                        </div>
+                                                    </div>
+                                                    <!-- card-body.// -->
+                                                </div>
+                                            </div>
+                                            <!-- card-group-item.// -->
+                                        </div>
+                                    </div>
+                                    <!-- Content Ends -->
+                                    <div class="col-12">
+                                        <div class="card-wrapper mb-2">
+                                            <div class="card-group-item">
+                                                <div class="card-head">
+                                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                        <div class="head">
+                                                            <h5 class="text-capitalize">Brands</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="our_brand pt-3">
+                                                    <div class="our_brand_item">
+                                                        <img src="https://montechbd.com/shopist/demo/public/uploads/1616788177-h-80-nike.png" class="img-fluid" alt="">
+                                                    </div>
+                                                    <div class="our_brand_item">
+                                                        <img src="https://montechbd.com/shopist/demo/public/uploads/1616788177-h-80-nike.png" class="img-fluid" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- card-group-item.// -->
+                                        </div>
 
-@section('meta')
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="{{ $meta_title }}">
-    <meta itemprop="description" content="{{ $meta_description }}">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-wrapper mb-2">
+                                            <div class="card-group-item">
+                                                <div class="card-head">
+                                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                        <div class="head">
+                                                            <h5 class="text-capitalize">Choose Color</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="colors_block p-3">
+                                                    <label class="color_single"><small class="round"></small>
+                                                <span class=""> Red</span>
+                                                <input type="checkbox" checked="checked">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <small class="round bg-warning"></small>
+                                                <span> Yellow</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <small class="round bg-primary"></small>
+                                                <span>Blue</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <small class="round bg-success"></small>
+                                                <span> Green</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                </div>
+                                            </div>
+                                            <!-- card-group-item.// -->
+                                        </div>
 
-    <!-- Twitter Card data -->
-    <meta name="twitter:title" content="{{ $meta_title }}">
-    <meta name="twitter:description" content="{{ $meta_description }}">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card-wrapper mb-2">
+                                            <div class="card-group-item">
+                                                <div class="card-head">
+                                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                        <div class="head">
+                                                            <h5 class="text-capitalize">Choose Size</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="colors_block p-3">
+                                                    <label class="color_single"><span> Small</span>
+                                                <input type="checkbox" checked="checked">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <span> Medium</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <span>Large</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <span> XL</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                    <label class="color_single">
+                                                <span> XXL</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                              </label>
+                                                </div>
+                                            </div>
+                                            <!-- card-group-item.// -->
+                                        </div>
 
-    <!-- Open Graph data -->
-    <meta property="og:title" content="{{ $meta_title }}" />
-    <meta property="og:description" content="{{ $meta_description }}" />
-@endsection
+                                    </div>
 
-@section('content')
-
-    <div class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <ul class="breadcrumb">
-                        <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                        <li><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                        @if(isset($category_id))
-                            <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
-                        @endif
-                        @if(isset($subcategory_id))
-                            <li ><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
-                            <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
-                        @endif
-                        @if(isset($subsubcategory_id))
-                            <li ><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
-                            <li ><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
-                            <li class="active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
-                        @endif
+                                </div>
+                            </div>
+                            <!-- Mobile Filter  -->
+                            <!-- Button trigger modal -->
+                            <button type="button" class="effect d-xl-none d-lg-none d-md-block mb-4" data-toggle="modal" data-target="#leftsidebarfilter">
+                                            Product Filter
+                                             <span class="ml-2">
+                                                 <i class="fa fa-list" aria-hidden="true"></i>
+                                                </span>
+                                </button>
+                            <!-- Mobile Filter Ends -->
+                        </div>
+                        <div class="col-xl-9 col-lg-9 col-12 text-center">
+                            <ul class="show-filter d-flex justify-content-between align-items-center">
+                                <li class="p-3">
+                                    Showing all products
+                                </li>
+                                <li class="p-3 d-flex align-items-center">
+                                    <select class="form-control mx-2">
+                                        <option selected="">Choose a Filter</option>
+                                        <option>Alphabetically</option>
+                                        <option>Price High to Low</option>
+                                        <option>Recently Added</option>
+                                        <option>MOstly Purchased</option>
+                                    </select>
+                                    <!-- <select class="form-control filter mx-2">
+                                                                                                                                                                                        <option selected="">Filter</option>
+                                                                                                                                                                                        <option>Alphabetically</option>
+                                                                                                                                                                                        <option>Price High to Low</option>
+                                                                                                                                                                                        <option>Recently Added</option>
+                                                                                                                                                                                        <option>MOstly Purchased</option>
+                                                                                                                                                                                    </select> -->
+                                </li>
+                            </ul>
+                            <div class="row right-side-wrapper">
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4 post">
+                                    <div class="product-grid-item2">
+                                        <div class="product-grid-image2">
+                                            <a href="product-detail.html"> <img
+                                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
+                                                    class="img-fluid pic-1"> </a>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="" class="fa fa-shopping-bag"></a>
+                                                </li>
+                                                <li>
+                                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                                </li>
+                                                <li>
+                                                    <a href="" class="fa fa-exchange"></a>
+                                                </li>
+                                            </ul> <span class="product-discount-label">-20%</span> </div>
+                                        <div class="product-content">
+                                            <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a></h3>
+                                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
+                                                href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> </a> </div>
+                                    </div>
+                                </div>
+                            </div> <button type="button" class="effect mt-4">View More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Product Listing Ends -->
+        <!-- Footer -->
+        <section id="footer-wrapper" class="text-white pt-5 pb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-2">
+                        <div class="image">
+                            <a href="index.html"> <img src="frontend/assets/images/logo/3.png" alt="footer-logo-image" class="img-fluid"></a>
+                            </div>
+                            <div class="content mt-3">
+                                <p class="text-white font-weight-normal m-0">
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi, quia accusantium.
+                                </p>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-2">
+                        <ul class="footer-nav-list">
+                            <div class="heading">
+                                <div class="head">
+                                    <a href="">
+                                        <h2 class="mb-3">Quick Links</h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <li>
+                                <a href="index.html">Home</a></h5>
+                            </li>
+                            <li>
+                                <a href="product-listing.html">Products</a></h5>
+                            </li>
+                            <li>
+                                <a href="dashboard-cart.html">Cart</a></h5>
+                                </li>
+                                <li>
+                                    <a href="contact-us.html">Contact Us</a></h5>
+                                </li>
+                                <li>
+                                    <a href="about-us.html">About Us</a></h5>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-2">
+                        <ul class="footer-nav-list">
+                            <div class="heading">
+                                <div class="head">
+                                    <a href="">
+                                        <h2 class="mb-3">Find Us</h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <li>
+                                <a href=" mailto:webmaster@example.com"><span class="mr-2"><i class="fa fa-envelope-square"
+                                            aria-hidden="true"></i></span>pharmacy@gmail.com</a>
+                                </h5>
+                            </li>
+                            <li>
+                                <a href="tel:+4733378901"><span class="mr-2"><i class="fa fa-phone" aria-hidden="true"></i></span>01-123456789</a></h5>
+                            </li>
+                            <li>
+                                <a href=""><span class="mr-2"><i class="fa fa-map" aria-hidden="true"></i></span>Kathmandu, Nepal</a></h5>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-12">
+                        <ul class="footer-nav-list">
+                            <div class="heading">
+                                <div class="head">
+                                    <a href="">
+                                        <h2 class="mb-3">Follow Us</h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <li>
+                                <a href=""><span class="mr-2"><i class="fa fa-facebook-official" aria-hidden="true"></i></span>Facebook_name</a>
+                                </h5>
+                            </li>
+                            <li>
+                                <a href=""><span class="mr-2"><i class="fa fa-instagram" aria-hidden="true"></i></span>Instagram_name</a></h5>
+                            </li>
+                            <li>
+                                <a href=""><span class="mr-2"><i class="fa fa-google" aria-hidden="true"></i></span>Google_name</a></h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer Ends -->
+    </section>
+        <!-- Scroll Button -->
+        <section id="scroll-btn">
+            <a href="#"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+        </section>
+        <!-- Scroll Button Ends -->
+    <!-- Whole Body Wrapper Ends -->
+    <!-- 1st Jquery Link Starts-->
+    <script src="frontend/assets/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <!-- Jquery Link Ends-->
+    <!-- 2nd Popper Js Starts -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <!-- Popper Js Ends -->
+    <!-- 3rd Bootstrap Js Link Starts -->
+    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="frontend/assets/bootstrap-4.3.1/js/bootstrap.min.js.map"></script>
+    <!-- Bootstrap Js Link Ends -->
+    <!-- Slick Js -->
+    <script src="frontend/assets/slick/slick.min.js"></script>
+    <!-- Slick Js Ends-->
+    <!-- Isotope Js -->
+    <script src="frontend/assets/isotope-js/isotope.pkgd.min.js"></script>
+    <!-- Isotope Js Ends-->
+    <!-- Bootstrap range slider js -->
+    <script src="frontend/assets/bootstrap-range-slider-js/bootstrap-slider.min.js"></script>
+    <!-- Bootstrap range slider js Ends-->
+    <!-- Toastr -->
+    <script src="frontend/assets/toastr/toastr.min.js"></script>
+    <!-- Toastr Ends -->
+    <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
+    <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
+    <script src="frontend/assets/js/main.js"></script>
+    <!-- Custom Js Ends -->
+    <!-- Popup Search Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="searchpopupmodal" tabindex="-1" role="dialog" aria-labelledby="searchpopupmodallabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchpopupmodallabel">Search your favourite item here !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text">
+                </div>
+                <div class="modal-footer my-auto border-0 w-100">
+                    <ul class="search-list-wrapper w-100">
+                        <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img src="frontend/assets/images/product-images/1.jpg" alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img src="frontend/assets/images/product-images/1.jpg" alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mb-2 p-1">
+                            <a href="product-detail.html">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="image"> <img src="frontend/assets/images/product-images/1.jpg" alt="search-list-image" class="img-fluid"></div>
+                                    </div>
+                                    <div class="col-10 m-auto">
+                                        <p class="m-0">Ham Cheese Burger</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <section class="gry-bg py-4">
-        <div class="container sm-px-0">
-            <form class="" id="search-form" action="{{ route('search') }}" method="GET">
-                <div class="row">
-                <div class="col-xl-3 side-filter d-xl-block">
-                    <div class="filter-overlay filter-close"></div>
-                    <div class="filter-wrapper c-scrollbar">
-                        <div class="filter-title d-flex d-xl-none justify-content-between pb-3 align-items-center">
-                            <h3 class="h6">Filters</h3>
-                            <button type="button" class="close filter-close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="bg-white sidebar-box mb-3">
-                            <div class="box-title text-center">
-                                {{__('Categories')}}
-                            </div>
-                            <div class="box-content">
-                                <div class="category-filter">
-                                    <ul>
-                                        @if(!isset($category_id) && !isset($category_id) && !isset($subcategory_id) && !isset($subsubcategory_id))
-                                            @foreach(\App\Category::all() as $category)
-                                                <li class=""><a href="{{ route('products.category', $category->slug) }}">{{ __($category->name) }}</a></li>
-                                            @endforeach
-                                        @endif
-                                        @if(isset($category_id))
-                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                            <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
-                                            @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
-                                                <li class="child"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></li>
-                                            @endforeach
-                                        @endif
-                                        @if(isset($subcategory_id))
-                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                            <li class="active"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></li>
-                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></li>
-                                            @foreach (\App\SubCategory::find($subcategory_id)->subsubcategories as $key3 => $subsubcategory)
-                                                <li class="child"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ __($subsubcategory->name) }}</a></li>
-                                            @endforeach
-                                        @endif
-                                        @if(isset($subsubcategory_id))
-                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                            <li class="active"><a href="{{ route('products.category', \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></li>
-                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></li>
-                                            <li class="current"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white sidebar-box mb-3">
-                            <div class="box-title text-center">
-                                {{__('Price range')}}
-                            </div>
-                            <div class="box-content">
-                                <div class="range-slider-wrapper mt-3">
-                                    <!-- Range slider container -->
-                                    <div id="input-slider-range" data-range-value-min="{{ filter_products(\App\Product::query())->get()->min('unit_price') }}" data-range-value-max="{{ filter_products(\App\Product::query())->get()->max('unit_price') }}"></div>
-
-                                    <!-- Range slider values -->
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <span class="range-slider-value value-low"
-                                                @if (isset($min_price))
-                                                    data-range-value-low="{{ $min_price }}"
-                                                @elseif($products->min('unit_price') > 0)
-                                                    data-range-value-low="{{ $products->min('unit_price') }}"
-                                                @else
-                                                    data-range-value-low="0"
-                                                @endif
-                                                id="input-slider-range-value-low">
+    <!-- Popup Search Modal Ends-->
+    <!-- Nav Cart Pop Up -->
+    <div class="modal fade" id="nav-cart" tabindex="-1" role="dialog" aria-labelledby="navcartlabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title m-auto" id="navcartlabel"> <span class="mr-2"><i class="fa fa-opencart"
+                                aria-hidden="true"></i></span> Items List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <table class="w-100">
+                        <tbody>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/1.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
                                         </div>
-
-                                        <div class="col-6 text-right">
-                                            <span class="range-slider-value value-high"
-                                                @if (isset($max_price))
-                                                    data-range-value-high="{{ $max_price }}"
-                                                @elseif($products->max('unit_price') > 0)
-                                                    data-range-value-high="{{ $products->max('unit_price') }}"
-                                                @else
-                                                    data-range-value-high="0"
-                                                @endif
-                                                id="input-slider-range-value-high">
+                                        <div class="price">
+                                            Rs 1000
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white sidebar-box mb-3">
-                            <div class="box-title text-center">
-                                {{__('Filter by color')}}
-                            </div>
-                            <div class="box-content">
-                                <!-- Filter by color -->
-                                <ul class="list-inline checkbox-color checkbox-color-circle mb-0">
-                                    @foreach ($all_colors as $key => $color)
-                                        <li>
-                                            <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
-                                            <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-
-                        @foreach ($attributes as $key => $attribute)
-                            @if (\App\Attribute::find($attribute['id']) != null)
-                                <div class="bg-white sidebar-box mb-3">
-                                    <div class="box-title text-center">
-                                        Filter by {{ \App\Attribute::find($attribute['id'])->name }}
-                                    </div>
-                                    <div class="box-content">
-                                        <!-- Filter by others -->
-                                        <div class="filter-checkbox">
-                                            @if(array_key_exists('values', $attribute))
-                                                @foreach ($attribute['values'] as $key => $value)
-                                                    @php
-                                                        $flag = false;
-                                                        if(isset($selected_attributes)){
-                                                            foreach ($selected_attributes as $key => $selected_attribute) {
-                                                                if($selected_attribute['id'] == $attribute['id']){
-                                                                    if(in_array($value, $selected_attribute['values'])){
-                                                                        $flag = true;
-                                                                        break;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    @endphp
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" id="attribute_{{ $attribute['id'] }}_value_{{ $value }}" name="attribute_{{ $attribute['id'] }}[]" value="{{ $value }}" @if ($flag) checked @endif onchange="filter()">
-                                                        <label for="attribute_{{ $attribute['id'] }}_value_{{ $value }}">{{ $value }}</label>
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/6.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
                                         </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-
-                        {{-- <button type="submit" class="btn btn-styled btn-block btn-base-4">Apply filter</button> --}}
+                                        <div class="price">
+                                            Rs 1000
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/5.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
+                                        </div>
+                                        <div class="price">
+                                            Rs 1000
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/3.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
+                                        </div>
+                                        <div class="price">
+                                            Rs 1000
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/2.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
+                                        </div>
+                                        <div class="price">
+                                            Rs 1000
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="frontend/assets/images/product-images/1.jpg" class="img-fluid">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="product-detail.html">
+                                        <div class="head font-weight-bold">
+                                            Cheese Platter x <span class="cart-quantity">1</span>
+                                        </div>
+                                        <div class="price">
+                                            Rs 1000
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer flex-column">
+                    <div class="total-amount pb-3 text-center d-block">
+                        Total : <span class="font-weight-bold">Rs 1500</span>
+                    </div>
+                    <div class="d-flex justify-content-around align-items-center w-100">
+                        <button type="button" class="effect m-auto">View Cart</button>
+                        <button type="button" class="effect m-auto ">Proceed Checkout</button>
                     </div>
                 </div>
-                <div class="col-xl-9">
-                    <!-- <div class="bg-white"> -->
-                        @isset($category_id)
-                            <input type="hidden" name="category" value="{{ \App\Category::find($category_id)->slug }}">
-                        @endisset
-                        @isset($subcategory_id)
-                            <input type="hidden" name="subcategory" value="{{ \App\SubCategory::find($subcategory_id)->slug }}">
-                        @endisset
-                        @isset($subsubcategory_id)
-                            <input type="hidden" name="subsubcategory" value="{{ \App\SubSubCategory::find($subsubcategory_id)->slug }}">
-                        @endisset
-
-                        <div class="sort-by-bar row no-gutters bg-white mb-3 px-3 pt-2">
-                            <div class="col-xl-4 d-flex d-xl-block justify-content-between align-items-end ">
-                                <div class="sort-by-box flex-grow-1">
-                                    <div class="form-group">
-                                        <label>{{__('Search')}}</label>
-                                        <div class="search-widget">
-                                            <input class="form-control input-lg" type="text" name="q" placeholder="{{__('Search products')}}" @isset($query) value="{{ $query }}" @endisset>
-                                            <button type="submit" class="btn-inner">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-xl-none ml-3 form-group">
-                                    <button type="button" class="btn p-1 btn-sm" id="side-filter">
-                                        <i class="la la-filter la-2x"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-xl-7 offset-xl-1">
-                                <div class="row no-gutters">
-                                    <div class="col-4">
-                                        <div class="sort-by-box px-1">
-                                            <div class="form-group">
-                                                <label>{{__('Sort by')}}</label>
-                                                <select class="form-control sortSelect" data-minimum-results-for-search="Infinity" name="sort_by" onchange="filter()">
-                                                    <option value="1" @isset($sort_by) @if ($sort_by == '1') selected @endif @endisset>{{__('Newest')}}</option>
-                                                    <option value="2" @isset($sort_by) @if ($sort_by == '2') selected @endif @endisset>{{__('Oldest')}}</option>
-                                                    <option value="3" @isset($sort_by) @if ($sort_by == '3') selected @endif @endisset>{{__('Price low to high')}}</option>
-                                                    <option value="4" @isset($sort_by) @if ($sort_by == '4') selected @endif @endisset>{{__('Price high to low')}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="sort-by-box px-1">
-                                            <div class="form-group">
-                                                <label>{{__('Brands')}}</label>
-                                                <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
-                                                    <option value="">{{__('All Brands')}}</option>
-                                                    @foreach (\App\Brand::all() as $brand)
-                                                        <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id == $brand->id) selected @endif @endisset>{{ $brand->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="sort-by-box px-1">
-                                            <div class="form-group">
-                                                <label>{{__('Sellers')}}</label>
-                                                <select class="form-control sortSelect" data-placeholder="{{__('All Sellers')}}" name="seller_id" onchange="filter()">
-                                                    <option value="">{{__('All Sellers')}}</option>
-                                                    @foreach (\App\Seller::all() as $key => $seller)
-                                                        @if ($seller->user != null && $seller->user->shop != null)
-                                                            <option value="{{ $seller->id }}" @isset($seller_id) @if ($seller_id == $seller->id) selected @endif @endisset>{{ $seller->user->shop->name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="min_price" value="">
-                        <input type="hidden" name="max_price" value="">
-                        <!-- <hr class=""> -->
-                        <div class="products-box-bar p-3 bg-white">
-                            <div class="row sm-no-gutters gutters-5">
-                                @foreach ($products as $key => $product)
-                                    <div class="col-xxl-3 col-xl-4 col-lg-3 col-md-4 col-6">
-                                        <div class="product-box-2 bg-white alt-box my-md-2">
-                                            <div class="position-relative overflow-hidden">
-                                                <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" alt="{{ __($product->name) }}">
-                                                </a>
-                                                <div class="product-btns clearfix">
-                                                    <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
-                                                        <i class="la la-heart-o"></i>
-                                                    </button>
-                                                    <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" type="button">
-                                                        <i class="la la-refresh"></i>
-                                                    </button>
-                                                    <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" type="button">
-                                                        <i class="la la-eye"></i>
-                                                    </button>
+            </div>
+        </div>
+    </div>
+    <!-- Nav Cart Pop Up Ends -->
+    <!-- Mobile Filter Pop Up -->
+    <!-- Modal -->
+    <div class="modal fade" id="leftsidebarfilter" tabindex="-1" role="dialog" aria-labelledby="leftsidebarfilterlabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="leftsidebarfilterlabel">Product Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="left-side-wrapper px-4 py-4">
+                        <div class="row">
+                            <!-- Content -->
+                            <div class="col-12">
+                                <div class="card-wrapper mb-2">
+                                    <div class="card-group-item">
+                                        <div class="card-head">
+                                            <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div class="head">
+                                                    <h5 class="text-capitalize">Range</h5>
                                                 </div>
                                             </div>
-                                            <div class="p-md-3 p-2">
-                                                <div class="price-box">
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                                </div>
-                                                <div class="star-rating star-rating-sm mt-1">
-                                                    {{ renderStarRating($product->rating) }}
-                                                </div>
-                                                <h2 class="product-title p-0">
-                                                    <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                                </h2>
-                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{ __('Club Point') }}:
-                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                        </div>
+                                        <div class="filter-content2 mt-3">
+                                            <div class="card-body">
+                                                <div class="slider slider-horizontal" id="range-slider">
+                                                    <div class="tooltip tooltip-min bs-tooltip-top show">
+                                                        <div class="arrow"></div>
+                                                        <div class="tooltip-inner">0</div>
                                                     </div>
-                                                @endif
+                                                    <div class="tooltip tooltip-max bs-tooltip-top show" style="left: 95.5%;">
+                                                        <div class="arrow"></div>
+                                                        <div class="tooltip-inner">10000</div>
+                                                    </div>
+                                                    <input type="range" class="slider d-block w-100" value="5" data-slider-min="1" data-slider-max="1000" data-slider-step="1" data-slider-value="5" data-slider-orientation="horizontal" data-slider-enabled="true" data-slider-selection="after" data-slider-tooltip="always"
+                                                        data-slider-range="true" />
+                                                </div>
+                                                <!-- card-body.// -->
+                                            </div>
+                                        </div>
+                                        <!-- card-group-item.// -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Content Ends -->
+                            <div class="col-12">
+                                <div class="card-wrapper mb-2">
+                                    <div class="card-group-item">
+                                        <div class="card-head">
+                                            <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div class="head">
+                                                    <h5 class="text-capitalize">Brands</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="our_brand-2 pt-3">
+                                            <div class="our_brand_item">
+                                                <img src="https://montechbd.com/shopist/demo/public/uploads/1616788177-h-80-nike.png" class="img-fluid" alt="">
+                                            </div>
+                                            <div class="our_brand_item">
+                                                <img src="https://montechbd.com/shopist/demo/public/uploads/1616788177-h-80-nike.png" class="img-fluid" alt="">
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                    <!-- card-group-item.// -->
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card-wrapper mb-2">
+                                    <div class="card-group-item">
+                                        <div class="card-head">
+                                            <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div class="head">
+                                                    <h5 class="text-capitalize">Choose Color</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="colors_block p-3">
+                                            <label class="color_single"><small class="round"></small>
+                                                <span class=""> Red</span>
+                                                <input type="checkbox" checked="checked">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <small class="round bg-warning"></small>
+                                                <span> Yellow</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <small class="round bg-primary"></small>
+                                                <span>Blue</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <small class="round bg-success"></small>
+                                                <span> Green</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <!-- card-group-item.// -->
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card-wrapper mb-2">
+                                    <div class="card-group-item">
+                                        <div class="card-head">
+                                            <div class="heading d-flex align-items-center text-center flex-wrap">
+                                                <div class="head">
+                                                    <h5 class="text-capitalize">Choose Size</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="colors_block p-3">
+                                            <label class="color_single">
+                                                <span> Small</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="color_single">
+                                                <span> Medium</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <span>Large</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <span> XL</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                            <label class="color_single">
+                                                <span> XXL</span>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <!-- card-group-item.// -->
+                                </div>
                             </div>
                         </div>
-                        <div class="products-pagination bg-white p-3">
-                            <nav aria-label="Center aligned pagination">
-                                <ul class="pagination justify-content-center">
-                                    {{ $products->links() }}
-                                </ul>
-                            </nav>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+            </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Filter Pop Up Ends -->
+    <!-- Mobile Nav -->
+    <div class="modal fade" id="rightsidebarfilter" tabindex="-1" role="dialog" aria-labelledby="rightsidebarfilterlabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content h-100">
+                <div class="modal-header px-3 py-3 align-items-center">
+                    <div class="cart-wishlist">
+                        <div class="image">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="frontend/assets/images/logo/3.png" alt="navigation-logo" class="img-fluid">
+                                <!-- <h2 class="m-0 font-weight-bold"><span>Upachar</span> Pharmacy !</h2> -->
+                            </a>
                         </div>
-
-                    <!-- </div> -->
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body d-flex justify-content-between h-100 px-4">
+                    <ul class="navbar-nav w-100">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html"> <span class="nav-indication mr-2"><i
+                                        class="fa fa-eercast" aria-hidden="true"></i></span> Home</a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link add-on" data-toggle="modal" data-target="#nav-cart">
+                                <span class="nav-indication mr-2"><i class="fa fa-eercast"
+                                        aria-hidden="true"></i></span>My Cart <span class="mx-2"><i
+                                        class="fa fa-shopping-bag" aria-hidden="true"></i></span> <sup class="cart-items text-white">2</sup>
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link add-on" data-toggle="modal" data-target="#nav-cart">
+                                <span class="nav-indication mr-2"><i class="fa fa-eercast"
+                                        aria-hidden="true"></i></span>Wishlist <span class="mx-2"><i
+                                        class="fa fa-heart-o" aria-hidden="true"></i></span> <sup class="cart-items text-white">2</sup>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav-indication mr-2"><i class="fa fa-eercast"
+                                        aria-hidden="true"></i></span>Products<span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="container d-block">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 39</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 2</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 3</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                    </div>
+                                </div>
+                                <!--  /.container  -->
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav-indication mr-2"><i class="fa fa-eercast"
+                                        aria-hidden="true"></i></span>Category<span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="container d-block">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 39</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 2</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 3</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                    </div>
+                                </div>
+                                <!--  /.container  -->
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="nav-indication mr-2"><i class="fa fa-eercast"
+                                        aria-hidden="true"></i></span> Recipes<span class="ml-1">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="container d-block">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 29</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 27</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 39</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 2</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 3</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                        <div class="col-md-12">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <a class="nav-link head font-weight-bold" href="under-construction.html">Heading 4</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 1</a>
+                                                </li>
+                                                <li class="nav-item p-0">
+                                                    <a class="nav-link" href="under-construction.html">Item 2</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.col-md-12  -->
+                                    </div>
+                                </div>
+                                <!--  /.container  -->
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact-us.html"> <span class="nav-indication mr-2"><i
+                                        class="fa fa-eercast" aria-hidden="true"></i></span> Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer py-3">
+                    <a class="w-50 text-center" href="under-construction.html"> <span class="mr-2"><i
+                                class="fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
+                    <a class="w-50 text-center" href="under-construction.html"> <span class="mr-2"><i
+                                class="fa fa-paper-plane" aria-hidden="true"></i></span>Register</a>
                 </div>
             </div>
-            </form>
         </div>
-    </section>
+    </div>
+    <!-- Mobile Nav -->
+    <!-- Mobile Profile Nav Pop Up -->
+    <div class="modal fade" id="profilemobilenav" tabindex="-1" role="dialog" aria-labelledby="profilemobilenavtitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content h-100  border-0">
+                <!-- <div class="modal-header">
+                        <h5 class="modal-title" id="profilemobilenavtitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div> -->
+                <div class="modal-body d-flex align-items-center justify-content-around h-100 w-100 p-0">
+                    <div class="dashboard-list2 px-2 py-0">
+                        <div class="d-user-avater text-center mb-4">
+                            <img src="frontend/assets/images/product-images/1.jpg" class="img-fluid avater" alt="profile-image">
+                            <h5>Adam Harshvardhan</h5>
+                            <a href=""> <span class="mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></span> Upload Image
+                            </a>
+                        </div>
+                        <ul class="sidebar">
+                            <li class="active mb-3 p-2">
+                                <a href="dashboard-profile.html"><span class="mr-2"><i class="fa fa-user"
+                                            aria-hidden="true"></i></span>Profile</a>
+                            </li>
+                            <li class="mb-3 p-2">
+                                <a href="dashboard-order-status.html"><span class="mr-2"><i class="fa fa-sort"
+                                            aria-hidden="true"></i></span>Order Status</a>
+                            </li>
+                            <li class="mb-3 p-2">
+                                <a href="dashboard-cart.html"><span class="mr-2"><i class="fa fa-shopping-bag"
+                                            aria-hidden="true"></i></span>My Cart</a>
+                            </li>
+                            <li class="mb-3 p-2">
+                                <a href="dashboard-wishlist.html"><span class="mr-2"><i class="fa fa-shopping-bag"
+                                            aria-hidden="true"></i></span>Wishlist</a>
+                            </li>
+                            <li class="mb-3 p-2">
+                                <a href="dashboard-change-password.html"><span class="mr-2"><i class="fa fa-lock"
+                                            aria-hidden="true"></i></span>Change Password</a>
+                            </li>
+                            <li class="mb-3 p-2">
+                                <a href="index.html"><span class="mr-2"><i class="fa fa-sign-out"
+                                            aria-hidden="true"></i></span>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Profile Nav Pop Up Ends -->
+</body>
 
-@endsection
-
-@section('script')
-    <script type="text/javascript">
-        function filter(){
-            $('#search-form').submit();
-        }
-        function rangefilter(arg){
-            $('input[name=min_price]').val(arg[0]);
-            $('input[name=max_price]').val(arg[1]);
-            filter();
-        }
-    </script>
-@endsection
+</html>

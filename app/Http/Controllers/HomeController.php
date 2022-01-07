@@ -247,12 +247,14 @@ class HomeController extends Controller
                 Cookie::queue('product_referral_code', $request->product_referral_code, 43200);
                 Cookie::queue('referred_product_id', $detailedProduct->id, 43200);
             }
+            
             if($detailedProduct->digital == 1){
                 return view('frontend.digital_product_details', compact('detailedProduct'));
             }
             else {
                 return view('frontend.product_details', compact('detailedProduct'));
             }
+
             // return view('frontend.product_details', compact('detailedProduct'));
         }
         abort(404);

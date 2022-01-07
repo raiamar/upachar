@@ -4,12 +4,12 @@
         <div class="top-header py-1">
             <ul class="d-flex justify-content-end align-items-center m-0">
                 <li>
-                    <a class="nav-link text-white" href="login-register.html">
+                    <a class="nav-link text-white" href="{{route('user.login')}}">
                         <span class=" mr-2">
                             <i class=" fa fa-sign-in" aria-hidden="true"></i></span>Login</a>
                 </li>
                 <li>
-                    <a class="nav-link text-white" href="register-login.html">
+                    <a class="nav-link text-white" href="{{route('user.login')}}">
                         <span class="mr-2">
                             <i class="fa fa-paper-plane"
                                 aria-hidden="true"></i></span>Register</a>

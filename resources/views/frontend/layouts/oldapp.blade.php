@@ -131,13 +131,13 @@
 <div class="body-wrap shop-default shop-cards shop-tech gry-bg">
 
     <!-- Header -->
-    @include('frontend.inc.nav')
+    @include('frontend.inc.oldnav')
 
     @yield('content')
 
-    @include('frontend.inc.footer')
+    @include('frontend.inc.oldfooter')
 
-    @include('frontend.partials.modal')
+    @include('frontend.partials.oldmodal')
 
     @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
         <div id="fb-root"></div>
