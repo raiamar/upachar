@@ -483,7 +483,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="d-none d-lg-inline-block">
+                                
+                                <div class="d-none d-lg-inline-block">            
                                     <div class="nav-compare-box" id="compare">
                                         <a href="{{ route('compare') }}" class="nav-box-link">
                                             <i class="la la-refresh d-inline-block nav-box-icon"></i>
@@ -496,6 +497,7 @@
                                         </a>
                                     </div>
                                 </div>
+
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-wishlist-box" id="wishlist">
                                         <a href="{{ route('wishlists.index') }}" class="nav-box-link">
@@ -509,6 +511,7 @@
                                         </a>
                                     </div>
                                 </div>
+                                
                                 <div class="d-inline-block" data-hover="dropdown">
                                     <div class="nav-cart-box dropdown" id="cart_items">
                                         <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

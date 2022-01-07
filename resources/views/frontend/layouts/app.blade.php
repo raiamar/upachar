@@ -133,15 +133,30 @@
 
 
 <body onload="myFunction()">
-    {{-- <div id="loading"></div> --}}
+    <div id="loading"></div>
     <!-- Whole Body Wrapper Starts -->
     <section id="index-wrapper">
         <section id="top-ads-wrapper">
             <div class="alert alert-dismissible fade show position-relative border-0 m-0 p-0" role="alert">
-                <img src="{{ asset('frontend/assets/images/product-images/5.jpg')}}" alt="top-window-ads-banner" class="img-fluid">
-                <button type="button" class="close position-absolute text-white" data-dismiss="alert" aria-label="Close">
+                <div class="mb-4">
+                    <div class="container">
+                        <div class="row gutters-10">
+                            @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
+                                <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
+                                    <div class="media-banner mb-3 mb-lg-0">
+                                        <a href="{{ $banner->url }}" target="_blank" class="banner-container">
+                                            <img src="{{ asset($banner->photo) }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid">
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                {{-- <img src="{{ asset('frontend/assets/images/product-images/5.jpg')}}" alt="top-window-ads-banner" class="img-fluid"> --}}
+                <button type="button" class="close position-absolute text-gray" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                    </button>
+                </button>
             </div>
         </section>
      

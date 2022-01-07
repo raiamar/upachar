@@ -75,7 +75,7 @@ aria-hidden="true">
                 <tbody>
                     <tr>
                         <td class="pr-4 py-3">
-                            <img src="frontend/assets/images/product-images/1.jpg" class="img-fluid">
+                            <img src="{{asset('frontend/assets/images/product-images/1.jpg')}}" class="img-fluid">
                         </td>
                         <td class="px-4 py-3">
                             <a href="">
@@ -93,7 +93,7 @@ aria-hidden="true">
                     </tr>
                     <tr>
                         <td class="pr-4 py-3">
-                            <img src="frontend/assets/images/product-images/6.jpg" class="img-fluid">
+                            <img src="{{asset('frontend/assets/images/product-images/6.jpg')}}" class="img-fluid">
                         </td>
                         <td class="px-4 py-3">
                             <a href="">
@@ -111,7 +111,7 @@ aria-hidden="true">
                     </tr>
                     <tr>
                         <td class="pr-4 py-3">
-                            <img src="frontend/assets/images/product-images/5.jpg" class="img-fluid">
+                            <img src="{{asset('frontend/assets/images/product-images/5.jpg')}}" class="img-fluid">
                         </td>
                         <td class="px-4 py-3">
                             <a href="">

@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.oldapp')
 
 @section('content')
     <section class="home-banner-area mb-4">

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-3 col-md-6 col-12 mb-2">
                     <div class="image">
-                        <a href="index.html"> <img src="{{ asset('frontend/assets/images/logo/3.png' ) }}" alt="footer-logo-image' class="img-fluid"></a>
+                        <a href="/"> <img src="{{ asset('frontend/assets/images/logo/3.png' ) }}" alt="footer-logo-image' class="img-fluid"></a>
                     </div>
                     <div class="content mt-3">
                         <p class="text-white font-weight-normal m-0">

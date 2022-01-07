@@ -201,6 +201,11 @@ class HomeController extends Controller
         return view('frontend.index');
     }
 
+
+    public function contact(){
+        return view('frontend.contact');
+    }
+
     public function flash_deal_details($slug)
     {
         $flash_deal = FlashDeal::where('slug', $slug)->first();

@@ -4,7 +4,7 @@
 
 
   <!-- Banner Categories Slider -->
-  <section id="banner-categories-wrapper" class="position-relative">
+  {{-- <section id="banner-categories-wrapper" class="position-relative">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-3 d-lg-block d-none">
@@ -294,7 +294,60 @@
             </div>
         </div>
     </div>
+</section> --}}
+
+
+
+<section id="banner-categories-wrapper" class="position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 d-lg-block d-none">
+                <ul class="categories-bar border_one pt-2" style="overflow-y: scroll;">
+                    @foreach (\App\Category::all()->take(9) as $key => $category)
+                    <li class="product_icon d-block px-3" data-id="{{ $category->id }}">
+                        <a href="{{ route('products.category', $category->slug) }}" class="sub_icon d-flex justify-content-between">
+                            {{$category->name}}
+                            <span class="pl-2">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        </a>
+                        <ul class="sub_menu_list">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+                            <li>
+                                <a href="{{ route('products.subcategory', $category->slug) }}">
+                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    {{$sub->name}}
+                                </a>
+                            </li>
+                            @endforeach                                        
+                            @endif
+                        </ul>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            
+            <div class="col-xl-9 col-lg-9 col-md-12 col-12">
+                <div class="slick-slider">
+
+                    @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
+                    <a href ="{{ $slider->link }}"><div class="slick-item position-relative"> <img
+                        src="{{ asset($slider->photo) }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo"
+                            class="img-fluid w-100"> 
+                        </div>
+                    </a>
+                    @endforeach
+
+                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/5.jpg"
+                            class="img-fluid w-100"> </div>
+                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/6.jpg"
+                            class="img-fluid w-100"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Banner Categories Slider Ends-->
 <!-- Product Listing -->
 <section id="product-listing-wrapper" class="position-relative py-5">
@@ -304,141 +357,85 @@
                 <div class="col-12">
                     <div class="heading d-flex justify-content-between align-items-center flex-wrap">
                         <div class="head">
-                            <h2 class="font-weight-bold">Shop All New Imports</h2>
+                            <h2 class="font-weight-bold">{{__('Featured Products')}}</h2>
                             <p>THERE'S SOMETHING FOR EVERYONE</p>
                         </div>
-                        <div class="navigator"> <a href="">See all</a> </div>
+                        <div class="navigator"> <a href="{{ route('products') }}">See all</a> </div>
                     </div>
                 </div>
+            @php
+                $new_products = \App\Product::where('featured', 1)->limit(4)->get();
+            @endphp
+            @foreach ($new_products as $key => $product)
+
                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
                     <div class="product-grid-item2">
                         <div class="product-grid-image2">
-                            <a href="product-listing.html"> <img
-                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                    class="img-fluid pic-1"> </a>
+                             <a href="{{ route('product', $product->slug) }}"> 
+                                @php
+                                    $filepath = $product->featured_img;
+                                @endphp
+                                @if(isset($filepath))
+                                    <img src="{{ asset( $product->featured_img) }}" alt="No image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                @else
+                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                @endif
                             <ul class="social">
                                 <li>
-                                    <a href="" class="fa fa-shopping-bag"></a>
+                                    <a href="" class="fa fa-heart-o" onclick="addToWishList({{ $product->id }})"></a>
                                 </li>
                                 <li>
-                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                    <a class="fa fa-shopping-cart" href="{{route('cart.addToCart')}}"></a>
+                                    {{-- <a class="fa fa-shopping-cart" href="{{route('cart.addToCart')}}" onclick="successMsg();"></a> --}}
                                 </li>
                                 <li>
                                     <a href="" class="fa fa-exchange"></a>
                                 </li>
-                            </ul> <span class="product-discount-label">-20%</span>
+                            </ul> 
+                            @if (! $product->discount == 0)
+                                <span class="product-discount-label">-{{$product->discount}}%</span>
+                            @endif
+                            
                             </div>
                         <div class="product-content">
-                            <h3 class="title text-center"> <a href="#" class="font-weight-bold">Authentic Grana
-                                    Padano </a></h3>
-                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
-                                href="product-detail.html">View Product
+                            <h3 class="title text-center"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
+                            <div class="price text-center mb-3"> £ {{$product->purchase_price}}.00 
+                                @if (! $product->discount == 0)
+                                    <span>£ {{$product->unit_price}}.00</span>
+                                @endif
+                                 </div> <a class="all-deals effect"
+                                href="{{ route('product', $product->slug) }}">View Product
                                 <i class="fa fa-angle-right icon"></i> </a>
                             </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
-                    <div class="product-grid-item2">
-                        <div class="product-grid-image2">
-                            <a href="product-listing.html"> <img
-                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                    class="img-fluid pic-1"> </a>
-                            <ul class="social">
-                                <li>
-                                    <a href="" class="fa fa-shopping-bag"></a>
-                                </li>
-                                <li>
-                                    <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                                </li>
-                                <li>
-                                    <a href="" class="fa fa-exchange"></a>
-                                </li>
-                            </ul> <span class="product-discount-label">-20%</span>
-                            </div>
-                        <div class="product-content">
-                            <h3 class="title text-center"> <a href="#" class="font-weight-bold">Authentic Grana
-                                    Padano </a></h3>
-                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
-                                href="product-detail.html">View Product
-                                <i class="fa fa-angle-right icon"></i> </a>
-                            </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
-                    <div class="product-grid-item2">
-                        <div class="product-grid-image2">
-                            <a href="product-listing.html"> <img
-                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                    class="img-fluid pic-1">
-                                <ul class="social">
-                                    <li>
-                                        <a href="" class="fa fa-shopping-bag"></a>
-                                    </li>
-                                    <li>
-                                        <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                                    </li>
-                                    <li>
-                                        <a href="" class="fa fa-exchange"></a>
-                                    </li>
-                                </ul> <span class="product-discount-label">-20%</span>
-                                </div>
-                        <div class="product-content">
-                            <h3 class="title text-center"> <a href="#" class="font-weight-bold">Authentic Grana
-                                    Padano </a></h3>
-                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
-                                href="product-detail.html">View Product
-                                <i class="fa fa-angle-right icon"></i> </a>
-                            </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
-                    <div class="product-grid-item2">
-                        <div class="product-grid-image2">
-                            <a href="product-listing.html"> <img
-                                    src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/3.jpg" alt="img"
-                                    class="img-fluid pic-1">
-                                <ul class="social">
-                                    <li>
-                                        <a href="" class="fa fa-shopping-bag"></a>
-                                    </li>
-                                    <li>
-                                        <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                                    </li>
-                                    <li>
-                                        <a href="" class="fa fa-exchange"></a>
-                                    </li>
-                                </ul> <span class="product-discount-label">-20%</span>
-                                </div>
-                        <div class="product-content">
-                            <h3 class="title text-center"> <a href="#" class="font-weight-bold">Authentic Grana
-                                    Padano </a></h3>
-                            <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div> <a class="all-deals effect"
-                                href="product-detail.html">View Product
-                                <i class="fa fa-angle-right icon"></i> </a>
-                            </div>
-                    </div>
-                </div>
+                @endforeach 
             </div>
         </div>
     </div>
 </section>
 <!-- Product Listing Ends -->
+
 <!-- Full Ads Banner -->
 <section id="full-ads-banner-wrapper" class="position-relative pb-5 pt-2">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
+            @foreach (\App\Banner::where('position', 2)->where('published', 1)->get() as $key => $banner)
+            <div class="col-lg-{{ 12/count(\App\Banner::where('position', 2)->where('published', 1)->get()) }}">
                 <div class="image">
-                    <a href="product-listing.html"> <img src="frontend/assets/images/product-images/5.jpg" class="img-fluid"
-                            alt="full-ads-banner-image"></a>
+                    <a href="{{ $banner->url }}" target="_blank" class="banner-container"> 
+                        <img src="frontend/assets/images/product-images/5.jpg" class="img-fluid"
+                        data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo"></a>
                     </div>
             </div>
+            @endforeach      
         </div>
     </div>
 </section>
 <!-- Full Ads Banner Ends -->
+
 <!-- Category -->
-<section id="slider-category-wrapper" class="py-4">
+{{-- <section id="slider-category-wrapper" class="py-4">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -447,7 +444,7 @@
                         <h2 class="font-weight-bold">Shop By Category</h2>
                         <!-- <p>THERE'S SOMETHING FOR EVERYONE</p> -->
                     </div>
-                    <div class="navigator"> <a href="">See all</a> </div>
+                    <div class="navigator"> <a href="{{ route('categories.all') }}">See all</a> </div>
                 </div>
             </div>
         </div>
@@ -533,8 +530,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Category Ends -->
+
 <!-- Slider Product Listing -->
 <section id="slider-product-listing" class="bg-light py-5">
     <div class="container">
@@ -542,20 +540,31 @@
             <div class="col-12">
                 <div class="heading d-flex justify-content-between align-items-center flex-wrap">
                     <div class="head">
-                        <h2 class="font-weight-bold">Latest Products</h2>
-                        <p>THERE'S SOMETHING FOR EVERYONE</p>
+                        <h2 class="font-weight-bold">{{__('Latest Products')}}</h2>
+                        <p>{{__(`THERE'S SOMETHING FOR EVERYONE`)}}</p>
                     </div>
-                    <div class="navigator"> <a href="">See all</a> </div>
+                    <div class="navigator"> <a href="{{ route('products') }}">{{__('See all')}}</a> </div>
                 </div>
             </div>
         </div>
         <div class="slick-slider-listing">
+            @php
+                $new_products = \App\Product::latest()->inRandomOrder()
+                ->limit(10)->get();
+            @endphp
+            @foreach ($new_products as $key => $product)
             <div class="slick-item position-relative py-4">
                 <div class="product-grid-item3 mx-2 bg-white">
                     <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
+                        <a href="{{ route('product', $product->slug) }}"> 
+                            @php
+                                $filepath = $product->featured_img;
+                            @endphp
+                            @if(isset($filepath))
+                                <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                            @else
+                                <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                            @endif
                         <ul class="social">
                             <li>
                                 <a href="" class="fa fa-shopping-bag"></a>
@@ -566,536 +575,25 @@
                             <li>
                                 <a href="" class="fa fa-exchange"></a>
                             </li>
-                        </ul> <span class="product-discount-label">-20%</span>
+                        </ul> 
+                        @if (! $product->discount == 0)
+                            <span class="product-discount-label">-{{$product->discount}}%</span>
+                        @endif
                         </div>
                     <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
+                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">{{$product->name}}</a></h3>
+                        <div class="price text-center mb-3"> 
+                            £ {{$product->purchase_price}}.00
+                            @if (! $product->discount == 0)
+                            {{-- @if (isset($product->unit_price)) --}}
+                                <span>£ {{$product->unit_price}}.00</span>
+                            @endif
+                        </div>
                         <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
                     </div>
                 </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul> <span class="product-discount-label">-20%</span>
-                        </div>
-                    <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">Authentic Grana
-                                Padano </a></h3>
-                        <div class="price text-center mb-3"> £ 8.00 <span>£ 10.00</span> </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html"> <img
-                                src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1"> </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="slick-slider-listing">
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/6.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/1.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slick-item position-relative py-4">
-                <div class="product-grid-item3 mx-2 bg-white">
-                    <div class="product-grid-image3">
-                        <a href="product-listing.html">
-                            <img src="https://demo2.madrasthemes.com/cartzilla/grocery/wp-content/uploads/sites/5/2020/03/14.jpg" alt="img"
-                                class="img-fluid pic-1">
-                        </a>
-                        <ul class="social">
-                            <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
-                            </li>
-                            <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
-                            </li>
-                            <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li>
-                        </ul>
-                        <span class="product-discount-label">-20%</span>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="title text-center">
-                            <a href="product-detail.html" class="font-weight-bold">Authentic Grana Padano </a>
-                            </h3>
-                        <div class="price text-center mb-3">
-                            £ 8.00
-                            <span>£ 10.00</span>
-                        </div>
-                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> -->
-                        </a>
-                    </div>
-                </div>
-            </div>
+            </div>                
+            @endforeach                    
         </div>
     </div>
 </section>
