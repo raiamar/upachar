@@ -6,9 +6,16 @@
     <div class="product-box">
         <div class="block">
             <div class="block-image">
-                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->thumbnail_img) }}" class="lazyload" alt="Product Image">
+                @php
+                    $filepath = $product->featured_img;
+                @endphp
+                @if(isset($filepath))
+                    <img src="{{ asset($product->featured_img) }}" class="lazyload" alt="Product Image" style="width:100%; max-height: 300px;min-height: 300px; object-fit:cover; object-position:center;"> 
+                @else
+                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                @endif
             </div>
-            <div class="block-body">
+            <div class="block-body py-2">
                 <h6 class="strong-600">
                     {{ __($product->name) }}
                 </h6>
@@ -28,7 +35,7 @@
         </div>
     </div>
     <div class="text-center">
-        <button class="btn btn-styled btn-base-1 btn-outline mb-3 mb-sm-0" data-dismiss="modal">{{__('Back to shopping')}}</button>
-        <a href="{{ route('cart') }}" class="btn btn-styled btn-base-1 mb-3 mb-sm-0">{{__('Proceed to Checkout')}}</a>
+        <a class="effect anchor-btn text-white" data-dismiss="modal">{{__('Back to shopping')}}</a>
+        <a href="{{ route('cart') }}" class="effect anchor-btn">{{__('Proceed to Checkout')}}</a>
     </div>
 </div>

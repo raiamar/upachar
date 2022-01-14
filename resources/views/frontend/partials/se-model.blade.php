@@ -101,92 +101,81 @@ aria-hidden="true">
 <!-- Popup Search Modal Ends-->
 
 <!-- Nav Cart Pop Up -->
-<div id="cart-summary">
 <div class="modal fade" id="nav-cart" tabindex="-1" role="dialog" aria-labelledby="navcartlabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title m-auto" id="navcartlabel"> <span class="mr-2"><i class="fa fa-opencart"
-                            aria-hidden="true"></i></span> {{__('Cart Items')}}</h5>
+                            aria-hidden="true"></i></span> Items List</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     </button>
             </div>
             <div class="modal-body">
-                @if(Session::has('cart'))
-                @if(count($cart = Session::get('cart')) > 0)
-                    <div class="dropdown-cart-items c-scrollbar">
-                        @php
-                            $total = 0;
-                        @endphp
-                        @foreach($cart as $key => $cartItem)
-                            @php
-                                $product = \App\Product::find($cartItem['id']);
-                                $total = $total + $cartItem['price']*$cartItem['quantity'];
-                                $user_id = Auth::user()->id;
-                            @endphp
-                       <table class="w-100">
-                                <tbody>
-                                    <tr>
-                                        <td class="pr-4 py-3">
-                                            
-                                            <a href="{{ route('product', $product->slug) }}"> 
-                                                @php
-                                                    $filepath = $product->featured_img;
-                                                @endphp
-                                                @if(isset($filepath))
-                                                    <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
-                                                @else
-                                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
-                                                @endif
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            <a href="">
-                                                <div class="head font-weight-bold">
-                                                    {{$product->name}} <span class="cart-quantity">x{{ $cartItem['quantity'] }}</span>
-                                                    <span class="px-4 py-3">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td class="px-4 py-3"> 
-                                            <a class="btn deleteRecord" onclick="removeFromCart({{ $key }})"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
-                                            {{-- <a class="btn deleteRecord" href="/cart/{{$product->id}}/removeFromCart/{{$user_id}}"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a> --}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        @endforeach
-                    </div>
+                @if(Auth::check())
+                @php
+                    $datas = App\Models\Cart::where('user_id', Auth::user()->id)->get();
+                @endphp
+                @foreach ($datas as $key =>$data)
+                    @if ($data->product != null)
+                    <table class="w-100">
+                        <tbody>
+                            <tr>
+                                <td class="pr-4 py-3">
+                                    <img src="{{asset($data->product->featured_img)}}" class="img-fluid" alt="No Image" >
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="">
+                                        <div class="head font-weight-bold">
+                                            {{$data->product->name}} x <span class="cart-quantity">{{$data->product->unit}}</span>
+                                        </div>
+                                        <div class="price">
+                                            Rs {{$data->product->purchase_price * $data->product->unit}}
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a class="btn deleteRecord" href="{{route('cart.removeFromCart', $data->product->id)}}"> <span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @endif
+                @endforeach
                 @else
-                    <div class="dc-header">
-                        <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
-                    </div>
+                <p class="text-center">No items avilable</p>
                 @endif
-            @else
-                <div class="dc-header">
-                    
-                    <h3 class="heading heading-6 strong-700">{{__('Your Cart is empty')}}</h3>
-                </div>
-            @endif
             </div>
-
-            {{-- @if(Auth::check()) --}}
-            @if(Session::has('cart'))
             <div class="modal-footer flex-column">
-                {{-- <div class="total-amount pb-3 text-center d-block">                 
-                    Total : <span class="font-weight-bold">Rs {{ single_price($total) }}</span>
-                </div> --}}
+                @if(Auth::check())
+                @php
+                    $items = App\Models\Cart::where('user_id', Auth::user()->id)->get();
+                    $total_price = 0;
+                @endphp
+                <div class="total-amount pb-3 text-center d-block">
+                    @foreach ($items as $item)
+                        @if($item->product != null)
+                        @php
+                            $amount = $item->product->purchase_price;
+                            $quantity = $item->product->unit;
+                            $act_price = $amount * $quantity;
+                            $total_price += $act_price;
+                            
+                        @endphp
+                        @endif
+                    @endforeach
+                    
+                    Total : <span class="font-weight-bold">Rs {{$total_price}}</span>
+                </div>
                 <div class="d-flex justify-content-around align-items-center w-100">
                     <a href="{{route('cart')}}" type="button" class="effect anchor-btn m-auto">View Cart</a>
                     <a href="{{route('checkout.shipping_info')}}" type="button" class="effect anchor-btn m-auto">Proceed Checkout</a>
                 </div>
+                @endif
             </div>
-            {{-- @endif --}}
-            @endif
-        </div> 
+        </div>
     </div>
     </div>
-</div>
     <!-- Nav Cart Pop Up Ends -->
     <!-- Mobile Filter Pop Up -->
     <!-- Modal -->
@@ -840,3 +829,4 @@ aria-hidden="true">
     </div>
     </div>
     <!-- Mobile Profile Nav Pop Up Ends --> 
+    

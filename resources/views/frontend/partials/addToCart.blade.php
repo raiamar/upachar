@@ -3,19 +3,30 @@
         <div class="col-lg-6">
             <div class="product-gal sticky-top d-flex flex-row-reverse">
                 @if(is_array(json_decode($product->photos)) && count(json_decode($product->photos)) > 0)
-                    <div class="product-gal-img">
-                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload"
-                             src="{{ asset('frontend/images/placeholder.jpg') }}"
+                    <div class="product-gal-img px-2">
+                        @php
+                            $filepath = $product->featured_img;
+                        @endphp
+                        @if (isset($filepath))
+                        <img src="{{ asset($product->featured_img) }}" class="xzoom img-fluid lazyload"
+                        src="{{ asset($product->featured_img) }}"
+                        data-src="{{ asset(json_decode($product->photos)[0]) }}"
+                        xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
+                        @else
+                        <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="xzoom img-fluid lazyload"
+                             src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg"
                              data-src="{{ asset(json_decode($product->photos)[0]) }}"
                              xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
+                        @endif
+                        
                     </div>
                     <div class="product-gal-thumb">
                         <div class="xzoom-thumbs">
                             @foreach (json_decode($product->photos) as $key => $photo)
                                 <a href="{{ asset($photo) }}">
-                                    <img src="{{ asset('frontend/images/placeholder.jpg') }}"
+                                    <img src="{{ asset($photo) }}"
                                          class="xzoom-gallery lazyload"
-                                         src="{{ asset('frontend/images/placeholder.jpg') }}" width="80"
+                                         src="{{ asset($photo) }}" width="80"
                                          data-src="{{ asset($photo) }}"
                                          @if($key == 0) xpreview="{{ asset($photo) }}" @endif>
                                 </a>
@@ -28,7 +39,7 @@
 
         <div class="col-lg-6">
             <!-- Product description -->
-            <div class="product-description-wrapper">
+            <div class="product-description-wrapper px-3">
                 <!-- Product title -->
                 <h2 class="product-title">
                     {{ __($product->name) }}
@@ -37,10 +48,10 @@
                 @if(home_price($product->id) != home_discounted_price($product->id))
 
                     <div class="row no-gutters mt-4">
-                        <div class="col-2">
+                        <div class="col-4">
                             <div class="product-description-label">{{__('Price')}}:</div>
                         </div>
-                        <div class="col-10">
+                        <div class="col-8">
                             <div class="product-price-old">
                                 <del>
                                     {{ home_price($product->id) }}
@@ -51,10 +62,10 @@
                     </div>
 
                     <div class="row no-gutters mt-3">
-                        <div class="col-2">
+                        <div class="col-4">
                             <div class="product-description-label mt-1">{{__('Discount Price')}}:</div>
                         </div>
-                        <div class="col-10">
+                        <div class="col-8 m-auto">
                             <div class="product-price">
                                 <strong>
                                     {{ home_discounted_price($product->id) }}
@@ -68,7 +79,7 @@
                         <div class="col-2">
                             <div class="product-description-label">{{__('Price')}}:</div>
                         </div>
-                        <div class="col-10">
+                        <div class="col-10 m-auto">
                             <div class="product-price">
                                 <strong>
                                     {{ home_discounted_price($product->id) }}
@@ -123,9 +134,9 @@
                                         </div>
                                     </div>
                                     <div class="col-10">
-                                        <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                        <ul class="d-flex checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
                                             @foreach ($choice->values as $key => $value)
-                                                <li>
+                                                <li style="margin-right:20px">
                                                     <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}"
                                                            name="attribute_id_{{ $choice->attribute_id }}"
                                                            value="{{ $value }}" @if($key == 0) checked @endif>
@@ -176,12 +187,12 @@
                                                 <i class="la la-minus"></i>
                                             </button>
                                         </span>
-                                        <input type="text" name="quantity" class="form-control input-number text-center"
-                                               placeholder="1" value="1" min="1" max="10">
+                                        <input type="number" name="quantity" class="form-control input-number text-center"
+                                               placeholder="1"  min="1" max="10">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity">
-                                                <i class="la la-plus"></i>
+                                                <i class="fa fa-plus"></i>
                                             </button>
                                         </span>
                                     </div>
@@ -218,14 +229,15 @@
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
                                     onclick="addToCart()">
                                 <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                {{-- <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span> --}}
+                                <a class="effect anchor-btn">{{__('Add to cart')}}</a>
                             </button>
-                        @elseif($qty > 0)
+                        @elseif($qty > 0) 
                             <button type="button"
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
                                     onclick="addToCart()">
                                 <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                <a class="effect anchor-btn">{{__('Add to cart')}}</a>
                             </button>
                         @else
                             <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>

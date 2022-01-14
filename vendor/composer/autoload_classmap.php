@@ -43,6 +43,7 @@ return array(
     'App\\CustomerProduct' => $baseDir . '/app/CustomerProduct.php',
     'App\\CustomersImport' => $baseDir . '/app/CustomersImport.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Faq' => $baseDir . '/app/Faq.php',
     'App\\FlashDeal' => $baseDir . '/app/FlashDeal.php',
     'App\\FlashDealProduct' => $baseDir . '/app/FlashDealProduct.php',
     'App\\GeneralSetting' => $baseDir . '/app/GeneralSetting.php',

@@ -28,7 +28,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="dc-image">
                                         <a href="{{ route('product', $product->slug) }}">
-                                            <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}" class="img-fluid" alt="">
+                                            <img loading="lazy"  src="{{ asset($product->featured_image) }}" class="img-fluid" alt="">
                                         </a>
                                     </div>
                                     <div class="dc-content">
@@ -42,12 +42,12 @@
                                         <span class="dc-price">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
                                     </div>
                                     <div class="dc-actions">
-                                        <button onclick="removeFromCart({{ $key }})">
+                                        <button onclick="removeFromCart({{ $cartItem->id }})">
                                             <i class="la la-close"></i>
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                            
                         @endforeach
                     </div>
                     <div class="dc-item py-3">

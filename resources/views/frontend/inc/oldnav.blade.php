@@ -497,7 +497,9 @@
                                         </a>
                                     </div>
                                 </div>
+                                
 
+                                {{-- cart --}}
                                 <div class="d-none d-lg-inline-block">
                                     <div class="nav-wishlist-box" id="wishlist">
                                         <a href="{{ route('wishlists.index') }}" class="nav-box-link">

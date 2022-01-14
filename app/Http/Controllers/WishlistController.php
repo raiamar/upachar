@@ -45,8 +45,11 @@ class WishlistController extends Controller
                 $wishlist->user_id = Auth::user()->id;
                 $wishlist->product_id = $request->id;
                 $wishlist->save();
+
             }
-            return view('frontend.partials.wishlist');
+            $count = Wishlist::where('user_id', Auth::user()->id)->count();
+            return response()->json($count);
+            // return view('frontend.partials.wishlist');
         }
         return 0;
     }

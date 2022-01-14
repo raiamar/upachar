@@ -3,7 +3,8 @@
 @section('content')
     <section class="home-banner-area mb-4">
         <div class="container">
-            <div class="row no-gutters position-relative">
+            <div class="ro
+             no-gutters position-relative">
                 <div class="col-lg-3 position-static order-2 order-lg-0">
                     <div class="category-sidebar">
                         <div class="all-category d-none d-lg-block">

@@ -21,6 +21,8 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @yield('meta')
 
 @if(!isset($detailedProduct))
@@ -382,6 +384,7 @@
         $('#option-choice-form input:radio').each(function() { // find unique names
               names[$(this).attr('name')] = true;
         });
+        
         var count = 0;
         $.each(names, function() { // then count them
               count++;

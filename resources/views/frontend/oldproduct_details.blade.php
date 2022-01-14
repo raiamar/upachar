@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.oldapp')
 
 @section('meta_title'){{ $detailedProduct->meta_title }}@stop
 
@@ -33,7 +33,6 @@
 @endsection
 
 @section('content')
-
     <!-- SHOP GRID WRAPPER -->
     <section class="product-details-area gry-bg">
         <div class="container">
@@ -93,12 +92,18 @@
                                                 }
                                             }
                                             else{
-                                                $qty = $detailedProduct->current_stock;
+                                                $qty = 0 ;
                                             }
                                         @endphp
-                                        <li>
-                                            <span class="badge badge-md badge-pill bg-green">{{__('In stock')}}</span>
-                                        </li>
+                                        @if ($qty > 0)
+                                            <li>
+                                                <span class="badge badge-md badge-pill bg-green">{{__('In stock')}}</span>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <span class="badge badge-md badge-pill bg-red">{{__('Out of stock')}}</span>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -188,6 +193,75 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
 
+                                @if ($detailedProduct->choice_options != null)
+                                    @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
+
+                                    <div class="row no-gutters">
+                                        <div class="col-2">
+                                            <div class="product-description-label mt-2 ">{{ \App\Attribute::find($choice->attribute_id)->name }}:</div>
+                                        </div>
+                                        <div class="col-10">
+                                            <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                                @foreach ($choice->values as $key => $value)
+                                                    <li>
+                                                        <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif>
+                                                        <label for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    @endforeach
+                                @endif
+
+                                @if (count(json_decode($detailedProduct->colors)) > 0)
+                                    <div class="row no-gutters">
+                                        <div class="col-2">
+                                            <div class="product-description-label mt-2">{{__('Color')}}:</div>
+                                        </div>
+                                        <div class="col-10">
+                                            <ul class="list-inline checkbox-color mb-1">
+                                                @foreach (json_decode($detailedProduct->colors) as $key => $color)
+                                                    <li>
+                                                        <input type="radio" id="{{ $detailedProduct->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif>
+                                                        <label style="background: {{ $color }};" for="{{ $detailedProduct->id }}-color-{{ $key }}" data-toggle="tooltip"></label>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                @endif
+
+                                <!-- Quantity + Add to cart -->
+                                <div class="row no-gutters">
+                                    <div class="col-2">
+                                        <div class="product-description-label mt-2">{{__('Quantity')}}:</div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="product-quantity d-flex align-items-center">
+                                            <div class="input-group input-group--style-2 pr-3" style="width: 160px;">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" disabled="disabled">
+                                                        <i class="la la-minus"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="text" name="quantity" class="form-control input-number text-center" placeholder="1" value="1" min="1" max="10">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-number" type="button" data-type="plus" data-field="quantity">
+                                                        <i class="la la-plus"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
                                 <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                                     <div class="col-2">
                                         <div class="product-description-label">{{__('Total Price')}}:</div>
@@ -206,13 +280,19 @@
                             <div class="d-table width-100 mt-3">
                                 <div class="d-table-cell">
                                     <!-- Buy Now button -->
-                                    <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" onclick="buyNow()">
-                                        <i class="la la-shopping-cart"></i> {{__('Buy Now')}}
-                                    </button>
-                                    <button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" onclick="addToCart()">
-                                        <i class="la la-shopping-cart"></i>
-                                        <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
-                                    </button>
+                                    @if ($qty > 0)
+                                        <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" onclick="buyNow()">
+                                            <i class="la la-shopping-cart"></i> {{__('Buy Now')}}
+                                        </button>
+                                        <button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" onclick="addToCart()">
+                                            <i class="la la-shopping-cart"></i>
+                                            <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
+                                            <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -253,7 +333,7 @@
                                 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
                                 $refund_sticker = \App\BusinessSetting::where('type', 'refund_sticker')->first();
                             @endphp
-                            @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                            @if ($refund_request_addon != null && $refund_request_addon->activated == 1 && $detailedProduct->refundable)
                                 <div class="row no-gutters mt-3">
                                     <div class="col-2">
                                         <div class="product-description-label">{{__('Refund')}}:</div>
@@ -284,19 +364,19 @@
                                 </div>
                                 <div class="col-10">
                                     <ul class="inline-links">
-                                        <li>
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/visa.png') }}" width="30" class="lazyload">
-                                        </li>
-                                        <li>
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/mastercard.png') }}" width="30" class="lazyload">
-                                        </li>
-                                        <li>
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/maestro.png') }}" width="30" class="lazyload">
-                                        </li>
-                                        <li>
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/paypal.png') }}" width="30" class="lazyload">
-                                        </li>
-                                        <li>
+                                        <!--<li>-->
+                                        <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/visa.png') }}" width="30" class="lazyload">-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                        <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/mastercard.png') }}" width="30" class="lazyload">-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                        <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/maestro.png') }}" width="30" class="lazyload">-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                        <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/paypal.png') }}" width="30" class="lazyload">-->
+                                        <!--</li>-->
+                                        <!--<li>-->
                                             <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/cod.png') }}" width="30" class="lazyload">
                                         </li>
                                     </ul>
@@ -549,6 +629,11 @@
                                             </div>
                                         @endif
 
+
+
+
+                                        {{-- ADD comment --}}
+
                                         @if(Auth::check())
                                             @php
                                                 $commentable = false;
@@ -615,12 +700,31 @@
                                                 </div>
                                             @endif
                                         @endif
+
+
+
+
+
+
+
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
                     <div class="my-4 bg-white p-3">
                         <div class="section-title-1">
                             <h3 class="heading-5 strong-700 mb-0">
@@ -677,7 +781,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
             <div class="modal-content position-relative">
                 <div class="modal-header">
-                    <h5 class="modal-title strong-600 heading-5">{{__('Any question about this product?')}}</h5>
+                    <h5 class="modal-title strong-600 heading-5">{{__('Any query about this product')}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -782,11 +886,12 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
-    		$('#share').share({
+    		$('#share').jsSocials({
     			showLabel: false,
                 showCount: false,
                 shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
     		});
+            getVariantPrice();
     	});
 
         function CopyToClipboard(containerid) {

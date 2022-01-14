@@ -42,7 +42,7 @@
     @endphp
     <div id="container" class="blank-index"
         @if ($generalsetting->admin_login_background != null)
-            style="background-image:url('{{ asset($generalsetting->admin_login_background) }}');"
+            {{-- style="background-image:url('{{ asset($generalsetting->admin_login_background) }}');" --}}
         @else
             style="background-image:url('{{ asset('img/bg-img/login-bg.jpg') }}');"
         @endif>

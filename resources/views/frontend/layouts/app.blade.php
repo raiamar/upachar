@@ -27,6 +27,8 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('meta')
 
 @if(!isset($detailedProduct))
@@ -51,6 +53,9 @@
     <meta property="og:description" content="{{ $seosetting->description }}" />
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
 @endif
+
+{{-- <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script> --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
@@ -88,6 +93,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/toastr/toastr.min.css') }}">
     <!-- Toastr Ends -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
+    <link href="{{ asset('frontend/assets/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     <!-- Custom Links Ends -->
 
@@ -128,6 +134,9 @@
 </noscript>
 <!-- End Facebook Pixel Code -->
 @endif
+
+{{-- new added code --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 
@@ -210,6 +219,275 @@
     
 
     @include('frontend.partials.modal')
+
+
+    <div class="modal fade" id="addToCart">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+            <div class="modal-content position-relative">
+                <div class="c-preloader">
+                    <i class="fa fa-spin fa-spinner"></i>
+                </div>
+                <button type="button" class="close absolute-close-btn ml-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="addToCart-modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+    .fix-text{
+        height:fixed; max-height: 30px; overflow:hidden;
+    }
     
+</style>
+
+
+    <script>
+
+function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+                icon = 'error';
+            }
+            Swal.fire({
+                position: 'top-end',
+                type: type,
+                icon: 'success',
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+
+
+        $(".addToWishList").click(function(){
+            let id = $(this).data('id');
+            @if (Auth::check() && (Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'seller'))
+                $.post('{{ route('wishlists.store') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+                    if(data != 0){
+                        $('#nav-wishlist').html(data);
+                        showFrontendAlert('success', 'Item has been added to wishlist');
+                    }
+                    else{
+                        showFrontendAlert('warning', 'Please login first');
+                    }
+                });
+            @else
+                showFrontendAlert('warning', 'Please login first');
+            @endif
+        });
+    
+        $(".addToCart").click(function(){
+            let id = $(this).data('id');
+            @if (Auth::check() && (Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'seller'))
+                $.post('{{ route('cart.addToCart') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+                    if(data != 0){
+                        $('#nav-cart-count').html(data);
+                        alert('success', 'Item has been added to wishlist');
+                    }
+                    else{
+                        alert('warning', 'Please login first');
+                    }
+                });
+            @else
+                alert('warning', 'Please login first');
+            @endif
+        });
+
+        function addToCart(){
+        // if(checkAddToCartValidity()) {
+            
+            $('#addToCart').modal();
+            $('.c-preloader').show();           
+            $.ajax({
+                _token:"{{ csrf_token() }}",
+            //    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+               type:"POST",
+               url: '{{ route('cart.addTo_Cart') }}',
+               data: $('#option-choice-form').serializeArray(),
+               success: function(data){
+                   $('#addToCart-modal-body').html(null);
+                   $('.c-preloader').hide();
+                   $('#modal-size').removeClass('modal-lg');
+                   $('#addToCart-modal-body').html(data);
+                   updateNavCart();
+                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
+               }
+           });
+        // }
+        // else{
+        //     showFrontendAlert('warning', 'Please choose all the options');
+        // }
+    }
+
+
+
+    function showAddToCartModal(id){
+        if(!$('#modal-size').hasClass('modal-lg')){
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#addToCart-modal-body').html(null);
+        $('#addToCart').modal();
+        $('.c-preloader').show();
+        $.post('{{ route('cart.showCartModal') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+            $('.c-preloader').hide();
+            $('#addToCart-modal-body').html(data);
+            $('.xzoom, .xzoom-gallery').xzoom({
+                Xoffset: 20,
+                bg: true,
+                tint: '#000',
+                defaultScale: -1
+            });
+            getVariantPrice();
+        });
+    }
+
+
+    function addToCartDetails(id){
+        $('#addToCart').modal();
+            $('.c-preloader').show();           
+            $.ajax({
+                _token:"{{ csrf_token() }}",
+                id:id,
+               type:"POST",
+               url: '{{ route('cart.addTo_Cart') }}',
+               data: $('#option-choice-form').serializeArray(),
+               success: function(data){
+                   $('#addToCart-modal-body').html(null);
+                   $('.c-preloader').hide();
+                   $('#modal-size').removeClass('modal-lg');
+                   $('#addToCart-modal-body').html(data);
+                   updateNavCart();
+                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
+               }
+           });
+    }
+
+    function buyNow(){
+        // if(checkAddToCartValidity()) {
+            $('#addToCart').modal();
+            $('.c-preloader').show();
+            $.ajax({
+                _token:"{{ csrf_token() }}",
+               type:"POST",
+               url: '{{ route('cart.addToCart') }}',
+               data: $('#option-choice-form').serializeArray(),
+               success: function(data){
+                   //$('#addToCart-modal-body').html(null);
+                   //$('.c-preloader').hide();
+                   //$('#modal-size').removeClass('modal-lg');
+                   //$('#addToCart-modal-body').html(data);
+                   updateNavCart();
+                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
+                   window.location.replace("{{ route('cart') }}");
+               }
+           });
+        // }
+        // else{
+        //     showFrontendAlert('warning', 'Please choose all the options');
+        // }
+    }
+
+
+    function removeFromCart(key){
+        $.post('{{ route('cart.removeFromCart') }}', {_token:'{{ csrf_token() }}', key:key}, function(data){
+            updateNavCart();
+            $('#cart-summary').html(data);  
+            showFrontendAlert('success', 'Item has been removed from cart');
+            $('#nav-cart-count').html(parseInt($('#nav-cart-count').html())-1);
+            $("#nav-cart").modal("hide");
+            
+        });
+    }
+
+    function updateNavCart(){
+        $.post('{{ route('cart.nav_cart') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            $('#cart_items').html(data);
+        });
+    }
+
+
+
+    function cartQuantityInitialize(){
+        $('.btn-number').click(function(e) {
+            e.preventDefault();
+
+            fieldName = $(this).attr('data-field');
+            type = $(this).attr('data-type');
+            var input = $("input[name='" + fieldName + "']");
+            var currentVal = parseInt(input.val());
+
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
+
+                    if (currentVal > input.attr('min')) {
+                        input.val(currentVal - 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('min')) {
+                        $(this).attr('disabled', true);
+                    }
+
+                } else if (type == 'plus') {
+
+                    if (currentVal < input.attr('max')) {
+                        input.val(currentVal + 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('max')) {
+                        $(this).attr('disabled', true);
+                    }
+
+                }
+            } else {
+                input.val(0);
+            }
+        });
+
+        $('.input-number').focusin(function() {
+            $(this).data('oldValue', $(this).val());
+        });
+
+        $('.input-number').change(function() {
+
+            minValue = parseInt($(this).attr('min'));
+            maxValue = parseInt($(this).attr('max'));
+            valueCurrent = parseInt($(this).val());
+
+            name = $(this).attr('name');
+            if (valueCurrent >= minValue) {
+                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the minimum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+            if (valueCurrent <= maxValue) {
+                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the maximum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+
+
+        });
+        $(".input-number").keydown(function(e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    }
+    </script>
 </body>
 </html>

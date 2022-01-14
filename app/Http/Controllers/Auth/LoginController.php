@@ -128,7 +128,8 @@ class LoginController extends Controller
             return redirect(session('link'));
         }
         else{
-            return redirect()->route('dashboard');
+            // return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
     }
 
@@ -155,7 +156,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if(auth()->user() != null && (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff')){
-            $redirect_route = '/users/login';
+            $redirect_route = 'login';
         }
         else{
             $redirect_route = 'home';

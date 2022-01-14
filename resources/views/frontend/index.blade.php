@@ -1,303 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-
-  <!-- Banner Categories Slider -->
-  {{-- <section id="banner-categories-wrapper" class="position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-3 col-lg-3 d-lg-block d-none">
-                <ul class="categories-bar border_one pt-2">
-                    <li class="product_icon d-block px-3">
-                        <a href="" class="sub_icon d-flex justify-content-between">
-                            Clothing
-                            <span class="pl-2">
-                                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                        </a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html">
-                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Baby Product <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Women's <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Men's <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Medical <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html">
-                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between">Household <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Health <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Women's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right"
-                                            aria-hidden="true"></i></span>Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>Fashion
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between">Beverage <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="product_icon d-block px-3"> <a href="" class="sub_icon d-flex justify-content-between"> Baby Product <span
-                                class="pl-2"> <i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
-                        <ul class="sub_menu_list">
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Third
-                                </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                                    Electronic Accessories </a>
-                            </li>
-                            <li>
-                                <a href="product-listing.html"> <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span> Men's
-                                    Fashion Third</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-xl-9 col-lg-9 col-md-12 col-12">
-                <div class="slick-slider">
-
-                    @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
-                    <a href ="{{ $slider->link }}"><div class="slick-item position-relative"> <img
-                        src="{{ asset($slider->photo) }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo"
-                            class="img-fluid w-100"> 
-                        </div>
-                    </a>
-                        @endforeach
-
-                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/5.jpg"
-                            class="img-fluid w-100"> </div>
-                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/6.jpg"
-                            class="img-fluid w-100"> </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
-
-
 <section id="banner-categories-wrapper" class="position-relative">
     <div class="container">
         <div class="row">
@@ -365,6 +68,7 @@
                 </div>
             @php
                 $new_products = \App\Product::where('featured', 1)->limit(4)->get();
+                $currency = \App\Currency::where('status', 1)->first();
             @endphp
             @foreach ($new_products as $key => $product)
 
@@ -382,14 +86,14 @@
                                 @endif
                             <ul class="social">
                                 <li>
-                                    <a href="" class="fa fa-heart-o" onclick="addToWishList({{ $product->id }})"></a>
+                                    <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>    
                                 </li>
                                 <li>
-                                    <a class="fa fa-shopping-cart" href="{{route('cart.addToCart')}}"></a>
-                                    {{-- <a class="fa fa-shopping-cart" href="{{route('cart.addToCart')}}" onclick="successMsg();"></a> --}}
+                                    {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
+                                    <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                                 </li>
                                 <li>
-                                    <a href="" class="fa fa-exchange"></a>
+                                    <a href="" class="fa fa-exchange addToCompare" data-id="{{ $product->id }}"></a>
                                 </li>
                             </ul> 
                             @if (! $product->discount == 0)
@@ -398,11 +102,16 @@
                             
                             </div>
                         <div class="product-content">
-                            <h3 class="title text-center"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
-                            <div class="price text-center mb-3"> £ {{$product->purchase_price}}.00 
-                                @if (! $product->discount == 0)
-                                    <span>£ {{$product->unit_price}}.00</span>
+                            <h3 class="title text-center fix-text"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
+                            <div class="price text-center mb-3"> 
+                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
                                 @endif
+                                {{ home_discounted_base_price($product->id) }}
+                                {{-- {{$currency->symbol}} {{$product->purchase_price}}.00 
+                                @if (! $product->discount == 0)
+                                    <span>{{$currency->symbol}} {{$product->unit_price}}.00</span>
+                                @endif --}}
                                  </div> <a class="all-deals effect"
                                 href="{{ route('product', $product->slug) }}">View Product
                                 <i class="fa fa-angle-right icon"></i> </a>
@@ -551,6 +260,7 @@
             @php
                 $new_products = \App\Product::latest()->inRandomOrder()
                 ->limit(10)->get();
+                $currency = \App\Currency::where('status', 1)->first();
             @endphp
             @foreach ($new_products as $key => $product)
             <div class="slick-item position-relative py-4">
@@ -567,10 +277,12 @@
                             @endif
                         <ul class="social">
                             <li>
-                                <a href="" class="fa fa-shopping-bag"></a>
+                                <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>
+                                {{-- <a href="" class="fa fa-heart-o"></a> --}}
                             </li>
                             <li>
-                                <a class="fa fa-shopping-cart" onclick="successMsg();"></a>
+                                {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
+                                <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                             </li>
                             <li>
                                 <a href="" class="fa fa-exchange"></a>
@@ -581,13 +293,12 @@
                         @endif
                         </div>
                     <div class="product-content">
-                        <h3 class="title text-center"> <a href="product-detail.html" class="font-weight-bold">{{$product->name}}</a></h3>
-                        <div class="price text-center mb-3"> 
-                            £ {{$product->purchase_price}}.00
-                            @if (! $product->discount == 0)
-                            {{-- @if (isset($product->unit_price)) --}}
-                                <span>£ {{$product->unit_price}}.00</span>
+                        <h3 class="title text-center fix-text"> <a href="product-detail.html" class="font-weight-bold">{{$product->name}}</a></h3>
+                        <div class="price text-center mb-3">
+                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
                             @endif
+                            {{ home_discounted_base_price($product->id) }}
                         </div>
                         <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
                     </div>
@@ -613,77 +324,45 @@
                     </div> -->
                 </div>
             </div>
+            @php
+                $story = DB::table('testimonial')->where('status','1')->get();
+            @endphp
             <div class="col-lg-8 col-12 mx-auto py-4">
                 <div class="slick-slider">
+                    @foreach ($story as $testimonial)
                     <div class="slick-item position-relative">
                         <div class="testimonial-content-wrap text-center active m-auto pb-2">
                             <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
                                 <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid"
-                                        alt="testimonial-image">
+                                    @php
+                                        $filepath = $testimonial->image;
+                                    @endphp
+                                    @if(isset($filepath))
+                                        <img src="{{ asset( $testimonial->image) }}" alt="No Image" class="m-auto img-fluid"> 
+                                    @else
+                                        <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid">
+                                    @endif                       
                                 </div>
                                 <div class="testimonial-content d-flex flex-column justify-content-center align-items-start ml-3">
                                     <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
+                                        {{$testimonial->name}}
                                     </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
+                                    <p class="dark-text m-0">{{$testimonial->title}}</p>
                                 </div>
                             </div>
                             <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid
-                                saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora
-                                aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
+                                {{$testimonial->about}}
                             </p>
                         </div>
                     </div>
-            <div class="slick-item position-relative">
-                        <div class="testimonial-content-wrap text-center active m-auto pb-2">
-                            <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
-                                <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid"
-                                        alt="testimonial-image">
-                                </div>
-                                <div class="testimonial-content d-flex flex-column text-center justify-content-center align-items-start ml-3">
-                                    <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
-                                    </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
-                                </div>
-                            </div>
-                            <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid
-                                saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora
-                                aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="slick-item position-relative">
-                        <div class="testimonial-content-wrap text-center active m-auto pb-2">
-                            <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
-                                <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid"
-                                        alt="testimonial-image">
-                                </div>
-                                <div class="testimonial-content d-flex flex-column text-center justify-content-center align-items-start ml-3">
-                                    <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
-                                    </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
-                                </div>
-                            </div>
-                            <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid
-                                saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora
-                                aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    @endforeach
         </div>
     </div>
 </section>
 <!-- Testimonial Ends -->
+<div class="c-preloader">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
 <!-- Blog  -->
 <section id="blog-wrapper" class="py-5 bg-light">
     <div class="container">
@@ -766,6 +445,5 @@
     </div>
 </section>
 <!-- Blog Ends -->
-
 
 @endsection

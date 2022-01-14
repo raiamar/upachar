@@ -7,3 +7,4 @@
         <span class="nav-box-number">0</span>
     @endif
 </a>
+
