@@ -1513,8 +1513,11 @@ a.btn:hover {
 #product-detail-wrapper .swiper-container.gallery-thumbs {
   height: 100px !important;
 }
-#product-detail-wrapper .p-ratings .fa-star {
+#product-detail-wrapper .p-ratings .fa-star.active {
   color: orange;
+}
+#product-detail-wrapper .p-ratings .fa-star {
+  color: var(--text-color);
 }
 #product-detail-wrapper .product-price .first-price {
   text-decoration: line-through;

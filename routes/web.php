@@ -44,6 +44,7 @@ Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategor
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/about', 'HomeController@about_us')->name('about.us');
+Route::get('/all_sellers', 'HomeController@vendors')->name('all.sellers');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
@@ -139,6 +140,7 @@ Route::get('/returnpolicy', 'HomeController@returnpolicy')->name('returnpolicy')
 Route::get('/supportpolicy', 'HomeController@supportpolicy')->name('supportpolicy');
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacypolicy', 'HomeController@privacypolicy')->name('privacypolicy');
+
 
 Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');

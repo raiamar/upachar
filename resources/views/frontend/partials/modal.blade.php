@@ -113,6 +113,7 @@ aria-hidden="true">
                     </button>
             </div>
             <div class="modal-body">
+                @if(Auth::check()) 
                 @if(Session::has('cart'))
                 @if(count($cart = Session::get('cart')) > 0)
                     <div class="dropdown-cart-items c-scrollbar">
@@ -171,7 +172,7 @@ aria-hidden="true">
             </div>
 
             {{-- @if(Auth::check()) --}}
-            @if(Session::has('cart'))
+            {{-- @if(Session::has('cart')) --}}
             <div class="modal-footer flex-column">
                 {{-- <div class="total-amount pb-3 text-center d-block">                 
                     Total : <span class="font-weight-bold">Rs {{ single_price($total) }}</span>
@@ -181,6 +182,7 @@ aria-hidden="true">
                     <a href="{{route('checkout.shipping_info')}}" type="button" class="effect anchor-btn m-auto">Proceed Checkout</a>
                 </div>
             </div>
+            {{-- @endif --}}
             {{-- @endif --}}
             @endif
         </div> 

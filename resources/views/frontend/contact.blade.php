@@ -7,11 +7,13 @@
         <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">Contact Us</div>
+        <a class="title p-4" href="/">{{__('Home')}} >{{__('Contact Us')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
-
+@php
+    $generalsetting = \App\GeneralSetting::first();
+@endphp
 <!-- Checkout -->
 <section id="contact-us-wrapper" class="py-5">
     <div class="container">
@@ -27,13 +29,13 @@
                     </div>
                     <li>
                         <a href=" mailto:webmaster@example.com"><span class="mr-2"><i class="fa fa-envelope-square"
-                                    aria-hidden="true"></i></span>upacharpharmacy@gmail.com</a>
+                                    aria-hidden="true"></i></span>{{$generalsetting->email}}</a>
                     </li>
                     <li>
-                        <a href="tel:+4733378901"><span class="mr-2"><i class="fa fa-phone" aria-hidden="true"></i></span>01-123456789</a>
+                        <a href="tel:+4733378901"><span class="mr-2"><i class="fa fa-phone" aria-hidden="true"></i></span>{{$generalsetting->phone}}</a>
                     </li>
                     <li>
-                        <a><span class="mr-2"><i class="fa fa-map" aria-hidden="true"></i></span>Kathmandu, Nepal</a>
+                        <a><span class="mr-2"><i class="fa fa-map" aria-hidden="true"></i></span>{{$generalsetting->address}}</a>
                     </li>
                 </ul>
             </div>

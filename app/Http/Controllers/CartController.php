@@ -34,6 +34,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+
         if(Auth::check()){
             $cart = Cart::where('user_id', Auth::user()->id)->where('product_id', $request->id)->first();
             if($cart == null){
@@ -53,6 +54,7 @@ class CartController extends Controller
 
     public function addTo_Cart(Request $request)
     {
+        
         $product = Product::find($request->id);
 
         $data = array();

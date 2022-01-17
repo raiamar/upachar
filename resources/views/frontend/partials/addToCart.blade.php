@@ -190,10 +190,10 @@
                                         <input type="number" name="quantity" class="form-control input-number text-center"
                                                placeholder="1"  min="1" max="10">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button" data-type="plus"
+                                            {{-- <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity">
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </button> --}}
                                         </span>
                                     </div>
                                     <div class="avialable-amount">(<span

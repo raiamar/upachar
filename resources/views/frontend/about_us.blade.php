@@ -2,6 +2,17 @@
 
 @section('content')
 
+        <!-- Breadcrumbs -->
+        <section id="breadcrumb-wrapper" class="position-relative">
+            <div class="image">
+                <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+            </div>
+            <div class="overlay position-absolute">
+                <a href="/" class="title p-4">{{__('Home')}} >{{__('About Us')}}</a>
+            </div>
+        </section>
+        <!-- Breadcrumbs Ends -->
+
 <!-- About Us -->
 <section id="about-us-wrapper" class="py-5">
     <div class="container">
@@ -51,64 +62,38 @@
                     </div> -->
                 </div>
             </div>
+            @php
+                $story = DB::table('testimonial')->where('status','1')->get();
+            @endphp
             <div class="col-lg-8 col-12 mx-auto py-4">
                 <div class="slick-slider">
+                    @foreach ($story as $testimonial)
                     <div class="slick-item position-relative">
                         <div class="testimonial-content-wrap text-center active m-auto pb-2">
                             <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
                                 <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid" alt="testimonial-image">
+                                    @php
+                                        $filepath = $testimonial->image;
+                                    @endphp
+                                    @if(isset($filepath))
+                                        <img src="{{ asset( $testimonial->image) }}" alt="No Image" class="m-auto img-fluid"> 
+                                    @else
+                                        <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid">
+                                    @endif                       
                                 </div>
-                                <div class="testimonial-content d-flex flex-column text-left justify-content-center align-items-start ml-3">
+                                <div class="testimonial-content d-flex flex-column justify-content-center align-items-start ml-3">
                                     <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
+                                        {{$testimonial->name}}
                                     </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
+                                    <p class="dark-text m-0">{{$testimonial->title}}</p>
                                 </div>
                             </div>
                             <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
+                                {{$testimonial->about}}
                             </p>
                         </div>
                     </div>
-                    <div class="slick-item position-relative">
-                        <div class="testimonial-content-wrap text-center active m-auto pb-2">
-                            <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
-                                <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid" alt="testimonial-image">
-                                </div>
-                                <div class="testimonial-content d-flex flex-column text-left justify-content-center align-items-start ml-3">
-                                    <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
-                                    </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
-                                </div>
-                            </div>
-                            <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="slick-item position-relative">
-                        <div class="testimonial-content-wrap text-center active m-auto pb-2">
-                            <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
-                                <div class="image">
-                                    <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid" alt="testimonial-image">
-                                </div>
-                                <div class="testimonial-content d-flex flex-column text-left justify-content-center align-items-start ml-3">
-                                    <h5 class="testimonial-title font-weight-bold">
-                                        Jessya Inn
-                                    </h5>
-                                    <p class="dark-text m-0">Lorem ipsum dolor</p>
-                                </div>
-                            </div>
-                            <p class="our-services-text mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto aliquid saepe quibusdam soluta dolore dolor quas voluptatibus. Recusandae tempora aspernatur, dolor quas voluptatibus. Recusandae, consequatur neque.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    @endforeach
         </div>
     </div>
 </section>

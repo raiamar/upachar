@@ -40,11 +40,6 @@
                         </div>
                     </a>
                     @endforeach
-
-                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/5.jpg"
-                            class="img-fluid w-100"> </div>
-                    <div class="slick-item position-relative"> <img src="frontend/assets/images/product-images/6.jpg"
-                            class="img-fluid w-100"> </div>
                 </div>
             </div>
         </div>
@@ -92,9 +87,9 @@
                                     {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
                                     <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="" class="fa fa-exchange addToCompare" data-id="{{ $product->id }}"></a>
-                                </li>
+                                </li> --}}
                             </ul> 
                             @if (! $product->discount == 0)
                                 <span class="product-discount-label">-{{$product->discount}}%</span>
@@ -284,9 +279,9 @@
                                 {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
                                 <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="" class="fa fa-exchange"></a>
-                            </li>
+                            </li> --}}
                         </ul> 
                         @if (! $product->discount == 0)
                             <span class="product-discount-label">-{{$product->discount}}%</span>

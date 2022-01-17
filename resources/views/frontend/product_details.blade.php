@@ -40,7 +40,7 @@
         <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">{{__('Home')}}>{{$detailedProduct->category->name}}>{{$detailedProduct->subcategory->name}}</div>
+        <a href="/" class="title p-4">{{__('Home')}}>{{$detailedProduct->category->name}}>{{$detailedProduct->subcategory->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -106,18 +106,22 @@
                                     $rating += $seller_product->reviews->sum('rating');
                                 }
                             @endphp
-                            <div class="rating-wrapper mb-2">
-                                <div class="p-ratings">
-                                    <span class="star-rating">
-                                        {{-- {{ renderStarRating($detailedProduct->rating) }} --}}
-                                        @if ($total > 0)
-                                        {{ renderStarRating($rating/$total) }}
-                                    @else
-                                        {{ renderStarRating(0) }}
-                                    @endif
-                                    </span>
-                                </div>
+                            {{-- {{$total_review}}
+                            {{$total}}
+                            {{$rating}} --}}
+
+                            <div class="p-ratings">
+                                <span class="star-rating">
+                                    {{-- {{ renderStarRating($detailedProduct->rating) }} --}}
+                                @if ($total > 0)
+                                    {{ renderStarRating($rating/$total) }}
+                                @else
+                                    {{ renderStarRating(0) }}
+                                @endif
+                                
+                                </span>
                             </div>
+
                             @php
                                 $currency = App\Currency::where('status', 1)->first();
                             @endphp
@@ -414,7 +418,10 @@
                             </div>
                         </div>
                     </div>
-                    @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(4)->get() as $key => $related_product)
+                    @php
+                        $related_products = filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(4)->get(); 
+                    @endphp
+                    @foreach ($related_products as $key => $related_product)
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
                         <div class="product-grid-item">
                             <div class="product-grid-image">
@@ -472,5 +479,8 @@
         border-radius: 50px;
         height: 5px;
     }
+
+
+
 
 </style>

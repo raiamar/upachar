@@ -129,6 +129,7 @@ class HomeController extends Controller
             return view('frontend.seller.profile');
         }
     }
+    
 
     public function customer_update_profile(Request $request)
     {
@@ -705,5 +706,11 @@ class HomeController extends Controller
         $categories = Category::where('digital', 1)->get();
         $product = Product::find(decrypt($id));
         return view('frontend.seller.digitalproducts.product_edit', compact('categories', 'product'));
+    }
+
+
+
+    public function vendors(){
+        return view('frontend.seller.vendor');
     }
 }
