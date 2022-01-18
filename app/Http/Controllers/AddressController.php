@@ -48,6 +48,21 @@ class AddressController extends Controller
         return back();
     }
 
+
+    public function storeAddress(Request $request)
+    {
+        $address = new Address;
+        $address->user_id = Auth::user()->id;
+        $address->address = $request->address;
+        $address->country = $request->country;
+        $address->city = $request->city;
+        $address->postal_code = $request->postal_code;
+        $address->phone = $request->phone;
+        $address->save();
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

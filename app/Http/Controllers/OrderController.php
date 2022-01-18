@@ -270,30 +270,30 @@ class OrderController extends Controller
                 $order_detail->variation = $product_variation;
                 $order_detail->price = $cartItem['price'] * $cartItem['quantity'];
                 $order_detail->tax = $cartItem['tax'] * $cartItem['quantity'];
-                $order_detail->shipping_type = $cartItem['shipping_type'];
+                // $order_detail->shipping_type = $cartItem['shipping_type'];
                 $order_detail->product_referral_code = $cartItem['product_referral_code'];
                 //Dividing Shipping Costs
-                if ($cartItem['shipping_type'] == 'home_delivery') {
-                    if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
-                        $order_detail->shipping_cost = $shipping/count(Session::get('cart'));
-                    }
-                    elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
-                        if($product->added_by == 'admin'){
-                            $order_detail->shipping_cost = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value/count($admin_products);
-                        }
-                        else {
-                            $order_detail->shipping_cost = \App\Shop::where('user_id', $product->user_id)->first()->shipping_cost/count($seller_products[$product->user_id]);
-                        }
-                    }
-                    else{
-                        $order_detail->shipping_cost = \App\Product::find($cartItem['id'])->shipping_cost;
-                        $shipping += \App\Product::find($cartItem['id'])->shipping_cost;
-                    }
-                }
-                else{
-                    $order_detail->shipping_cost = 0;
-                    $order_detail->pickup_point_id = $cartItem['pickup_point'];
-                }
+                // if ($cartItem['shipping_type'] == 'home_delivery') {
+                //     if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
+                //         $order_detail->shipping_cost = $shipping/count(Session::get('cart'));
+                //     }
+                //     elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
+                //         if($product->added_by == 'admin'){
+                //             $order_detail->shipping_cost = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value/count($admin_products);
+                //         }
+                //         else {
+                //             $order_detail->shipping_cost = \App\Shop::where('user_id', $product->user_id)->first()->shipping_cost/count($seller_products[$product->user_id]);
+                //         }
+                //     }
+                //     else{
+                //         $order_detail->shipping_cost = \App\Product::find($cartItem['id'])->shipping_cost;
+                //         $shipping += \App\Product::find($cartItem['id'])->shipping_cost;
+                //     }
+                // }
+                // else{
+                //     $order_detail->shipping_cost = 0;
+                //     $order_detail->pickup_point_id = $cartItem['pickup_point'];
+                // }
                 //End of storing shipping cost
                 $order_detail->quantity = $cartItem['quantity'];
                 $order_detail->save();

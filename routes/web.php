@@ -45,6 +45,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/about', 'HomeController@about_us')->name('about.us');
 Route::get('/all_sellers', 'HomeController@vendors')->name('all.sellers');
+Route::get('/vendor/dashboard', 'HomeController@vendor_dashboard')->name('vendor.dashboard');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
@@ -88,6 +89,10 @@ Route::post('/cart/addto-cart', 'CartController@addTo_Cart')->name('cart.addTo_C
 Route::any('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart.removeFromCart');
 // Route::get('/cart/{id}/removeFromCart/{user}', 'CartController@removeFromCart')->name('cart.removeFromCart');
 Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart.updateQuantity');
+
+//Contact Routes
+
+
 
 //Checkout Routes
 Route::group(['middleware' => ['checkout']], function(){
@@ -253,6 +258,7 @@ Route::get('/vogue-pay/success/{id}', 'VoguePayController@paymentSuccess');
 Route::get('/vogue-pay/failure/{id}', 'VoguePayController@paymentFailure');
 
 Route::resource('addresses','AddressController');
+Route::post('/add/address','AddressController@storeAddress')->name('addAddress');
 Route::get('/addresses/destroy/{id}', 'AddressController@destroy')->name('addresses.destroy');
 Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name('addresses.set_default');
 
