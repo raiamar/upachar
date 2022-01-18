@@ -7,11 +7,12 @@
         <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">Page Title</div>
+        <div class="title p-4">Checkout</div>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
 
+{{$categories}}
 
 <!-- Checkout -->
 <section id="checkout-wrapper" class="py-3">
@@ -35,7 +36,7 @@
                                         <div class="col-12">
                                             <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_shipping_infostore') }}" role="form" method="POST">
                                             @csrf
-                                                @if(Auth::check())
+                                            @if(Session::has('cart'))
                                             <div class="profile-side-detail-edit">
                                                 <div class="dashboard-content d-flex align-items-center h-100">
                                                     <div class="shopping-cart">
@@ -54,6 +55,10 @@
                                                                     </thead>
                                                                     <!-- /thead -->
                                                                     <tbody>
+                                                                        @foreach (Session::get('cart') as $key => $cartItem)
+                                                                        @php
+                                                                            $total = 0;
+                                                                        @endphp
                                                                         <tr>
                                                                             <td class="cart-image">
                                                                                 <a class="entry-thumbnail" href="product-product-detail.html">
@@ -79,59 +84,9 @@
                                                                             <td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
                                                                             </td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td class="cart-image">
-                                                                                <a class="entry-thumbnail" href="product-detail.html">
-                                                                                    <img src="frontend/assets/images/product-images/8.jpg" class="img-fluid">
-                                                                                </a>
-                                                                            </td>
-                                                                            <td class="cart-product-name-info">
-                                                                                <h4 class="cart-product-description"><a href="product-detail.html">Yoga Mat</a></h4>
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <div class="rating rateit-small"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- /.row -->
-                                                                            </td>
-                                                                            <td class="cart-product-quantity">
-                                                                                <div class="quant-input">
-                                                                                    <input type="number" value="1">
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span>
-                                                                            </td>
-                                                                            <td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="cart-image">
-                                                                                <a class="entry-thumbnail" href="product-detail.html">
-                                                                                    <img src="frontend/assets/images/product-images/9.jpg" class="img-fluid">
-                                                                                </a>
-                                                                            </td>
-                                                                            <td class="cart-product-name-info">
-                                                                                <h4 class="cart-product-description"><a href="product-detail.html">Yoga Mat</a></h4>
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <div class="rating rateit-small"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- /.row -->
-                                                                            </td>
-                                                                            <td class="cart-product-quantity">
-                                                                                <div class="quant-input">
-                                                                                    <input type="number" value="1">
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span>
-                                                                            </td>
-                                                                            <td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
-                                                                            </td>
-
-                                                                        </tr>
                                                                     </tbody>
                                                                     <!-- /tbody -->
+                                                                    @endforeach
                                                                 </table>
                                                                 <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
                                                                     <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">

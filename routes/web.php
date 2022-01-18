@@ -153,7 +153,7 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
 	Route::resource('wishlists','WishlistController');
-	Route::post('/wishlists/remove', 'WishlistController@remove')->name('wishlists.remove');
+	Route::get('/wishlists/remove/{id}', 'WishlistController@remove')->name('wishlists.remove');
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');

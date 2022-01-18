@@ -54,14 +54,17 @@ class WishlistController extends Controller
         return 0;
     }
 
-    public function remove(Request $request)
+    public function remove(Request $request, $id)
     {
         $wishlist = Wishlist::findOrFail($request->id);
-        if($wishlist!=null){
-            if(Wishlist::destroy($request->id)){
-                return view('frontend.partials.wishlist');
-            }
-        }
+        // if($wishlist!=null){
+            // if(Wishlist::destroy($request->id)){
+                // return view('frontend.partials.wishlist');
+            // }
+        // }
+        $wishlist->delete();
+        $wishlists = Wishlist::where('user_id', Auth::user()->id)->paginate(9);
+        return view('frontend.view_wishlist', compact('wishlists'));
     }
 
     /**
