@@ -42,11 +42,14 @@ Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategor
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/about', 'HomeController@about_us')->name('about.us');
+Route::get('/all_sellers', 'HomeController@vendors')->name('all.sellers');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');
-//category dropdown menu ajax call
+//category dropdown menu ajax call 	
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
 
 //Flash Deal Details Page
@@ -77,11 +80,13 @@ Route::post('/product/variant_price', 'HomeController@variant_price')->name('pro
 Route::get('/shops/visit/{slug}', 'HomeController@shop')->name('shop.visit');
 Route::get('/shops/visit/{slug}/{type}', 'HomeController@filter_shop')->name('shop.visit.type');
 
-Route::get('/cart', 'CartController@index')->name('cart');
+Route::get('/cart', 'CartController@index')->name('cart')->middleware('auth');
 Route::post('/cart/nav-cart-items', 'CartController@updateNavCart')->name('cart.nav_cart');
 Route::post('/cart/show-cart-modal', 'CartController@showCartModal')->name('cart.showCartModal');
 Route::post('/cart/addtocart', 'CartController@addToCart')->name('cart.addToCart');
-Route::post('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart.removeFromCart');
+Route::post('/cart/addto-cart', 'CartController@addTo_Cart')->name('cart.addTo_Cart');
+Route::any('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart.removeFromCart');
+// Route::get('/cart/{id}/removeFromCart/{user}', 'CartController@removeFromCart')->name('cart.removeFromCart');
 Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart.updateQuantity');
 
 //Checkout Routes
@@ -125,6 +130,7 @@ Route::resource('subscribers','SubscriberController');
 Route::get('/brands', 'HomeController@all_brands')->name('brands.all');
 Route::get('/categories', 'HomeController@all_categories')->name('categories.all');
 Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/search-product', 'HomeController@search_product')->name('search-product');
 Route::get('/search?q={search}', 'HomeController@search')->name('suggestion.search');
 Route::post('/ajax-search', 'HomeController@ajax_search')->name('search.ajax');
 Route::post('/config_content', 'HomeController@product_content')->name('configs.update_status');
@@ -134,6 +140,7 @@ Route::get('/returnpolicy', 'HomeController@returnpolicy')->name('returnpolicy')
 Route::get('/supportpolicy', 'HomeController@supportpolicy')->name('supportpolicy');
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacypolicy', 'HomeController@privacypolicy')->name('privacypolicy');
+
 
 Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
@@ -146,7 +153,7 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
 	Route::resource('wishlists','WishlistController');
-	Route::post('/wishlists/remove', 'WishlistController@remove')->name('wishlists.remove');
+	Route::get('/wishlists/remove/{id}', 'WishlistController@remove')->name('wishlists.remove');
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');

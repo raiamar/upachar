@@ -13,6 +13,38 @@
 
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
+
+
+	// This is route for testimonials
+		Route::get('/testimonial/view', function (){
+			return view ('testimonial.index');
+		})->name('pages.testimonialindex');
+		Route::get('/testimonial/create', function (){
+			return view ('testimonial.create');
+			})->name('pages.testimonialcreate');
+		Route::get('/testimonial/edit/{id}', 'PageController@testimonialedit')->name('pages.testimonialedit');
+		Route::post('/testimonial/update/{id}', 'PageController@testimonialupdate')->name('pages.testimonialupdate');
+		Route::post('/testimonial/store', 'PageController@testimonialstore')->name('pages.testimonialstore');
+		Route::post('/testimonial/update_status', 'PageController@testimonialupdate_status')->name('pages.testimonialupdate_status');
+		Route::get('/testimonial/delete/{id}', 'PageController@testimonial_delete')->name('pages.testimonialdelete');
+
+
+// This is route for faq
+Route::get('/faq/view', function (){
+	return view ('faq.index');
+})->name('pages.faqindex');
+Route::get('/faq/create', function (){
+	return view ('faq.create');
+})->name('pages.faqcreate');
+Route::post('/faq/store', 'PageController@faqstore')->name('pages.faqstore');
+Route::get('/faq/edit/{id}', 'PageController@faqedit')->name('pages.faqedit');
+Route::post('/faq/update/{id}', 'PageController@faqupdate')->name('pages.faqupdate');
+Route::get('/faq/delete/{id}', 'PageController@faqdelete')->name('pages.faqdelete');
+Route::post('/faq/update_status', 'PageController@faqupdate_status')->name('pages.faqupdate_status');
+
+
+
+		
 	Route::resource('categories','CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');
 	Route::post('/categories/featured', 'CategoryController@updateFeatured')->name('categories.featured');

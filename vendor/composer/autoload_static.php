@@ -736,6 +736,7 @@ class ComposerStaticInitc3b5cf5bf345ac7997a4a8b645b7be0f
         'App\\CustomerProduct' => __DIR__ . '/../..' . '/app/CustomerProduct.php',
         'App\\CustomersImport' => __DIR__ . '/../..' . '/app/CustomersImport.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Faq' => __DIR__ . '/../..' . '/app/Faq.php',
         'App\\FlashDeal' => __DIR__ . '/../..' . '/app/FlashDeal.php',
         'App\\FlashDealProduct' => __DIR__ . '/../..' . '/app/FlashDealProduct.php',
         'App\\GeneralSetting' => __DIR__ . '/../..' . '/app/GeneralSetting.php',

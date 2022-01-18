@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="slice-xs sct-color-2 border-bottom">
+    {{-- <section class="slice-xs sct-color-2 border-bottom">
         <div class="container container-sm">
             <div class="row cols-delimited justify-content-center">
                 <div class="col">
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     <section class="py-4 gry-bg" id="cart-summary">
@@ -107,7 +107,7 @@
                                             <tr class="cart-item">
                                                 <td class="product-image">
                                                     <a href="#" class="mr-3">
-                                                        <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}">
+                                                        <img loading="lazy"  src="{{ asset($product->thumbnail_img) }}" style="width:50px;">
                                                     </a>
                                                 </td>
 
@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-md-6 text-right">
                                 @if(Auth::check())
-                                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{__('Continue to Shipping')}}</a>
+                                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1" style="color: black">{{__('Continue to Shipping')}}</a>
                                 @else
                                     <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
                                 @endif

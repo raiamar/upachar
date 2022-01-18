@@ -9,9 +9,9 @@
 <div class="flex-row">
     <div class="flex-col-xl-6 blank-index d-flex align-items-center justify-content-center"
     @if ($generalsetting->admin_login_sidebar != null)
-        style="background-image:url('{{ asset($generalsetting->admin_login_sidebar) }}');"
+        style="background-image:url('{{ asset($generalsetting->logo) }}');"
     @else
-        style="background-image:url('{{ asset('img/bg-img/login-box.jpg') }}');"
+        {{-- style="background-image:url('{{ asset('img/bg-img/login-box.jpg') }}');" --}}
     @endif>
 
     </div>

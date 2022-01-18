@@ -71,6 +71,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $user = User::create([
                 'name' => $data['name'],

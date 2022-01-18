@@ -582,10 +582,11 @@ if(! function_exists('renderStarRating')){
         $emptyStar = "<i class = 'fa fa-star'></i>";
         $rating = $rating <= $maxRating?$rating:$maxRating;
 
+        
         $fullStarCount = (int)$rating;
         $halfStarCount = ceil($rating)-$fullStarCount;
         $emptyStarCount = $maxRating -$fullStarCount-$halfStarCount;
-
+        
         $html = str_repeat($fullStar,$fullStarCount);
         $html .= str_repeat($halfStar,$halfStarCount);
         $html .= str_repeat($emptyStar,$emptyStarCount);

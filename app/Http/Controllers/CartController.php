@@ -8,13 +8,14 @@ use App\SubSubCategory;
 use App\Category;
 use Session;
 use App\Color;
+use Auth;
 use Cookie;
+use App\Models\Cart;
 
 class CartController extends Controller
 {
     public function index(Request $request)
     {
-        //dd($cart->all());
         $categories = Category::all();
         return view('frontend.view_cart', compact('categories'));
     }
@@ -30,8 +31,30 @@ class CartController extends Controller
         return view('frontend.partials.cart');
     }
 
+
     public function addToCart(Request $request)
     {
+
+        if(Auth::check()){
+            $cart = Cart::where('user_id', Auth::user()->id)->where('product_id', $request->id)->first();
+            if($cart == null){
+                $cart = new cart;
+                $cart->user_id = Auth::user()->id;
+                $cart->product_id = $request->id;
+                $cart->save();
+
+            }
+            $count = Cart::where('user_id', Auth::user()->id)->count();
+            return response()->json($count);
+            // return view('frontend.partials.wishlist');
+        }
+        return 0;
+    }
+
+
+    public function addTo_Cart(Request $request)
+    {
+        
         $product = Product::find($request->id);
 
         $data = array();
@@ -148,21 +171,32 @@ class CartController extends Controller
             $cart = collect([$data]);
             $request->session()->put('cart', $cart);
         }
-
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }
 
     //removes from Cart
-    public function removeFromCart(Request $request)
-    {
-        if($request->session()->has('cart')){
-            $cart = $request->session()->get('cart', collect([]));
-            $cart->forget($request->key);
-            $request->session()->put('cart', $cart);
-        }
+    // public function removeFromCart($id, $user)
+    // {
+    //     $data = Cart::where('user_id', $user)->where('product_id', $id)->first();
+    //     return $data;
+        // ->where(['product_id'=> $id, 'user_id'=>$user]);
+        // $data->delete();
+        // return view('frontend.index');
+    // }
 
-        return view('frontend.partials.cart_details');
-    }
+
+
+     //removes from Cart
+     public function removeFromCart(Request $request)
+     {
+         if($request->session()->has('cart')){
+             $cart = $request->session()->get('cart', collect([]));
+             $cart->forget($request->key);
+             $request->session()->put('cart', $cart);
+         }
+ 
+         return view('frontend.partials.cart_details');
+     }
 
     //updated the quantity for a cart item
     public function updateQuantity(Request $request)

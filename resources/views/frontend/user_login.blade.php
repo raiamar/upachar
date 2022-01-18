@@ -1,120 +1,80 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="gry-bg py-5">
-        <div class="profile">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
-                        <div class="card">
-                            <div class="text-center px-35 pt-5">
-                                <h1 class="heading heading-4 strong-500">
-                                    {{__('Login to your account.')}}
-                                </h1>
+    <!-- Login Register -->
+    <div id="login-register-wrapper" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center align-items-center position-relative">                
+                <div class="col-xl-5 col-lg-5 col-md-7 col-12 login-wrap">
+                    <form class="px-xl-5 px-lg-5 px-md-4 px-3 pt-5 pb-2" role="form" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                            <span>{{ __('Use country code before number') }}</span>
+                        @endif
+                        <div class="FormLeft text-center">
+                            <h1 class="font-weight-bold mb-4">{{__('Login')}}</h1>
+                            <div class="form-group position-relative mb-4">
+                                @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                                    <input type="text" class="form-control form-control-sm {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{__('Email Or Phone')}}" name="email" id="email">
+                                @else
+                                <input type="text"
+                                    class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent{{ $errors->has('email') ? ' is-invalid' : '' }}" type="email"
+                                     value="{{ old('email') }}" placeholder="{{ __('Email') }}" name="email">
+                                <i class="fa fa-user-o" aria-hidden="true"></i>
+                                @endif
                             </div>
-                            <div class="px-5 py-3 py-lg-4">
-                                <div class="">
-                                    <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
-                                        @csrf
-                                        @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
-                                            <span>{{ __('Use country code before number') }}</span>
-                                        @endif
-                                        <div class="form-group">
-                                            <div class="input-group input-group--style-1">
-                                                @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
-                                                    <input type="text" class="form-control form-control-sm {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{__('Email Or Phone')}}" name="email" id="email">
-                                                @else
-                                                    <input type="email" class="form-control form-control-sm {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ __('Email') }}" name="email">
-                                                @endif
-                                                <span class="input-group-addon">
-                                                    <i class="text-md la la-user"></i>
-                                                </span>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <div class="input-group input-group--style-1">
-                                                <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('Password')}}" name="password" id="password">
-                                                <span class="input-group-addon">
-                                                    <i class="text-md la la-lock"></i>
-                                                </span>
-                                            </div>
-                                        </div>
+                            <div class="form-group position-relative mb-4">
+                                <input type="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0
+                                            shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('Password')}}" name="password" id="password">
+                                <i class="fa fa-key" aria-hidden="true"></i>
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <div class="checkbox pad-btm text-left">
-                                                        <input id="demo-form-checkbox" class="magic-checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                        <label for="demo-form-checkbox" class="text-sm">
-                                                            {{ __('Remember Me') }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
-                                        </div>
-                                    </form>
-                                    @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
-                                        <div class="or or--1 mt-3 text-center">
-                                            <span>or</span>
-                                        </div>
-                                        <div>
-                                        @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
-                                                <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
-                                            </a>
-                                        @endif
-                                        @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
-                                                <i class="icon fa fa-google"></i> {{__('Login with Google')}}
-                                            </a>
-                                        @endif
-                                        @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="btn btn-styled btn-block btn-twitter btn-icon--2 btn-icon-left px-4">
-                                                <i class="icon fa fa-twitter"></i> {{__('Login with Twitter')}}
-                                            </a>
-                                        @endif
-                                        </div>
-                                    @endif
+                            </div>
+                            <div class="row mt-4 mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-check text-left">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            {{ __('Remember Me') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-xl-right text-lg-right text-center mt-xl-0 mt-lg-0 mt-2">
+                                    <a href="{{ route('password.request') }}">{{__('Forgot password?')}}</a>
                                 </div>
                             </div>
-                            <div class="text-center px-35 pb-3">
-                                <p class="text-md">
-                                    {{__('Need an account?')}} <a href="{{ route('user.registration') }}" class="strong-600">{{__('Register Now')}}</a>
-                                </p>
-                            </div>
+
+                            <button class="effect anchor-btn" type="submit">
+                                {{ __('Login') }}
+                            </button>
+
+                            <p class="text-center mt-4">
+                                Don't have an account?
+                                <span>
+                                    <a href="{{route('user.registration')}}">{{__('Register')}}</a>
+                                </span>
+                            </p>
+                            <div class="row mb-4 px-3 justify-content-center">
+                                <h6 class="mb-xl-0 mb-lg-0 mb-3 mr-2 mt-2">Sign in with</h6>
+                                <div class="social-media d-flex">
+                                    <div class="facebook text-center mr-3">
+                                        <div class="fa fa-facebook" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="twitter text-center mr-3">
+                                        <div class="fa fa-twitter" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="linkedin text-center mr-3">
+                                        <div class="fa fa-linkedin" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                            </div>     
                         </div>
-                    </div>
-                    @if (env("DEMO_MODE") == "On")
-                        <div class="bg-white p-4 mx-auto mt-4">
-                            <div class="">
-                                <table class="table table-responsive table-bordered mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td>{{__('Seller Account')}}</td>
-                                            <td><button class="btn btn-info" onclick="autoFillSeller()">Copy credentials</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{__('Customer Account')}}</td>
-                                            <td><button class="btn btn-info" onclick="autoFillCustomer()">Copy credentials</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @endif
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <!-- Login Register Ends -->
 @endsection
 
 @section('script')

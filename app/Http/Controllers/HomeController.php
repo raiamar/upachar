@@ -20,10 +20,12 @@ use App\Seller;
 use App\Shop;
 use App\Color;
 use App\Order;
+use App\Models\Cart;
 use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
 use ImageOptimizer;
 use Cookie;
+use DB;
 
 class HomeController extends Controller
 {
@@ -127,6 +129,7 @@ class HomeController extends Controller
             return view('frontend.seller.profile');
         }
     }
+    
 
     public function customer_update_profile(Request $request)
     {
@@ -199,6 +202,16 @@ class HomeController extends Controller
     public function index()
     {
         return view('frontend.index');
+        // return view('frontend.oldindex');
+    }
+
+
+    public function contact(){
+        return view('frontend.contact');
+    }
+
+    public function about_us(){
+        return view('frontend.about_us');
     }
 
     public function flash_deal_details($slug)
@@ -253,7 +266,7 @@ class HomeController extends Controller
             else {
                 return view('frontend.product_details', compact('detailedProduct'));
             }
-            // return view('frontend.product_details', compact('detailedProduct'));
+            return view('frontend.product_details', compact('detailedProduct'));
         }
         abort(404);
     }
@@ -284,6 +297,7 @@ class HomeController extends Controller
 
     public function listing(Request $request)
     {
+        // return 'iam in homecontroller';
         // $products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(12);
         // return view('frontend.product_listing', compact('products'));
         return $this->search($request);
@@ -365,6 +379,14 @@ class HomeController extends Controller
         }
         return '0';
     }
+
+    public function search_product(Request $request){
+        $products = DB::table('products')
+        // ->select('t1.name', 't1.featured_img', 't1.slug')
+        ->where('products.name', 'like', '%' . $request->name . '%')->get();
+        return response()->json($products);
+    }
+
 
     public function search(Request $request)
     {
@@ -684,5 +706,11 @@ class HomeController extends Controller
         $categories = Category::where('digital', 1)->get();
         $product = Product::find(decrypt($id));
         return view('frontend.seller.digitalproducts.product_edit', compact('categories', 'product'));
+    }
+
+
+
+    public function vendors(){
+        return view('frontend.seller.vendor');
     }
 }

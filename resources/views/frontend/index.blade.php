@@ -1,381 +1,444 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="home-banner-area mb-4">
-        <div class="container">
-            <div class="row no-gutters position-relative">
-                <div class="col-lg-3 position-static order-2 order-lg-0">
-                    <div class="category-sidebar">
-                        <div class="all-category d-none d-lg-block">
-                            <span >{{__('Categories')}}</span>
-                            <a href="{{ route('categories.all') }}">
-                                <span class="d-none d-lg-inline-block">{{__('See All')}} ></span>
-                            </a>
-                        </div>
-                        <ul class="categories no-scrollbar">
-                            <li class="d-lg-none">
-                                <a href="{{ route('categories.all') }}">
-                                    <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/list.png') }}" width="30" alt="{{ __('All Category') }}">
-                                    <span class="cat-name">{{__('All')}} <br> {{__('Categories')}}</span>
+<section id="banner-categories-wrapper" class="position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 d-lg-block d-none">
+                <ul class="categories-bar border_one pt-2" style="overflow-y: scroll;">
+                    @foreach (\App\Category::all()->take(9) as $key => $category)
+                    <li class="product_icon d-block px-3" data-id="{{ $category->id }}">
+                        <a href="{{ route('products.category', $category->slug) }}" class="sub_icon d-flex justify-content-between">
+                            {{$category->name}}
+                            <span class="pl-2">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        </a>
+                        <ul class="sub_menu_list">
+                            @if(count($category->subcategories)>0)
+                            @foreach ($category->subcategories as $sub)
+                            <li>
+                                <a href="{{ route('products.subcategory', $category->slug) }}">
+                                    <span class="mr-2"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    {{$sub->name}}
                                 </a>
                             </li>
-                            @foreach (\App\Category::all()->take(11) as $key => $category)
-                                @php
-                                    $brands = array();
-                                @endphp
-                                <li class="category-nav-element" data-id="{{ $category->id }}">
-                                    <a href="{{ route('products.category', $category->slug) }}">
-                                        <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
-                                        <span class="cat-name">{{ __($category->name) }}</span>
-                                    </a>
-                                    @if(count($category->subcategories)>0)
-                                        <div class="sub-cat-menu c-scrollbar">
-                                            <div class="c-preloader">
-                                                <i class="fa fa-spin fa-spinner"></i>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </li>
-                            @endforeach
+                            @endforeach                                        
+                            @endif
                         </ul>
-                    </div>
-                </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            
+            <div class="col-xl-9 col-lg-9 col-md-12 col-12">
+                <div class="slick-slider">
 
-                @php
-                    $num_todays_deal = count(filter_products(\App\Product::where('published', 1)->where('todays_deal', 1 ))->get());
-                @endphp
-
-                <div class="@if($num_todays_deal > 0) col-lg-7 @else col-lg-9 @endif order-1 order-lg-0">
-                    <div class="home-slide">
-                        <div class="home-slide">
-                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
-                                @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
-                                    <div class="" style="height:275px;">
-                                        <a href="{{ $slider->link }}" target="_blank">
-                                        <img class="d-block w-100 h-100 lazyload" src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo">
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
+                    @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
+                    <a href ="{{ $slider->link }}"><div class="slick-item position-relative"> <img
+                        src="{{ asset($slider->photo) }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo"
+                            class="img-fluid w-100"> 
                         </div>
-                    </div>
-                    <div class="trending-category  d-none d-lg-block">
-                        <ul>
-                            @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
-                                <li @if ($key == 0) class="active" @endif>
-                                    <div class="trend-category-single">
-                                        <a href="{{ route('products.category', $category->slug) }}" class="d-block">
-                                            <div class="name">{{ __($category->name) }}</div>
-                                            <div class="img">
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="lazyload img-fit">
-                                            </div>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    </a>
+                    @endforeach
                 </div>
-
-                @if($num_todays_deal > 0)
-                <div class="col-lg-2 d-none d-lg-block">
-                    <div class="flash-deal-box bg-white h-100">
-                        <div class="title text-center p-2 gry-bg">
-                            <h3 class="heading-6 mb-0">
-                                {{ __('Todays Deal') }}
-                                <span class="badge badge-danger">{{__('Hot')}}</span>
-                            </h3>
-                        </div>
-                        <div class="flash-content c-scrollbar c-height">
-                            @foreach (filter_products(\App\Product::where('published', 1)->where('todays_deal', '1'))->get() as $key => $product)
-                                @if ($product != null)
-                                    <a href="{{ route('product', $product->slug) }}" class="d-block flash-deal-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col">
-                                                <div class="img">
-                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name) }}">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="price">
-                                                    <span class="d-block">{{ home_discounted_base_price($product->id) }}</span>
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="d-block">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endif
-
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    @php
-        $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
-    @endphp
-    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
-    <section class="mb-4">
-        <div class="container">
-            <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-                <div class="section-title-1 clearfix ">
-                    <h3 class="heading-5 strong-700 mb-0 float-left">
-                        {{__('Flash Sale')}}
-                    </h3>
-                    <div class="flash-deal-box float-left">
-                        <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
+<!-- Banner Categories Slider Ends-->
+<!-- Product Listing -->
+<section id="product-listing-wrapper" class="position-relative py-5">
+    <div class="container">
+        <div class="product-lists">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="head">
+                            <h2 class="font-weight-bold">{{__('Featured Products')}}</h2>
+                            <p>THERE'S SOMETHING FOR EVERYONE</p>
+                        </div>
+                        <div class="navigator"> <a href="{{ route('products') }}">See all</a> </div>
                     </div>
-                    <ul class="inline-links float-right">
-                        <li><a href="{{ route('flash-deal-details', $flash_deal->slug) }}" class="active">View More</a></li>
-                    </ul>
                 </div>
-                <div class="caorusel-box arrow-round gutters-5">
-                    <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                    @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                        @php
-                            $product = \App\Product::find($flash_deal_product->product_id);
-                        @endphp
-                        @if ($product != null && $product->published != 0)
-                            <div class="caorusel-card">
-                                <div class="product-card-2 card card-product shop-cards">
-                                    <div class="card-body p-0">
-                                        <div class="card-image">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
-                                            </a>
-                                        </div>
+            @php
+                $new_products = \App\Product::where('featured', 1)->limit(4)->get();
+                $currency = \App\Currency::where('status', 1)->first();
+            @endphp
+            @foreach ($new_products as $key => $product)
 
-                                        <div class="p-md-3 p-2">
-                                            <div class="price-box">
-                                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                @endif
-                                                <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                            </div>
-                                            <div class="star-rating star-rating-sm mt-1">
-                                                {{ renderStarRating($product->rating) }}
-                                            </div>
-                                            <h2 class="product-title p-0">
-                                                <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                            </h2>
-                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                    {{ __('Club Point') }}:
-                                                    <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
+                    <div class="product-grid-item2">
+                        <div class="product-grid-image2">
+                             <a href="{{ route('product', $product->slug) }}"> 
+                                @php
+                                    $filepath = $product->featured_img;
+                                @endphp
+                                @if(isset($filepath))
+                                    <img src="{{ asset( $product->featured_img) }}" alt="No image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                @else
+                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                                @endif
+                            <ul class="social">
+                                <li>
+                                    <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>    
+                                </li>
+                                <li>
+                                    {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
+                                    <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
+                                </li>
+                                {{-- <li>
+                                    <a href="" class="fa fa-exchange addToCompare" data-id="{{ $product->id }}"></a>
+                                </li> --}}
+                            </ul> 
+                            @if (! $product->discount == 0)
+                                <span class="product-discount-label">-{{$product->discount}}%</span>
+                            @endif
+                            
+                            </div>
+                        <div class="product-content">
+                            <h3 class="title text-center fix-text"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
+                            <div class="price text-center mb-3"> 
+                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                @endif
+                                {{ home_discounted_base_price($product->id) }}
+                                {{-- {{$currency->symbol}} {{$product->purchase_price}}.00 
+                                @if (! $product->discount == 0)
+                                    <span>{{$currency->symbol}} {{$product->unit_price}}.00</span>
+                                @endif --}}
+                                 </div> <a class="all-deals effect"
+                                href="{{ route('product', $product->slug) }}">View Product
+                                <i class="fa fa-angle-right icon"></i> </a>
+                            </div>
+                    </div>
+                </div>
+                @endforeach 
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Listing Ends -->
+
+<!-- Full Ads Banner -->
+<section id="full-ads-banner-wrapper" class="position-relative pb-5 pt-2">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (\App\Banner::where('position', 2)->where('published', 1)->get() as $key => $banner)
+            <div class="col-lg-{{ 12/count(\App\Banner::where('position', 2)->where('published', 1)->get()) }}">
+                <div class="image">
+                    <a href="{{ $banner->url }}" target="_blank" class="banner-container"> 
+                        <img src="frontend/assets/images/product-images/5.jpg" class="img-fluid"
+                        data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo"></a>
+                    </div>
+            </div>
+            @endforeach      
+        </div>
+    </div>
+</section>
+<!-- Full Ads Banner Ends -->
+
+<!-- Category -->
+{{-- <section id="slider-category-wrapper" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="head">
+                        <h2 class="font-weight-bold">Shop By Category</h2>
+                        <!-- <p>THERE'S SOMETHING FOR EVERYONE</p> -->
+                    </div>
+                    <div class="navigator"> <a href="{{ route('categories.all') }}">See all</a> </div>
+                </div>
+            </div>
+        </div>
+        <div class="slick-slider-category">
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img
+                                src="https://thumbs.dreamstime.com/b/beauty-fashion-model-girl-wearing-sunglasses-black-white-portrait-stylish-76060621.jpg"
+                                class="img-fluid W-100" alt="category-image"> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Fashion</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR7viQy82Ws8M7Jf0D3I_ypsZHrowMHhIU4A&amp;usqp=CAU"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Gaming</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img src="https://static-01.daraz.com.np/p/a9826d11f184e443f84a734489315a86.png"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Phone</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img src="https://static-01.daraz.com.np/p/92eb940c8d12a886753d33fcddc9b369.jpg"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Cleaning Product</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img src="https://static-01.daraz.com.np/p/e48e0f1dd99f68fc6f500250485c9bb0.jpg"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Point & Shoot</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img src="https://static-01.daraz.com.np/p/62007f2fd8126820529d311e164fcd91.jpg"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">SD Cards</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+            <div class="slick-item position-relative py-4">
+                <a href="product-listing.html">
+                    <div class="category_block bg-white">
+                        <div class="category_img"> <img src="https://static-01.daraz.com.np/p/d99f5d683800cb02fc56d6e0444e858b.jpg"
+                                class="img-fluid W-100" alt=""> </div>
+                        <div class="category_content p-1">
+                            <h5 class="text-center">Tablets</h5>
+                        </div>
+                        </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section> --}}
+<!-- Category Ends -->
+
+<!-- Slider Product Listing -->
+<section id="slider-product-listing" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="head">
+                        <h2 class="font-weight-bold">{{__('Latest Products')}}</h2>
+                        <p>{{__(`THERE'S SOMETHING FOR EVERYONE`)}}</p>
+                    </div>
+                    <div class="navigator"> <a href="{{ route('products') }}">{{__('See all')}}</a> </div>
+                </div>
+            </div>
+        </div>
+        <div class="slick-slider-listing">
+            @php
+                $new_products = \App\Product::latest()->inRandomOrder()
+                ->limit(10)->get();
+                $currency = \App\Currency::where('status', 1)->first();
+            @endphp
+            @foreach ($new_products as $key => $product)
+            <div class="slick-item position-relative py-4">
+                <div class="product-grid-item3 mx-2 bg-white">
+                    <div class="product-grid-image3">
+                        <a href="{{ route('product', $product->slug) }}"> 
+                            @php
+                                $filepath = $product->featured_img;
+                            @endphp
+                            @if(isset($filepath))
+                                <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                            @else
+                                <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
+                            @endif
+                        <ul class="social">
+                            <li>
+                                <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>
+                                {{-- <a href="" class="fa fa-heart-o"></a> --}}
+                            </li>
+                            <li>
+                                {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
+                                <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
+                            </li>
+                            {{-- <li>
+                                <a href="" class="fa fa-exchange"></a>
+                            </li> --}}
+                        </ul> 
+                        @if (! $product->discount == 0)
+                            <span class="product-discount-label">-{{$product->discount}}%</span>
+                        @endif
+                        </div>
+                    <div class="product-content">
+                        <h3 class="title text-center fix-text"> <a href="product-detail.html" class="font-weight-bold">{{$product->name}}</a></h3>
+                        <div class="price text-center mb-3">
+                            @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                            @endif
+                            {{ home_discounted_base_price($product->id) }}
+                        </div>
+                        <!-- <a class="all-deals effect" href="product-detail.html">View Product <i class="fa fa-angle-right icon"></i> --></a>
+                    </div>
+                </div>
+            </div>                
+            @endforeach                    
+        </div>
+    </div>
+</section>
+<!-- Slider Product Listing Ends -->
+<!-- Testimonial  -->
+<section id="testimonial-wrapper" class="position-relative py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="head">
+                        <h2 class="font-weight-bold text-white">Testimonial</h2>
+                        <p class="">WHAT WE HAVE TO SAY !</p>
+                    </div>
+                    <!-- <div class="navigator">
+                        <a href="">See all</a>
+                    </div> -->
+                </div>
+            </div>
+            @php
+                $story = DB::table('testimonial')->where('status','1')->get();
+            @endphp
+            <div class="col-lg-8 col-12 mx-auto py-4">
+                <div class="slick-slider">
+                    @foreach ($story as $testimonial)
+                    <div class="slick-item position-relative">
+                        <div class="testimonial-content-wrap text-center active m-auto pb-2">
+                            <div class="testimonial-image-content d-block d-lg-flex justify-content-center">
+                                <div class="image">
+                                    @php
+                                        $filepath = $testimonial->image;
+                                    @endphp
+                                    @if(isset($filepath))
+                                        <img src="{{ asset( $testimonial->image) }}" alt="No Image" class="m-auto img-fluid"> 
+                                    @else
+                                        <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid">
+                                    @endif                       
+                                </div>
+                                <div class="testimonial-content d-flex flex-column justify-content-center align-items-start ml-3">
+                                    <h5 class="testimonial-title font-weight-bold">
+                                        {{$testimonial->name}}
+                                    </h5>
+                                    <p class="dark-text m-0">{{$testimonial->title}}</p>
                                 </div>
                             </div>
-                        @endif
+                            <p class="our-services-text mt-3">
+                                {{$testimonial->about}}
+                            </p>
+                        </div>
+                    </div>
                     @endforeach
+        </div>
+    </div>
+</section>
+<!-- Testimonial Ends -->
+<div class="c-preloader">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
+<!-- Blog  -->
+<section id="blog-wrapper" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="head">
+                        <h2 class="font-weight-bold">Our Blogs</h2>
+                        <p>THERE'S SOMETHING FOR EVERYONE</p>
                     </div>
+                    <div class="navigator"> <a href="">See all</a> </div>
                 </div>
             </div>
         </div>
-    </section>
-    @endif
-
-    <div class="mb-4">
-        <div class="container">
-            <div class="row gutters-10">
-                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
-                        <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
-                            </a>
+        <div class="row">
+            <!-- Content in col -->
+            <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
+                <div class="blog-content bg-white">
+                    <div class="image">
+                        <img src="frontend/assets/images/product-images/1.jpg" alt="blog-image" class="img-fluid">
+                    </div>
+                    <div class="blog-content px-4 py-3">
+                        <h5 class="title">
+                            Best Place to buy
+                        </h5>
+                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
+                            been developed in association with major organizations in almost every industry.
+                            That’s why our curriculum is suitable for both trainers
+                            and employers.</p>
+                        <div class="button-wrapper">
+                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div id="section_featured">
-
-    </div>
-
-    <div id="section_best_selling">
-
-    </div>
-
-    <div id="section_home_categories">
-
-    </div>
-
-    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
-        @php
-            $customer_products = \App\CustomerProduct::where('status', '1')->where('published', '1')->take(10)->get();
-        @endphp
-       @if (count($customer_products) > 0)
-           <section class="mb-4">
-               <div class="container">
-                   <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-                       <div class="section-title-1 clearfix">
-                           <h3 class="heading-5 strong-700 mb-0 float-left">
-                               <span class="mr-4">{{__('Classified Ads')}}</span>
-                           </h3>
-                           <ul class="inline-links float-right">
-                               <li><a href="{{ route('customer.products') }}" class="active">{{__('View More')}}</a></li>
-                           </ul>
-                       </div>
-                       <div class="caorusel-box arrow-round">
-                           <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                               @foreach ($customer_products as $key => $customer_product)
-                                   <div class="product-card-2 card card-product my-2 mx-1 mx-sm-2 shop-cards shop-tech">
-                                       <div class="card-body p-0">
-                                           <div class="card-image">
-                                               <a href="{{ route('customer.product', $customer_product->slug) }}" class="d-block">
-                                                   <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($customer_product->thumbnail_img) }}" alt="{{ __($customer_product->name) }}">
-                                               </a>
-                                           </div>
-
-                                           <div class="p-sm-3 p-2">
-                                               <div class="price-box">
-                                                   <span class="product-price strong-600">{{ single_price($customer_product->unit_price) }}</span>
-                                               </div>
-                                               <h2 class="product-title p-0 text-truncate-1">
-                                                   <a href="{{ route('customer.product', $customer_product->slug) }}">{{ __($customer_product->name) }}</a>
-                                               </h2>
-                                               <div>
-                                                   @if($customer_product->conditon == 'new')
-                                                       <span class="product-label label-hot">{{__('new')}}</span>
-                                                   @elseif($customer_product->conditon == 'used')
-                                                       <span class="product-label label-hot">{{__('Used')}}</span>
-                                                   @endif
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               @endforeach
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </section>
-       @endif
-   @endif
-
-    <div class="mb-4">
-        <div class="container">
-            <div class="row gutters-10">
-                @foreach (\App\Banner::where('position', 2)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 2)->where('published', 1)->get()) }}">
-                        <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
-                            </a>
+            <!-- Content in col ends -->
+            <!-- Content in col -->
+            <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
+                <div class="blog-content bg-white">
+                    <div class="image">
+                        <img src="frontend/assets/images/product-images/5.jpg" alt="blog-image" class="img-fluid">
+                    </div>
+                    <div class="blog-content px-4 py-3">
+                        <h5 class="title">
+                            Your ecommere world
+                        </h5>
+                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
+                            been developed in association with major organizations in almost every industry.
+                            That’s why our curriculum is suitable for both trainers
+                            and employers.</p>
+                        <div class="button-wrapper">
+                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
-    <div id="section_best_sellers">
-
-    </div>
-
-    <section class="mb-3">
-        <div class="container">
-            <div class="row gutters-10">
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Catogories')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                        @foreach (\App\Category::where('top', 1)->get() as $category)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($category->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Brands')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
-                            </li>
-                        </ul>
+            </div>
+            <!-- Content in col ends -->
+            <!-- Content in col -->
+            <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
+                <div class="blog-content bg-white">
+                    <div class="image">
+                        <img src="frontend/assets/images/product-images/6.jpg" alt="blog-image" class="img-fluid">
                     </div>
-                    <div class="row gutters-5">
-                        @foreach (\App\Brand::where('top', 1)->get() as $brand)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.brand', $brand->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($brand->logo) }}" alt="{{ __($brand->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($brand->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                    <div class="blog-content px-4 py-3">
+                        <h5 class="title">
+                            We shape learners into a valuable asset
+                        </h5>
+                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
+                            been developed in association with major organizations in almost every industry.
+                            That’s why our curriculum is suitable for both trainers
+                            and employers.</p>
+                        <div class="button-wrapper">
+                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- Content in col ends -->
         </div>
-    </section>
-@endsection
+    </div>
+</section>
+<!-- Blog Ends -->
 
-@section('script')
-    <script>
-        $(document).ready(function(){
-            $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_featured').html(data);
-                slickInit();
-            });
-
-            $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_best_selling').html(data);
-                slickInit();
-            });
-
-            $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_home_categories').html(data);
-                slickInit();
-            });
-
-            $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_best_sellers').html(data);
-                slickInit();
-            });
-        });
-    </script>
 @endsection
