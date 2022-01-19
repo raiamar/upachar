@@ -83,14 +83,14 @@
                                     <h6 class="mb-xl-0 mb-lg-0 mb-3 mr-2 mt-2">Sign in with</h6>
                                     <div class="social-media d-flex">
                                         <div class="facebook text-center mr-3">
-                                            <div class="fa fa-facebook" aria-hidden="true"></div>
+                                            <div><a href="{{url('auth/facebook/redirect')}}" class="fa fa-facebook text-white" aria-hidden="true"></a></div>
                                         </div>
                                         <div class="twitter text-center mr-3">
-                                            <div class="fa fa-twitter" aria-hidden="true"></div>
+                                            <div><a href="{{url('auth/google/redirect')}}" class="fa fa-google text-white" aria-hidden="true"></a></div>
                                         </div>
-                                        <div class="linkedin text-center mr-3">
+                                        {{-- <div class="linkedin text-center mr-3">
                                             <div class="fa fa-linkedin" aria-hidden="true"></div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

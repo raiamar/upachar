@@ -1513,7 +1513,7 @@ a.btn:hover {
 #product-detail-wrapper .swiper-container.gallery-thumbs {
   height: 100px !important;
 }
-#product-detail-wrapper .p-ratings .fa-star.active {
+.slick-slider .price .fa-star.active {
   color: orange;
 }
 #product-detail-wrapper .p-ratings .fa-star {
