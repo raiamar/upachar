@@ -77,6 +77,7 @@
                             <strong class="product-quantity">× {{ $cartItem['quantity'] }}</strong>
                         </td>
                         <td class="product-total text-right">
+                            
                             <span class="pl-4">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
                         </td>
                     </tr>
@@ -97,7 +98,7 @@
         </table>
 
         <table class="table-cart table-cart-review">
-
+           
             <tfoot>
                 <tr class="cart-subtotal">
                     <th>{{__('Subtotal')}}</th>
@@ -171,3 +172,9 @@
 
     </div>
 </div>
+onclick="removeFromCartView(event, {{ $key }})"
+@if(Auth::check())
+<a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1" style="color: black">{{__('Continue to Shipping')}}</a>
+@else
+<button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
+@endif
