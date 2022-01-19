@@ -84,6 +84,7 @@
                                     <i class="fa fa-star"></i>
                                 </li>
                             </ul> --}}
+                            {{-- change --}}
 
                         </div>
                     </div>
