@@ -281,11 +281,11 @@ class ProductController extends Controller
         }
         //combinations end
 
-        foreach (Language::all() as $key => $language) {
-            $data = openJSONFile($language->code);
-            $data[$product->name] = $product->name;
-            saveJSONFile($language->code, $data);
-        }
+        //foreach (Language::all() as $key => $language) {
+         //   $data = openJSONFile($language->code);
+        //    $data[$product->name] = $product->name;
+       //     saveJSONFile($language->code, $data);
+       // }
 
 	    $product->save();
 
@@ -302,7 +302,9 @@ class ProductController extends Controller
             return redirect()->route('seller.products');
         }
     }
-
+    public function test(){
+        
+    }
     /**
      * Display the specified resource.
      *
