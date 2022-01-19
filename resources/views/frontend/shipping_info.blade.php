@@ -203,12 +203,12 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-6">
+                                {{-- <div class="col-6">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1" name="payment_option" value="" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="customRadio1">Cash On Delivery</label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-6">
                                     @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
                                     @php

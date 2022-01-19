@@ -242,6 +242,7 @@ class CheckoutController extends Controller
 
     public function store_shipping_info(Request $request)
     {
+        set_time_limit(300);
         // return $request;
         if (Auth::check()) {
             if($request->address_id == null){
@@ -349,7 +350,7 @@ class CheckoutController extends Controller
                     $order = Order::findOrFail($request->session()->get('order_id'));
                     $order->manual_payment = 1;
                     $order->save();
-
+                   
                     $request->session()->put('cart', collect([]));
                     // $request->session()->forget('order_id');
                     $request->session()->forget('delivery_info');
