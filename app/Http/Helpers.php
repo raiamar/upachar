@@ -578,7 +578,7 @@ if (! function_exists('currency_symbol')) {
 if(! function_exists('renderStarRating')){
     function renderStarRating($rating,$maxRating=5) {
         $fullStar = "<i class = 'fa fa-star active'></i>";
-        $halfStar = "<i class = 'fa fa-star half'></i>";
+        $halfStar = "<i class = 'fa fa-star half active'></i>";
         $emptyStar = "<i class = 'fa fa-star'></i>";
         $rating = $rating <= $maxRating?$rating:$maxRating;
 

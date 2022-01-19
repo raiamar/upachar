@@ -17,6 +17,7 @@ use App\CustomerPackage;
 use App\CustomerProduct;
 use App\User;
 use App\Seller;
+use App\Contact;
 use App\Shop;
 use App\Color;
 use App\Order;
@@ -390,6 +391,7 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $bread_crumb = Category::where('slug',$request->category)->first();
         $query = $request->q;
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
@@ -534,7 +536,7 @@ class HomeController extends Controller
 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id','bread_crumb', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
     }
 
     public function product_content(Request $request){
@@ -712,5 +714,16 @@ class HomeController extends Controller
 
     public function vendors(){
         return view('frontend.seller.vendor');
+    }
+
+    public function storeContact(Request $request)
+    {
+       $contact = new Contact();
+       $contact->name = $request->name;
+       $contact->email = $request->email;
+       $contact->phone = $request->phone;
+       $contact->message = $request->message;
+       $contact->save();
+       return redirect()->to('/');
     }
 }

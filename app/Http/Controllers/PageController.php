@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Page;
 use App\Faq ;
+use App\Contact;
 use App\Testimonial;
 use Illuminate\Support\Facades\DB;
 use Response;
@@ -18,6 +19,13 @@ class PageController extends Controller
         $pages = Page::all();
         return view('pages.index', compact('pages'));
     }
+
+    public function contactUs()
+    {
+        $contact = Contact::all();
+        return view('contact.index',compact('contact'));
+    }
+
     public function becomeavendor(Request $request)
     {
        if ($files = $request->file('image')) {

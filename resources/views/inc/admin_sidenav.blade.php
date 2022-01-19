@@ -431,6 +431,9 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('pages.testimonialindex')}}">{{__('Testimonial')}}</a>
                                 </li>
+                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                    <a class="nav-link" href="{{route('pages.contact-us')}}">{{__('Contact Us')}}</a>
+                                </li>
                             </ul>
                         </li>
                         @endif
