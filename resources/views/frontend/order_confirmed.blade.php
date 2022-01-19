@@ -2,10 +2,11 @@
 
 @section('content')
     @php
+      
         $status = $order->orderDetails->first()->delivery_status;
     @endphp
     <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
+        {{-- <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
                     <div class="col">
@@ -64,7 +65,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section class="py-4">
             <div class="container">
                 <div class="row">
