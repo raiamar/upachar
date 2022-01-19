@@ -124,12 +124,15 @@ class LoginController extends Controller
             CoreComponentRepository::instantiateShopRepository();
             return redirect()->route('admin.dashboard');
         }
+        // }elseif(auth()->user()->user_type == 'seller'){
+        //     return redirect()->route('vendor.dashboard');
+        // }
         elseif(session('link') != null){
             return redirect(session('link'));
         }
         else{
             // return redirect()->route('dashboard');
-            return redirect()->route('home');
+            return redirect()->route('profile');
         }
     }
 

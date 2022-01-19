@@ -716,6 +716,11 @@ class HomeController extends Controller
         return view('frontend.seller.vendor');
     }
 
+    public function vendor_dashboard(){
+        $id = Auth::id();
+        $seller = User::where('user_type', 'seller')->where('id', $id)->first();
+        return view('sellers.index', compact('seller'));
+    }
     public function storeContact(Request $request)
     {
        $contact = new Contact();

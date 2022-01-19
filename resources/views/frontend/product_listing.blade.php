@@ -63,7 +63,7 @@
 <!-- Product Listing -->
 <section id="product-listing-wrapper" class="py-5">
     <div class="container">
-        <form class="" id="search-form" action="{{ route('search') }}" method="GET">
+                    
         <div class="product-lists">
             <div class="row">
             
@@ -93,6 +93,26 @@
                                 </div>
                             </div>
                             <!-- Content Ends -->
+
+
+
+                            <div class="bg-white sidebar-box mb-3">
+                                <div class="box-title text-center">
+                                    {{__('Filter by color')}}
+                                </div>
+                                <div class="box-content">
+                                    <!-- Filter by color -->
+                                    <ul class="list-inline checkbox-color checkbox-color-circle mb-0">
+                                        @foreach ($all_colors as $key => $color)
+                                            <li>
+                                                <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
+                                                <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+
                             <div class="col-12">
                                 <div class="card-wrapper mb-2">
                                     <div class="card-group-item">
@@ -100,6 +120,12 @@
                                             <div class="heading d-flex align-items-center text-center flex-wrap">
                                                 <div class="head">
                                                     <h5 class="text-capitalize">{{__('Brands')}}</h5>
+                                                    <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
+                                                        <option value="">{{__('All Brands')}}</option>
+                                                        @foreach (\App\Brand::all() as $brand)
+                                                            <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id == $brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

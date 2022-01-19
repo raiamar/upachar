@@ -1,168 +1,251 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
 
 @section('content')
-
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="{{ route('sellers.create')}}" class="btn btn-rounded btn-info pull-right">{{__('Add New Seller')}}</a>
-        </div>
-    </div>
-
-    <br>
-
-    <!-- Basic Data Tables -->
-    <!--===================================================-->
-    <div class="panel">
-        <div class="panel-heading bord-btm clearfix pad-all h-100">
-            <h3 class="panel-title pull-left pad-no">{{__('Sellers')}}</h3>
-            <div class="pull-right clearfix">
-                <form class="" id="sort_sellers" action="" method="GET">
-                    <div class="box-inline pad-rgt pull-left">
-                        <div class="select" style="min-width: 300px;">
-                            <select class="form-control demo-select2" name="approved_status" id="approved_status" onchange="sort_sellers()">
-                                <option value="">{{__('Filter by Approval')}}</option>
-                                <option value="1"  @isset($approved) @if($approved == 'paid') selected @endif @endisset>{{__('Approved')}}</option>
-                                <option value="0"  @isset($approved) @if($approved == 'unpaid') selected @endif @endisset>{{__('Non-Approved')}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="box-inline pad-rgt pull-left">
-                        <div class="" style="min-width: 200px;">
-                            <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="Type name or email & Enter">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>{{__('Name')}}</th>
-                    <th>{{__('Phone')}}</th>
-                    <th>{{__('Email Address')}}</th>
-                    <th>{{__('Verification Info')}}</th>
-                    <th>{{__('Approval')}}</th>
-                    <th>{{ __('Num. of Products') }}</th>
-                    <th>{{ __('Due to seller') }}</th>
-                    <th width="10%">{{__('Options')}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($sellers as $key => $seller)
-                    @if($seller->user != null)
-                        <tr>
-                            <td>{{ ($key+1) + ($sellers->currentPage() - 1)*$sellers->perPage() }}</td>
-                            <td>{{$seller->user->name}}</td>
-                            <td>{{$seller->user->phone}}</td>
-                            <td>{{$seller->user->email}}</td>
-                            <td>
-                                @if ($seller->verification_info != null)
-                                    <a href="{{ route('sellers.show_verification_request', $seller->id) }}">
-                                        <div class="label label-table label-info">
-                                            {{__('Show')}}
-                                        </div>
-                                    </a>
-                                @endif
-                            </td>
-                            <td>
-                                <label class="switch">
-                                    <input onchange="update_approved(this)" value="{{ $seller->id }}" type="checkbox" <?php if($seller->verification_status == 1) echo "checked";?> >
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                            <td>{{ \App\Product::where('user_id', $seller->user->id)->count() }}</td>
-                            <td>
-                                @if ($seller->admin_to_pay >= 0)
-                                    {{ single_price($seller->admin_to_pay) }}
-                                @else
-                                    {{ single_price(abs($seller->admin_to_pay)) }} (Due to Admin)
-                                @endif
-                            </td>
-                            <td>
-                                <div class="btn-group dropdown">
-                                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{__('Actions')}} <i class="dropdown-caret"></i>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a onclick="show_seller_profile('{{$seller->id}}');">{{__('Profile')}}</a></li>
-                                        <li><a onclick="show_seller_payment_modal('{{$seller->id}}');">{{__('Pay Now')}}</a></li>
-                                        <li><a href="{{route('sellers.payment_history', encrypt($seller->id))}}">{{__('Payment History')}}</a></li>
-                                        <li><a href="{{route('sellers.edit', encrypt($seller->id))}}">{{__('Edit')}}</a></li>
-                                        <li><a onclick="confirm_modal('{{route('sellers.destroy', $seller->id)}}');">{{__('Delete')}}</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-                </tbody>
-            </table>
-            <div class="clearfix">
-                <div class="pull-right">
-                    {{ $sellers->appends(request()->input())->links() }}
+        <!-- Vendor Profile -->
+        <section id="vendor-profile-wrapper">
+            <div class="vendor-banner">
+                <div class="image">
+                    <img src="{{asset('frontend/assets/images/banner/1.png')}}" class="img-fluid" alt="vendor-banner-image">
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="container custom-container">
+                <div class="row pb-5">
+                    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12 p-0">
+                        <div class="vendor-profile-content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="sidebarcus col-xl-11 col-lg-11 col-md-12 mx-auto">
+                                        <div class="profile-side-detail-edit mb-3">
+                                            <div class="dashboard-content d-flex align-items-center h-100">
+                                                <div class="d-user-avater">
+                                                    <div class="image position-relative d-flex mb-1">
+                                                        <img src="{{asset($seller->avatar_original)}}" class="img-fluid avater" alt="profile-image">
+                                                        <a class="position-absolute upload text-dark"> <span class="mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></span> Upload Image</a>
+                                                    </div>
+                                                    <div class="content text-center">
+                                                        <h5 class="font-weight-bold m-0">{{$seller->name}} <span class="ml-2"><i class="fa fa-check" aria-hidden="true"></i></span> </h5>
+                                                        <!-- <div class="category">
+                                Category: <span class="ml-1">  Health & Fitness</span>
+                            </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="sidebarcus col-xl-12 col-lg-12 col-md-6 mt-xl-0 mt-lg-0 mt-md-5 mt-5">
+                                        <div class="sidebar-contents mb-xl-5 mb-lg-5 mb-3">
+                                            <div class="title">
+                                                <h5 class="mb-0"> Shop Location</h5>
+                                            </div>
+                                            <div class="card border-0">
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15905.097732956485!2d85.32549341514847!3d27.71570751415664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1640345157005!5m2!1sen!2snp" style="border:0;" allowfullscreen=""
+                                                    loading="lazy"></iframe> </div>
+                                        </div>
+                                    </div>
+                                    <div class="sidebarcus col-xl-12 col-lg-12 col-md-6 mt-xl-0 mt-lg-0 mt-md-5 mt-1">
+                                        <div class="sidebar-contents mb-xl-5 mb-lg-5 mb-3">
+                                            <div class="title">
+                                                <h5 class="mb-0"> Contact Us</h5>
+                                            </div>
+                                            <div class="card border-0">
+                                                <form class="contact-form">
+                                                    <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="email" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Phone</label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="form-group text-center">
+                                                        <button class="effect px-5">Send</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="modal fade" id="payment_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content">
+                    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mt-4">
+                        <div class="dashboard-rightsidebar my-3">
+                            <div class="vendor-contact-info">
+                                <ul class="social-links d-flex align-items-center pl-0">
+                                    <h6 class="mb-0 mr-2">Follow Us On:</h6>
+                                    <li class="logo-bg">
+                                        <a href="https://www.facebook.com" class="text-white"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="feature_in_bg ml-3">
+                                        <a href="https://www.instagram.com" class="text-white"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="logo-bg ml-3">
+                                        <a href="https://www.google.com" class="text-white"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="logo-bg ml-3">
+                                        <a href="https://np.linkedin.com" class="text-white"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            {{-- <form class="" id="search-form-index" action="{{ route('search') }}" method="GET"> --}}
+                            <ul class="sidebar vendor-rightside-nav d-flex justify-content-between align-items-center flex-wrap py-2 mt-4">
+                                <li class="">
+                                    Showing all products
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    {{-- <select class="form-control mr-2">
+                                        <option selected>Choose a Category</option>
+                                        <option>Alphabetically</option>
+                                        <option>Price High to Low</option>
+                                        <option>Recently Added</option>
+                                        <option>MOstly Purchased</option>
+                                      </select>
+                                    <select class="form-control filter mr-2">
+                                     <option selected>Filter</option>
+                                        <option>Alphabetically</option>
+                                        <option>Price High to Low</option>
+                                        <option>Recently Added</option>
+                                        <option>MOstly Purchased</option>
+                                      </select> --}}
+                             
+                                </li>
+                            </ul>
+                        </div>
+                    {{-- </form> --}}
+                        @php
+                            $id = $seller->id;
+                            $product = App\Product::where('user_id', $id)->get();
+                        @endphp
+                        <!-- Product Listing -->
+                        <section id="product-listing-wrapper" class="py-5">
+                            <div class="container">
+                                <div class="product-lists">
+                                    <div class="row right-side-wrapper">
+                                        @foreach ($product as $products)
 
+                                        
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 mt-4 post">
+                                            
+
+                                            <div class="product-grid-item2">
+                                                <div class="product-grid-image2">
+                                                    <a href="{{ route('product', $products->slug) }}"> @php
+                                                        $filepath = $products->featured_img;
+                                                    @endphp
+                                                    @if(isset($filepath))
+                                                        <img src="{{ asset( $products->featured_img) }}" alt="No Image" data-src="{{ asset($products->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                                    @else
+                                                        <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($products->thumbnail_img) }}" class="img-fluid pic-1">
+                                                    @endif
+                                                    <ul class="social">
+                                                        <li>
+                                                            <a class="fa fa-heart-o addToWishList" data-id="{{ $products->id }}"></a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $products->id }})"></a>
+                                                        </li>
+                                                        {{-- <li>
+                                                            <a href="" class="fa fa-exchange"></a>
+                                                        </li> --}}
+                                                    </ul>
+                                                        @if (! $products->discount == 0)
+                                                        <span class="products-discount-label">-{{$products->discount}}%</span>
+                                                        @endif
+                                                </div>
+                                                <div class="product-content">
+                                                    <h3 class="title text-center fix-text"> <a href="products-detail.html" class="font-weight-bold">{{$products->name}}</a></h3>
+                                                    <div class="price text-center mb-3">
+                                                        @if(home_base_price($products->id) != home_discounted_base_price($products->id))
+                                                            <del class="old-products-price strong-400">{{ home_base_price($products->id) }}</del>
+                                                        @endif
+                                                        {{ home_discounted_base_price($products->id) }}
+                                                    </div> 
+                                                    <a class="all-deals effect" href="{{ route('product', $products->slug) }}">View Product <i class="fa fa-angle-right icon"></i>    </a> </div>
+                                            </div>
+                                            
+                                        </div>
+                                        @endforeach
+                                        {{-- <div class="col-12 text-center">
+                                            <button type="button" class="effect mx-auto mt-4">View More</button>
+                                        </div> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Product Listing Ends -->
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" id="modal-content">
 
+
+        <section id="product-listing-wrapper" class="position-relative py-5 bg-light">
+            <div class="container">
+                <div class="product-lists">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                                <div class="head">
+                                    <h2 class="font-weight-bold">Shop All New Imports</h2>
+                                    <p>THERE'S SOMETHING FOR EVERYONE</p>
+                                </div>
+                                <div class="navigator"> <a href="{{ route('products') }}">See all</a> </div>
+                            </div>
+                        </div>
+                        @php
+                            $products = App\Product::where('user_id', $id)->latest()->limit(4)->get();
+                        @endphp
+                        @foreach ($products as $product)
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
+                            <div class="product-grid-item2">
+                                <div class="product-grid-image2">
+                                    <a href="{{ route('product', $product->slug) }}">
+                                    @php
+                                        $filepath = $product->featured_img;
+                                    @endphp
+                                    @if(isset($filepath))
+                                        <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                    @else
+                                        <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg"  class="img-fluid pic-1">
+                                    @endif
+                                    <ul class="social">
+                                        <li>
+                                            <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>
+                                        </li>
+                                        <li>
+                                            <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="fa fa-exchange"></a>
+                                        </li>
+                                    </ul>
+                                    @if (! $product->discount == 0)
+                                        <span class="products-discount-label">-{{$products->discount}}%</span>
+                                    @endif
+                                </div>
+                                <div class="product-content">
+                                    <h3 class="title text-center"> <a href="#" class="font-weight-bold">{{$product->name}}</a></h3>
+                                    <div class="price text-center mb-3">
+                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                            <del class="old-products-price strong-400">{{ home_base_price($product->id) }}</del>
+                                        @endif
+                                        {{ home_discounted_base_price($product->id) }}
+                                    </div> <a class="all-deals effect" href="{{ route('product', $product->slug) }}">View Product <i class="fa fa-angle-right icon"></i>    </a> </div>
+                            </div>
+                        </div>
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+        <!--Vendor Profile Ends -->
 
-
-@endsection
-
-@section('script')
-    <script type="text/javascript">
-        function show_seller_payment_modal(id){
-            $.post('{{ route('sellers.payment_modal') }}',{_token:'{{ @csrf_token() }}', id:id}, function(data){
-                $('#payment_modal #modal-content').html(data);
-                $('#payment_modal').modal('show', {backdrop: 'static'});
-                $('.demo-select2-placeholder').select2();
-            });
-        }
-
-        function show_seller_profile(id){
-            $.post('{{ route('sellers.profile_modal') }}',{_token:'{{ @csrf_token() }}', id:id}, function(data){
-                $('#profile_modal #modal-content').html(data);
-                $('#profile_modal').modal('show', {backdrop: 'static'});
-            });
-        }
-
-        function update_approved(el){
-            if(el.checked){
-                var status = 1;
-            }
-            else{
-                var status = 0;
-            }
-            $.post('{{ route('sellers.approved') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
-                if(data == 1){
-                    showAlert('success', 'Approved sellers updated successfully');
-                }
-                else{
-                    showAlert('danger', 'Something went wrong');
-                }
-            });
-        }
-
-        function sort_sellers(el){
-            $('#sort_sellers').submit();
-        }
-    </script>
 @endsection
