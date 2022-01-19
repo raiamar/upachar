@@ -53,8 +53,8 @@
         <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        
-        <div class="title p-4">{{__('Home')}}>{{ ($bread_crumb->name) }}</div>
+        {{-- {{ ($bread_crumb->name) }} --}}
+        <div class="title p-4">{{__('Home')}}></div>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -63,7 +63,7 @@
 <!-- Product Listing -->
 <section id="product-listing-wrapper" class="py-5">
     <div class="container">
-                    
+    <form class="" id="search-form" action="{{ route('search') }}" method="GET">           
         <div class="product-lists">
             <div class="row">
             
@@ -83,7 +83,7 @@
                                         </div>
                                         <div class="filter-content2 mt-3">
                                             <div class="card-body">
-                                                <div class="slider" id="range-slider">
+                                                <div class="slider" id="range-slider-div" onchange="rangeTest()">
                                                 </div>
                                             </div>
                                             <!-- card-body.// -->
@@ -95,23 +95,6 @@
                             <!-- Content Ends -->
 
 
-
-                            <div class="bg-white sidebar-box mb-3">
-                                <div class="box-title text-center">
-                                    {{__('Filter by color')}}
-                                </div>
-                                <div class="box-content">
-                                    <!-- Filter by color -->
-                                    <ul class="list-inline checkbox-color checkbox-color-circle mb-0">
-                                        @foreach ($all_colors as $key => $color)
-                                            <li>
-                                                <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
-                                                <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
 
                             <div class="col-12">
                                 <div class="card-wrapper mb-2">
@@ -135,88 +118,78 @@
                                 </div>
 
                             </div>
-                            <div class="col-12">
+
+                            {{-- <div class="col-12">
                                 <div class="card-wrapper mb-2">
                                     <div class="card-group-item">
                                         <div class="card-head">
                                             <div class="heading d-flex align-items-center text-center flex-wrap">
                                                 <div class="head">
-                                                    <h5 class="text-capitalize">Choose Color</h5>
+                                                    <h5 class="text-capitalize">{{__('Choose Color')}}</h5>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="colors_block p-3">
-                                            <label class="color_single"><small class="round"></small>
-                                        <span class=""> Red</span>
-                                        <input type="checkbox" checked="checked">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <small class="round bg-warning"></small>
-                                        <span> Yellow</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <small class="round bg-primary"></small>
-                                        <span>Blue</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <small class="round bg-success"></small>
-                                        <span> Green</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
+                                            @foreach ($all_colors as $key => $color)
+                                            <li>
+                                                <input type="radio" id="color-{{ $key }}" name="color" value="{{ $color }}" @if(isset($selected_color) && $selected_color == $color) checked @endif onchange="filter()">
+                                                <label style="background: {{ $color }};" for="color-{{ $key }}" data-toggle="tooltip" data-original-title="{{ \App\Color::where('code', $color)->first()->name }}"></label>
+                                            </li>
+                                        @endforeach
                                         </div>
                                     </div>
                                     <!-- card-group-item.// -->
                                 </div>
 
-                            </div>
+                            </div> --}}
+
+                            @foreach ($attributes as $key => $attribute)
+                            @if (\App\Attribute::find($attribute['id']) != null)
                             <div class="col-12">
                                 <div class="card-wrapper mb-2">
                                     <div class="card-group-item">
                                         <div class="card-head">
-                                            <div class="heading d-flex align-items-center text-center flex-wrap">
-                                                <div class="head">
-                                                    <h5 class="text-capitalize">Choose Size</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="heading d-flex align-items-center text-center flex-wrap">
+                                    <div class="head">
+                                        <h5 class="text-capitalize">{{ \App\Attribute::find($attribute['id'])->name }}</h5>
+                                    </div>
+                                    </div>
+                                    <div class="box-content">
+                                        <!-- Filter by others -->
                                         <div class="colors_block p-3">
-                                            <label class="color_single"><span> Small</span>
-                                        <input type="checkbox" checked="checked">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <span> Medium</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <span>Large</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <span> XL</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
-                                            <label class="color_single">
-                                        <span> XXL</span>
-                                        <input type="checkbox">
-                                        <span class="checkmark"></span>
-                                      </label>
+                                            @if(array_key_exists('values', $attribute))
+                                                @foreach ($attribute['values'] as $key => $value)
+                                                    @php
+                                                        $flag = false;
+                                                        if(isset($selected_attributes)){
+                                                            foreach ($selected_attributes as $key => $selected_attribute) {
+                                                                if($selected_attribute['id'] == $attribute['id']){
+                                                                    if(in_array($value, $selected_attribute['values'])){
+                                                                        $flag = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    @endphp
+                                                    <div class="colors_block">
+                                                        <label for="attribute_{{ $attribute['id'] }}_value_{{ $value }}" class="color_single">
+                                                            <span>{{ $value }}</span>
+                                                            <input type="checkbox" id="attribute_{{ $attribute['id'] }}_value_{{ $value }}" name="attribute_{{ $attribute['id'] }}[]" value="{{ $value }}" @if ($flag) checked @endif onchange="filter()">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
-                                    <!-- card-group-item.// -->
                                 </div>
-
+                                    </div>
+                                </div>
                             </div>
-
+                            @endif
+                        @endforeach
                         </div>
                     </div>
                     <!-- Mobile Filter  -->
@@ -302,15 +275,24 @@
 </section>
 <!-- Product Listing Ends -->
 
+<form id="rangeForm" action="{{route('rangefilter')}}" method="GET">
+    <input type="hidden" name="max_price" id="max_price">
+    <input type="hidden" name="min_price" id="min_price">
+</form>
+
 @endsection
 
     <script type="text/javascript">
         function filter(){
             $('#search-form').submit();
         }
-        function rangefilter(arg){
-            $('input[name=min_price]').val(arg[0]);
-            $('input[name=max_price]').val(arg[1]);
-            filter();
-        }
+        
+function rangeTest(){
+    console.log('here');
+    let value = document.getElementById('range-slider-div').value;
+    document.getElementById('min_price').value = value[0];
+    document.getElementById('max_price').value = value[1];
+    setTimeout($('#rangeForm').submit(), 4000);
+};
+
     </script>

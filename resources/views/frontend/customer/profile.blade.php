@@ -69,14 +69,14 @@
                                 </div>
 
                                 {{-- <div id="password-update" class="form-row"> --}}
-                                    <div class="form-group col-md-6 mb-4">
+                                    {{-- <div class="form-group col-md-6 mb-4">
                                         <label>{{__('New Password')}}</label>
                                         <input type="password" class="form-control" placeholder="{{__('New Password')}}" name="new_password">
                                     </div>
                                     <div class="form-group col-md-6 mb-4">
                                         <label>{{__('Confirm Password')}}</label>
                                         <input type="password" class="form-control" placeholder="{{__('Confirm Password')}}" name="confirm_password">
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="form-group col-12 mx-auto text-center">
                                     <button class="effect px-5" type="submit">{{__('Save')}}</button>

@@ -18,12 +18,18 @@
                                         <div class="profile-side-detail-edit mb-3">
                                             <div class="dashboard-content d-flex align-items-center h-100">
                                                 <div class="d-user-avater">
+                                                    @php
+                                                        $filepath = $shop->logo;
+                                                    @endphp
                                                     <div class="image position-relative d-flex mb-1">
-                                                        <img src="{{asset($seller->avatar_original)}}" class="img-fluid avater" alt="profile-image">
-                                                        <a class="position-absolute upload text-dark"> <span class="mr-1"><i class="fa fa-pencil" aria-hidden="true"></i></span> Upload Image</a>
+                                                        @if(isset($filepath))
+                                                        <img src="{{asset($shop->logo)}}" class="img-fluid avater" alt="profile-image">
+                                                        @else
+                                                        <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="img-fluid pic-1">
+                                                        @endif
                                                     </div>
                                                     <div class="content text-center">
-                                                        <h5 class="font-weight-bold m-0">{{$seller->name}} <span class="ml-2"><i class="fa fa-check" aria-hidden="true"></i></span> </h5>
+                                                        <h5 class="font-weight-bold m-0">{{$shop->name}} <span class="ml-2"><i class="fa fa-check" aria-hidden="true"></i></span> </h5>
                                                         <!-- <div class="category">
                                 Category: <span class="ml-1">  Health & Fitness</span>
                             </div> -->
@@ -49,18 +55,20 @@
                                                 <h5 class="mb-0"> Contact Us</h5>
                                             </div>
                                             <div class="card border-0">
-                                                <form class="contact-form">
+                                                <form class="contact-form" method="post" action="{{route('contac.seller')}}">
+                                                    @csrf
+                                                    <input type="hidden" name="vendor" value="{{$shop->name}}">
                                                     <div class="form-group">
                                                         <label>Name</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" name="name" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Email</label>
-                                                        <input type="email" class="form-control">
+                                                        <input type="email" class="form-control" name="email">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Phone</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" name="phone">
                                                     </div>
                                                     <div class="form-group text-center">
                                                         <button class="effect px-5">Send</button>
@@ -73,27 +81,26 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12 mt-4">
                         <div class="dashboard-rightsidebar my-3">
                             <div class="vendor-contact-info">
                                 <ul class="social-links d-flex align-items-center pl-0">
                                     <h6 class="mb-0 mr-2">Follow Us On:</h6>
                                     <li class="logo-bg">
-                                        <a href="https://www.facebook.com" class="text-white"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li class="feature_in_bg ml-3">
-                                        <a href="https://www.instagram.com" class="text-white"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                        <a href="https://{{$shop->facebook}}" class="text-white"><i class="fa fa-facebook" aria-hidden="true" target="_blank"></i></a>
                                     </li>
                                     <li class="logo-bg ml-3">
-                                        <a href="https://www.google.com" class="text-white"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                        <a href="https://{{$shop->google}}" class="text-white"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
                                     </li>
                                     <li class="logo-bg ml-3">
-                                        <a href="https://np.linkedin.com" class="text-white"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                        <a href="https://{{$shop->youtube}}" class="text-white"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li class="logo-bg ml-3">
+                                        <a href="https://{{$shop->twitter}}" class="text-white"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                     </li>
                                 </ul>
                             </div>
-                            {{-- <form class="" id="search-form-index" action="{{ route('search') }}" method="GET"> --}}
+                            <form class="" id="search-form-index" action="{{ route('search') }}" method="GET">
                             <ul class="sidebar vendor-rightside-nav d-flex justify-content-between align-items-center flex-wrap py-2 mt-4">
                                 <li class="">
                                     Showing all products
@@ -117,9 +124,9 @@
                                 </li>
                             </ul>
                         </div>
-                    {{-- </form> --}}
+                        </form>
                         @php
-                            $id = $seller->id;
+                            $id = $shop->user_id;
                             $product = App\Product::where('user_id', $id)->get();
                         @endphp
                         <!-- Product Listing -->
@@ -154,8 +161,8 @@
                                                             <a href="" class="fa fa-exchange"></a>
                                                         </li> --}}
                                                     </ul>
-                                                        @if (! $products->discount == 0)
-                                                        <span class="products-discount-label">-{{$products->discount}}%</span>
+                                                    @if (! $products->discount == 0)
+                                                            <span class="product-discount-label">-{{$products->discount}}%</span>
                                                         @endif
                                                 </div>
                                                 <div class="product-content">
@@ -200,7 +207,8 @@
                             </div>
                         </div>
                         @php
-                            $products = App\Product::where('user_id', $id)->latest()->limit(4)->get();
+                            $user_id = $shop->user_id;
+                            $products = App\Product::where('user_id', $user_id)->latest()->limit(4)->get();
                         @endphp
                         @foreach ($products as $product)
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
@@ -227,7 +235,7 @@
                                         </li>
                                     </ul>
                                     @if (! $product->discount == 0)
-                                        <span class="products-discount-label">-{{$products->discount}}%</span>
+                                        <span class="product-discount-label">-{{$product->discount}}%</span>
                                     @endif
                                 </div>
                                 <div class="product-content">
@@ -237,8 +245,8 @@
                                             <del class="old-products-price strong-400">{{ home_base_price($product->id) }}</del>
                                         @endif
                                         {{ home_discounted_base_price($product->id) }}
-                                    </div> <a class="all-deals effect" href="{{ route('product', $product->slug) }}">View Product <i class="fa fa-angle-right icon"></i>    </a> </div>
-                            </div>
+                                    </div><a class="all-deals effect" href="{{ route('product', $product->slug) }}">View Product <i class="fa fa-angle-right icon"></i>    </a> </div>
+                            </div> 
                         </div>
                         @endforeach
 
@@ -249,3 +257,10 @@
         <!--Vendor Profile Ends -->
 
 @endsection
+
+
+<script type="text/javascript">
+    function filter(){
+        $('#search-form-index').submit();
+    }
+</script>    

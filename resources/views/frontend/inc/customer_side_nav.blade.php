@@ -31,10 +31,10 @@
             <a href="{{ route('wishlists.index') }}"><span class="mr-2"><i class="fa fa-heart"
                         aria-hidden="true"></i></span>{{__('Wishlist')}}</a>
         </li>
-        {{-- <li class="mb-3 p-2">
-            <a href="#password-update"><span class="mr-2"><i class="fa fa-lock"
+        <li class="mb-3 p-2">
+            <a href="{{route('changePassword')}}"><span class="mr-2"><i class="fa fa-lock"
                         aria-hidden="true"></i></span>{{__('Change Password')}}</a>
-        </li> --}}
+        </li>
         <li class="mb-3 p-2">
             <a href="/logout"><span class="mr-2"><i class="fa fa-sign-out"
                         aria-hidden="true"></i></span>{{__('Logout')}}</a>

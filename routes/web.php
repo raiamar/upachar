@@ -52,6 +52,7 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::post('/contact','HomeController@storeContact')->name('store.contact');
 Route::get('/about', 'HomeController@about_us')->name('about.us');
 Route::get('/all_sellers', 'HomeController@vendors')->name('all.sellers');
+Route::post('/contact/shop','HomeController@contactShop')->name('contac.seller');
 Route::get('/vendor/dashboard', 'HomeController@vendor_dashboard')->name('vendor.dashboard');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
@@ -142,6 +143,7 @@ Route::resource('subscribers','SubscriberController');
 Route::get('/brands', 'HomeController@all_brands')->name('brands.all');
 Route::get('/categories', 'HomeController@all_categories')->name('categories.all');
 Route::get('/search', 'HomeController@search')->name('search');
+Route::get('/rangefilter', 'HomeController@rangefilter')->name('rangefilter');
 Route::get('/search-product', 'HomeController@search_product')->name('search-product');
 Route::get('/search?q={search}', 'HomeController@search')->name('suggestion.search');
 Route::post('/ajax-search', 'HomeController@ajax_search')->name('search.ajax');
@@ -159,6 +161,8 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/profile', 'HomeController@profile')->name('profile');
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');
 	Route::post('/seller/update-profile', 'HomeController@seller_update_profile')->name('seller.profile.update');
+	Route::get('/change-password', 'HomeController@changePassword')->name('changePassword');
+	Route::post('/change/password', 'HomeController@passwordUpdate')->name('profile.change.password');
 
 	Route::resource('purchase_history','PurchaseHistoryController');
 	Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
