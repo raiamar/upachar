@@ -65,7 +65,7 @@ $(document).ready(function() {
     // var $easyzoom = $('.easyzoom').easyZoom();
 });
 // Bootstrap Range Slider Js
-$("#range-slider").slider({
+$("#range-slider-div").slider({
     // the id of the slider element
     id: "range-slider",
     // minimum value

@@ -329,7 +329,7 @@
                         <h2 class="font-weight-bold">{{__('Our Vendors')}}</h2>
                         <p>{{__(`THERE'S SOMETHING FOR EVERYONE`)}}</p>
                     </div>
-                    <div class="navigator"> <a href="">{{__('See all')}}</a> </div>
+                    <div class="navigator"> <a href="{{route('all.sellers')}}">{{__('See all')}}</a> </div>
                 </div>
             </div>
         </div>

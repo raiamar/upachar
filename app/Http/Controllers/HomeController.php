@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Session;
 use Auth;
 use Hash;
@@ -27,6 +28,7 @@ use App\Http\Controllers\SearchController;
 use ImageOptimizer;
 use Cookie;
 use DB;
+use App\ShopContact;
 
 class HomeController extends Controller
 {
@@ -131,6 +133,32 @@ class HomeController extends Controller
         }
     }
     
+
+
+    public function changePassword(){
+        return view('frontend.customer.change_password');
+    }
+
+
+    public function passwordUpdate(Request $request){
+        $user = Auth::user();
+
+        $userPassword = $user->password;
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required',
+            'new_password' => 'required|required_with:confirm_password|same:confirm_password',
+            'confirm_password' => 'required'
+        ]);
+        $messages = $validator->errors();
+        if (!Hash::check($request->current_password, $userPassword)) {
+            return back()->withErrors(['current_password'=>'password not match']);
+        }
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        return redirect()->back()->withSuccess('password successfully changed');
+    }
+
 
     public function customer_update_profile(Request $request)
     {
@@ -278,7 +306,8 @@ class HomeController extends Controller
         if($shop!=null){
             $seller = Seller::where('user_id', $shop->user_id)->first();
             if ($seller->verification_status != 0){
-                return view('frontend.seller_shop', compact('shop'));
+                // return view('frontend.seller_shop', compact('shop'));
+                return view('sellers.index', compact('shop'));
             }
             else{
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
@@ -388,6 +417,11 @@ class HomeController extends Controller
         return response()->json($products);
     }
 
+
+    public function rangefilter(Request $request){
+      
+        return $this->search($request);
+    }
 
     public function search(Request $request)
     {
@@ -730,5 +764,15 @@ class HomeController extends Controller
        $contact->message = $request->message;
        $contact->save();
        return redirect()->to('/');
+    }
+
+    public function contactShop(Request $request){
+       $contact = new ShopContact();
+       $contact->name = $request->name;
+       $contact->email = $request->email;
+       $contact->phone = $request->phone;
+       $contact->vendor = $request->vendor;
+       $contact->save();
+       return redirect()->to('/')->withSuccess('Received');
     }
 }
