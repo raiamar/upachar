@@ -77,13 +77,13 @@
                                 <li class="mr-1">
                                     <i class="fa fa-star"></i>
                                 </li>
-  snis                              <li class="mr-1">
+                                <li class="mr-1">
                                     <i class="fa fa-star"></i>
                                 </li>
                                 <li class="mr-1">
                                     <i class="fa fa-star"></i>
                                 </li>
-                            </ul> change--}}
+                            </ul> --}}
 
                         </div>
                     </div>
