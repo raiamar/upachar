@@ -27,6 +27,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
 		Route::post('/testimonial/store', 'PageController@testimonialstore')->name('pages.testimonialstore');
 		Route::post('/testimonial/update_status', 'PageController@testimonialupdate_status')->name('pages.testimonialupdate_status');
 		Route::get('/testimonial/delete/{id}', 'PageController@testimonial_delete')->name('pages.testimonialdelete');
+		Route::get('/contact-us','PageController@contactUs')->name('pages.contact-us');
 
 
 // This is route for faq

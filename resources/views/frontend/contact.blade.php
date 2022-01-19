@@ -40,18 +40,19 @@
                 </ul>
             </div>
             <div class="col-xl-5 col-lg-5 col-md-6 col-12 contact-us-form ml-auto">
-                <form class="px-xl-5 px-lg-5 px-md-4 px-3 pt-5 pb-3">
+                <form class="px-xl-5 px-lg-5 px-md-4 px-3 pt-5 pb-3" action="{{ route('store.contact') }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" name="txtName" class="form-control" placeholder="First Name" value="">
+                        <input type="text" name="name" class="form-control" placeholder="Full Name" value="">
                     </div>
                     <div class="form-group">
-                        <input type="email" name="" class="form-control" placeholder="Your Email" value="">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email" value="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number" value="">
+                        <input type="text" name="phone" class="form-control" placeholder="Your Phone Number" value="">
                     </div>
                     <div class="form-group">
-                        <textarea name="txtMsg" class="form-control" placeholder="Your Message" style="width: 100%; height: 100px"></textarea>
+                        <textarea name="message" class="form-control" placeholder="Your Message" style="width: 100%; height: 100px"></textarea>
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="effect">

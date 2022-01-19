@@ -288,7 +288,7 @@
                         @endif
                         </div>
                     <div class="product-content">
-                        <h3 class="title text-center fix-text"> <a href="product-detail.html" class="font-weight-bold">{{$product->name}}</a></h3>
+                        <h3 class="title text-center fix-text"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
                         <div class="price text-center mb-3">
                             @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                 <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
@@ -303,7 +303,85 @@
         </div>
     </div>
 </section>
+
 <!-- Slider Product Listing Ends -->
+@if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+    @php
+        $array = array();
+        foreach (\App\Seller::where('verification_status', 1)->get() as $key => $seller) {
+            if($seller->user != null && $seller->user->shop != null){
+                $total_sale = 0;
+                foreach ($seller->user->products as $key => $product) {
+                    $total_sale += $product->num_of_sale;
+                }
+                $array[$seller->id] = $total_sale;
+            }
+        }
+        asort($array);
+    @endphp
+    @if(!empty($array))
+<section id="slider-product-listing" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="head">
+                        <h2 class="font-weight-bold">{{__('Our Vendors')}}</h2>
+                        <p>{{__(`THERE'S SOMETHING FOR EVERYONE`)}}</p>
+                    </div>
+                    <div class="navigator"> <a href="">{{__('See all')}}</a> </div>
+                </div>
+            </div>
+        </div>
+        <div class="slick-slider-listing">
+            @php
+            $count = 0;
+        @endphp
+        @foreach ($array as $key => $value)
+            @if ($count < 20)
+                @php
+                    $count ++;
+                    $seller = \App\Seller::find($key);
+                    $total = 0;
+                    $rating = 0;
+                    foreach ($seller->user->products as $key => $seller_product) {
+                        $total += $seller_product->reviews->count();
+                        $rating += $seller_product->reviews->sum('rating');
+                    }
+                @endphp
+            <div class="slick-item position-relative py-4">
+                <div class="product-grid-item3 mx-2 bg-white">
+                    <div class="product-grid-image3">
+                        <a href="{{ route('shop.visit', $seller->user->shop->slug) }}"> 
+                            <img
+                            src="{{ asset('frontend/images/placeholder.jpg') }}"
+                            data-src="@if ($seller->user->shop->logo !== null) {{ asset($seller->user->shop->logo) }} @else {{ asset('frontend/images/placeholder.jpg') }} @endif"
+                            alt="{{ $seller->user->shop->name }}"
+                            class="img-fluid lazyload"
+                            />
+                        </div>
+                    <div class="product-content">
+                        <h3 class="title text-center fix-text"> <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a></h3>
+                        {{-- <div class="price text-center mb-3">
+                            
+                            @if ($total > 0)
+                            
+                            {{ renderStarRating($rating/$total) }}
+                        @else
+                            {{ renderStarRating(0) }}
+                        @endif
+                        </div> --}}
+                        <a class="all-deals effect" href="{{ route('shop.visit', $seller->user->shop->slug) }}">View Vendor <i class="fa fa-angle-right icon"></i></a>
+                    </div>
+                </div>
+            </div>    
+            @endif            
+            @endforeach                    
+        </div>
+    </div>
+</section>
+@endif
+@endif
 <!-- Testimonial  -->
 <section id="testimonial-wrapper" class="position-relative py-5">
     <div class="container">

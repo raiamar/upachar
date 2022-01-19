@@ -13,6 +13,7 @@
 @elseif (isset($category_id))
     @php
         $meta_title = \App\Category::find($category_id)->meta_title;
+        
         $meta_description = \App\Category::find($category_id)->meta_description;
     @endphp
 @elseif (isset($brand_id))
@@ -52,7 +53,8 @@
         <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">{{__('Home')}}</div>
+        
+        <div class="title p-4">{{__('Home')}}>{{ ($bread_crumb->name) }}</div>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
