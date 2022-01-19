@@ -172,9 +172,4 @@
 
     </div>
 </div>
-onclick="removeFromCartView(event, {{ $key }})"
-@if(Auth::check())
-<a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1" style="color: black">{{__('Continue to Shipping')}}</a>
-@else
-<button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
-@endif
+
