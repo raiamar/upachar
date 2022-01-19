@@ -302,7 +302,9 @@ class ProductController extends Controller
             return redirect()->route('seller.products');
         }
     }
-
+    public function test(){
+        
+    }
     /**
      * Display the specified resource.
      *
