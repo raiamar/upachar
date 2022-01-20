@@ -129,7 +129,7 @@ class HomeController extends Controller
             return view('frontend.customer.profile');
         }
         elseif(Auth::user()->user_type == 'seller'){
-            return view('frontend.seller.profile');
+            return view('frontend.seller.oldprofile');
         }
     }
     
@@ -751,6 +751,7 @@ class HomeController extends Controller
     }
 
     public function vendor_dashboard(){
+        abort(404);
         $id = Auth::id();
         $seller = User::where('user_type', 'seller')->where('id', $id)->first();
         return view('sellers.index', compact('seller'));

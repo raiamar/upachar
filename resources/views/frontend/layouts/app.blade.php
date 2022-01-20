@@ -439,7 +439,6 @@ function showFrontendAlert(type, message){
                     }
 
                 } else if (type == 'plus') {
-
                     if (currentVal < input.attr('max')) {
                         input.val(currentVal + 1).change();
                     }
@@ -458,7 +457,6 @@ function showFrontendAlert(type, message){
         });
 
         $('.input-number').change(function() {
-
             minValue = parseInt($(this).attr('min'));
             maxValue = parseInt($(this).attr('max'));
             valueCurrent = parseInt($(this).val());
