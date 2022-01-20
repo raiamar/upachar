@@ -71,6 +71,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+        $('.remove-files').on('click', function(){
+            $(this).parents(".col-md-4").remove();
+        });
+        
         $('.demo-select2').select2();
 
         $("#photo").spartanMultiImagePicker({
