@@ -160,6 +160,7 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 	Route::get('/profile', 'HomeController@profile')->name('profile');
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');
+	Route::get('/customer/order-status', 'HomeController@orderStatus')->name('order.status');
 	Route::post('/seller/update-profile', 'HomeController@seller_update_profile')->name('seller.profile.update');
 	Route::get('/change-password', 'HomeController@changePassword')->name('changePassword');
 	Route::post('/change/password', 'HomeController@passwordUpdate')->name('profile.change.password');

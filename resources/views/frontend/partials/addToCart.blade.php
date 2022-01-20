@@ -123,56 +123,40 @@
 
                     <!-- Quantity + Add to cart -->
                     @if($product->digital !=1)
-                        @if ($product->choice_options != null)
-                            @foreach (json_decode($product->choice_options) as $key => $choice)
-
-                                <div class="row no-gutters">
-                                    <div class="col-2">
-                                        <div
-                                            class="product-description-label mt-2 ">{{ \App\Attribute::find($choice->attribute_id)->name }}
-                                            :
-                                        </div>
-                                    </div>
-                                    <div class="col-10">
-                                        <ul class="d-flex checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
-                                            @foreach ($choice->values as $key => $value)
-                                                <li style="margin-right:20px">
-                                                    <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}"
-                                                           name="attribute_id_{{ $choice->attribute_id }}"
-                                                           value="{{ $value }}" @if($key == 0) checked @endif>
-                                                    <label
-                                                        for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-
+                    @if ($product->choice_options != null)
+                    @foreach (json_decode($product->choice_options) as $key => $choice)
+                    <div class="form-group col-md-12">
+                        <label>{{ \App\Attribute::find($choice->attribute_id)->name }}</label>
+                        <select id="size" class="form-control" name="attribute_id_{{ $choice->attribute_id }}">
+                      <option selected>Choose...</option>
+                            @foreach ($choice->values as $value)        
+                            <option value="{{$value}}">{{$value}}</option>
                             @endforeach
-                        @endif
+                    </select>
+                    </div>
+                    @endforeach
+                @endif
 
-                        @if (count(json_decode($product->colors)) > 0)
-                            <div class="row no-gutters">
-                                <div class="col-2">
-                                    <div class="product-description-label mt-2">{{__('Color')}}:</div>
-                                </div>
-                                <div class="col-10">
-                                    <ul class="list-inline checkbox-color mb-1">
-                                        @foreach (json_decode($product->colors) as $key => $color)
-                                            <li>
-                                                <input type="radio" id="{{ $product->id }}-color-{{ $key }}"
-                                                       name="color" value="{{ $color }}" @if($key == 0) checked @endif>
-                                                <label style="background: {{ $color }};"
-                                                       for="{{ $product->id }}-color-{{ $key }}"
-                                                       data-toggle="tooltip"></label>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+
+
+                        {{-- @if (count(json_decode($product->colors)) > 0)
+                        <div class="row no-gutters">
+                            <div class="col-2">
+                                <div class="product-description-label mt-2">{{__('Color')}}:</div>
                             </div>
-
-                            <hr>
-                        @endif
+                            <div class="col-10">
+                                <ul class="d-flex checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                    @foreach (json_decode($product->colors) as $key => $color)
+                                        <li style="margin-right:20px">
+                                            <div class="imagesize d-flex" style="background:{{$color}}; border:{{$color}}; padding:10px;">
+                                                <input type="radio" id="{{ $product->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif style="color:{{$color}};">
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif --}}
 
                         <div class="row no-gutters">
                             <div class="col-2">
@@ -182,18 +166,18 @@
                                 <div class="product-quantity d-flex align-items-center">
                                     <div class="input-group input-group--style-2 pr-3" style="width: 160px;">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-number" type="button" data-type="minus"
-                                                    data-field="quantity" disabled="disabled">
-                                                <i class="la la-minus"></i>
+                                        <button class="btn btn-number" type="button" data-type="minus"
+                                                    data-field="quantity">
+                                                <i class="fa fa-minus"></i>
                                             </button>
                                         </span>
-                                        <input type="number" name="quantity" class="form-control input-number text-center"
-                                               placeholder="1"  min="1" max="10">
+                                        <input type="text" name="quantity" class="form-control input-number"
+                                                 min="1" max="10" placeholder="1">
                                         <span class="input-group-btn">
-                                            {{-- <button class="btn btn-number" type="button" data-type="plus"
+                                            <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity">
                                                 <i class="fa fa-plus"></i>
-                                            </button> --}}
+                                            </button>
                                         </span>
                                     </div>
                                     <div class="avialable-amount">(<span

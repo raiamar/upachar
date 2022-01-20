@@ -19,10 +19,10 @@
             <a href="{{ route('profile') }}"><span class="mr-2"><i class="fa fa-user"
                         aria-hidden="true"></i></span>Profile</a>
         </li>
-        {{-- <li class="mb-3 p-2">
-            <a href="dashboard-order-status.html"><span class="mr-2"><i class="fa fa-sort"
+        <li class="mb-3 p-2">
+            <a href="{{route('order.status')}}"><span class="mr-2"><i class="fa fa-sort"
                         aria-hidden="true"></i></span>Order Status</a>
-        </li> --}}
+        </li>
         <li class="mb-3 p-2">
             <a href="/cart"><span class="mr-2"><i class="fa fa-shopping-bag"
                         aria-hidden="true"></i></span>{{__('My Cart')}}</a>
