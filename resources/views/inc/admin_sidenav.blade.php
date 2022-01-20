@@ -434,6 +434,9 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('pages.contact-us')}}">{{__('Contact Us')}}</a>
                                 </li>
+                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                    <a class="nav-link" href="{{route('blog.index')}}">{{__('Blogs')}}</a>
+                                </li>
                             </ul>
                         </li>
                         @endif

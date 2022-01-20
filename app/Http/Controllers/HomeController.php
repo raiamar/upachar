@@ -13,6 +13,7 @@ use App\Brand;
 use App\SubCategory;
 use App\SubSubCategory;
 use App\Product;
+use App\Blog;
 use App\PickupPoint;
 use App\CustomerPackage;
 use App\CustomerProduct;
@@ -105,6 +106,11 @@ class HomeController extends Controller
         return view('dashboard');
     }
 
+    public function showBlogs($id)
+    {
+        $blog = Blog::findOrFail(decrypt($id));
+        return view('frontend.blog-details',compact('blog'));
+    }
     /**
      * Show the customer/seller dashboard.
      *

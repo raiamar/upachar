@@ -13,6 +13,7 @@
                             <span class="pl-2">
                                 <i class="fa fa-angle-right" aria-hidden="true"></i></span>
                         </a>
+                       
                         <ul class="sub_menu_list">
                             @if(count($category->subcategories)>0)
                             @foreach ($category->subcategories as $sub)
@@ -452,67 +453,35 @@
         </div>
         <div class="row">
             <!-- Content in col -->
+            @php
+                $blog = \App\Blog::where('published', 1)->get();
+            @endphp
+            @if(isset($blog))
+            @foreach (\App\Blog::where('published', 1)->get() as $key => $blogs)
             <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
                 <div class="blog-content bg-white">
                     <div class="image">
-                        <img src="frontend/assets/images/product-images/1.jpg" alt="blog-image" class="img-fluid">
+                        <img src="{{ asset($blogs->photo) }}" alt="blog-image" class="img-fluid">
                     </div>
                     <div class="blog-content px-4 py-3">
                         <h5 class="title">
-                            Best Place to buy
+                           {{$blogs->title}}
                         </h5>
-                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
-                            been developed in association with major organizations in almost every industry.
-                            That’s why our curriculum is suitable for both trainers
-                            and employers.</p>
+                        <p>{{ $blogs->description }}</p>
                         <div class="button-wrapper">
-                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
+                            <a href="{{ route('blogs.show',encrypt($blogs->id)) }}" class="effect anchor-btn">Read more</a>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+            @endif
             <!-- Content in col ends -->
             <!-- Content in col -->
-            <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
-                <div class="blog-content bg-white">
-                    <div class="image">
-                        <img src="frontend/assets/images/product-images/5.jpg" alt="blog-image" class="img-fluid">
-                    </div>
-                    <div class="blog-content px-4 py-3">
-                        <h5 class="title">
-                            Your ecommere world
-                        </h5>
-                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
-                            been developed in association with major organizations in almost every industry.
-                            That’s why our curriculum is suitable for both trainers
-                            and employers.</p>
-                        <div class="button-wrapper">
-                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Content in col ends -->
             <!-- Content in col -->
-            <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
-                <div class="blog-content bg-white">
-                    <div class="image">
-                        <img src="frontend/assets/images/product-images/6.jpg" alt="blog-image" class="img-fluid">
-                    </div>
-                    <div class="blog-content px-4 py-3">
-                        <h5 class="title">
-                            We shape learners into a valuable asset
-                        </h5>
-                        <p>We are recognized by employers worldwide. Hundreds of qualification facilities have
-                            been developed in association with major organizations in almost every industry.
-                            That’s why our curriculum is suitable for both trainers
-                            and employers.</p>
-                        <div class="button-wrapper">
-                            <a href="blog-detail.html" class="effect anchor-btn">Read more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Content in col ends -->
         </div>
     </div>

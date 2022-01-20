@@ -43,7 +43,8 @@ Route::post('/faq/update/{id}', 'PageController@faqupdate')->name('pages.faqupda
 Route::get('/faq/delete/{id}', 'PageController@faqdelete')->name('pages.faqdelete');
 Route::post('/faq/update_status', 'PageController@faqupdate_status')->name('pages.faqupdate_status');
 
-
+	Route::resource('/blog','BlogController');
+	Route::post('/blog/update_status','BlogController@updateStatus')->name('blog.status');
 
 		
 	Route::resource('categories','CategoryController');
