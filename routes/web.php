@@ -60,7 +60,7 @@ Route::post('/home/section/home_categories', 'HomeController@load_home_categorie
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');
 //category dropdown menu ajax call 	
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
-
+Route::get('/blogs/{id}','HomeController@showBlogs')->name('blogs.show');
 //Flash Deal Details Page
 Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('flash-deal-details');
 

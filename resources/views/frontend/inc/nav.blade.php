@@ -81,7 +81,7 @@
                                         {{-- <a class="nav-link" href="product-listing.html">Item 1</a> --}}
                                         @if($category->has('products'))
                                         @foreach ($category->products as $subcategory)
-                                        <a class="nav-link">{{$subcategory->name}}</a>
+                                        <a class="nav-link" href="{{route('product',$subcategory->slug)}}">{{$subcategory->name}}</a>
                                         @endforeach                   
                                         @endif
                                     </li>
@@ -112,7 +112,7 @@
                                             <a class="nav-link head font-weight-bold" href="{{ route('products.category', $category->slug) }}">{{$category->name}}</a>
                                             @if($category->has('subcategories'))
                                             @foreach ($category->subcategories as $subcategory)
-                                            <a class="nav-link">{{$subcategory->name}}</a>
+                                            <a class="nav-link" href="{{route('products.subcategory',$subcategory->slug)}}">{{$subcategory->name}}</a>
                                             @endforeach                    
                                         @endif
                                         </li>
