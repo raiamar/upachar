@@ -56,7 +56,11 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="{{route('blog.edit',$blogs->id)}}">{{__('Edit')}}</a></li>
-                            <li><a onclick="confirm_modal('{{route('blog.destroy', $blogs->id)}}');">{{__('Delete')}}</a></li>
+                            <form action="{{ route('blog.destroy',$blogs->id) }}" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <li><button class="form-control">{{__('Delete') }}</button></li>
+                            </form>
                         </ul>
                     </div>
                    </td>

@@ -110,7 +110,7 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         $blog->photo = $request->previous_photo;
         if($request->hasFile('photo')){
-            $banner->photo = $request->photo->store('uploads/blogs');
+            $blog->photo = $request->photo->store('uploads/blogs');
         }
         $blog->title = $request->title;
         $blog->description = $request->description;
