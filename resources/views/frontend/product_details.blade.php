@@ -122,9 +122,7 @@
                                 </span>
                             </div>
 
-                            @php
-                                $currency = App\Currency::where('status', 1)->first();
-                            @endphp
+                      
                             <div class="d-flex flex-row align-items-center mb-2">
                                 <h1 class="font-weight-bold m-0" name="name">{{__($detailedProduct->name)}}</h1>
                             </div>
@@ -144,6 +142,7 @@
                         <form class="product-types" id="option-choice-form">
                             @csrf
                             <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
+                           
                             {{-- <div class="form-row w-50">
                                 <div class="form-group">
                                     <div class="image-size-wrapper">
@@ -193,8 +192,6 @@
                                 </div>
                             </div> 
                             @if ($detailedProduct->current_stock >= 0)
-                            {{-- <button type="submit" class="effect add-to-cart" > --}}
-                                {{-- <button type="button" class="effect add-to-cart" onclick="addToCartDetails({{ $detailedProduct->id }})"> --}}
                             <button type="button" class="effect add-to-cart" onclick="addToCart()">
                                 {{__('Add to cart')}}</span>
                             </button>
@@ -322,7 +319,7 @@
                                     <!-- User Comment -->
                                     <div class="user-comment py-4 px-3">
                                         @if(Auth::check())
-                                            {{-- @php
+                                            @php
                                                 $commentable = false;
                                             @endphp
                                             @foreach ($detailedProduct->orderDetails as $key => $orderDetail)
@@ -333,7 +330,7 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            @if ($commentable) --}}
+                                            @if ($commentable)
                                         <div class="title mb-3 text-center">
                                             <h2 class="font-weight-bold mb-2">{{__('Add a comment')}}</h2>
                                         </div>
@@ -385,7 +382,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        {{-- @endif --}}
+                                        @endif
                                         @endif
                                     </div>
                                     <!-- User Comment Ends-->
@@ -441,6 +438,9 @@
                                     </li>
                                     <li>
                                         <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $related_product->id }})"></a>
+                                    </li>
+                                    <li>
+                                        <a class="fa fa-exchange" onclick="addToCompare({{ $related_product->id }})"></a>
                                     </li>
                                 </ul>
                                 @if (! $related_product->discount == 0)
