@@ -24,10 +24,14 @@
                             <i class="fa fa-paper-plane"
                                 aria-hidden="true"></i></span>{{__('Registration')}}</a>
                 </li>
+                <li>
+                    <a class="nav-link text-white" href="{{ route('shops.create') }}">{{__('Become a vendor')}}</a>
+                </li>
                 @endauth
                 {{-- <li>
                     <a class="nav-link text-white" href="">{{__('Save more on App')}}</a>
                 </li> --}}
+                
                 <li>
                     <a class="nav-link text-white" href="{{ route('orders.track') }}">{{__('Track my Order')}}</a>
                 </li>

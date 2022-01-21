@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
