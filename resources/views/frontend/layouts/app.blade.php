@@ -406,7 +406,8 @@ function showFrontendAlert(type, message){
             $('#cart-summary').html(data);  
             showFrontendAlert('success', 'Item has been removed from cart');
             $('#nav-cart-count').html(parseInt($('#nav-cart-count').html())-1);
-            $("#nav-cart").modal("hide");
+            $('#nav-cart').modal('hide');
+            $('.modal-backdrop').remove();
             
         });
     }
@@ -493,6 +494,15 @@ function showFrontendAlert(type, message){
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
+        });
+    }
+
+
+    function addToCompare(id){
+        $.post('{{ route('compare.addToCompare') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+            $('#compare').html(data);
+            showFrontendAlert('success', 'Item has been added to compare list');
+            $('#compare_items_sidenav').html(parseInt($('#compare_items_sidenav').html())+1);
         });
     }
     </script>

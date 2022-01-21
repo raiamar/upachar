@@ -245,6 +245,9 @@
                                         </li>
                                         <li>
                                             <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
+                                        </li>   
+                                        <li>
+                                            <a class="fa fa-exchange" onclick="addToCompare({{ $product->id }})"></a>
                                         </li>
                                     </ul>
                                     @if (! $product->discount == 0)
@@ -288,11 +291,13 @@
         }
         
 function rangeTest(){
-    console.log('here');
     let value = document.getElementById('range-slider-div').value;
     document.getElementById('min_price').value = value[0];
     document.getElementById('max_price').value = value[1];
     setTimeout($('#rangeForm').submit(), 4000);
 };
+
+
+
 
     </script>

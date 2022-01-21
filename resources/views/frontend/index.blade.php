@@ -88,9 +88,9 @@
                                     {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
                                     <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                                 </li>
-                                {{-- <li>
-                                    <a href="" class="fa fa-exchange addToCompare" data-id="{{ $product->id }}"></a>
-                                </li> --}}
+                                <li>
+                                    <a class="fa fa-exchange" onclick="addToCompare({{ $product->id }})"></a>
+                                </li>
                             </ul> 
                             @if (! $product->discount == 0)
                                 <span class="product-discount-label">-{{$product->discount}}%</span>
@@ -274,15 +274,13 @@
                         <ul class="social">
                             <li>
                                 <a class="fa fa-heart-o addToWishList" data-id="{{ $product->id }}"></a>
-                                {{-- <a href="" class="fa fa-heart-o"></a> --}}
                             </li>
                             <li>
-                                {{-- <a class="fa fa-shopping-cart addToCart" data-id="{{ $product->id }}"></a> --}}
                                 <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                             </li>
-                            {{-- <li>
-                                <a href="" class="fa fa-exchange"></a>
-                            </li> --}}
+                            <li>
+                                <a class="fa fa-exchange" onclick="addToCompare({{ $product->id }})"></a>
+                            </li>
                         </ul> 
                         @if (! $product->discount == 0)
                             <span class="product-discount-label">-{{$product->discount}}%</span>
