@@ -139,7 +139,7 @@
 
 
 
-                        {{-- @if (count(json_decode($product->colors)) > 0)
+                        @if (count(json_decode($product->colors)) > 0)
                         <div class="row no-gutters">
                             <div class="col-2">
                                 <div class="product-description-label mt-2">{{__('Color')}}:</div>
@@ -156,7 +156,7 @@
                                 </ul>
                             </div>
                         </div>
-                        @endif --}}
+                        @endif
 
                         <div class="row no-gutters">
                             <div class="col-2">

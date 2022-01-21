@@ -56,8 +56,8 @@
                                 ->distinct()
                                 ->count();
                     $sellers = \App\Seller::where('verification_status', 0)->where('verification_info', '!=', null)->count();
+                    $user = \App\User::where('email_verified_at', null)->get();
                 @endphp
-
                 <li class="dropdown" id="lang-change">
                     @php
                         if(Session::has('locale')){
@@ -105,6 +105,49 @@
                                             </a>
                                         </li>
                                     @endif
+
+                                    @php
+                                        $notifications = auth()->user()->unreadNotifications;
+                                    @endphp
+
+                                    @forelse($notifications as $notification)
+                                    <div class="alert alert-success" role="alert">
+                                        @php
+                                            $type_product = 'App\Notifications\ProductNotification';
+                                            $type_user = 'App\Notifications\NewUserNotification';
+                                        @endphp
+                                        @if ($notification->type == $type_user)
+                                        [{{__('New User')}} <b> "{{ $notification->data['name'] }}"</b> {{__('registered on')}} {{  date('j \\ F Y', strtotime($notification->created_at)) }}]  
+                                        {{-- @if (isset($notification->data['email']))
+                                        with "({{ $notification->data['email'] }})". 
+                                        @endif --}}
+                                        
+                                        {{-- <a href="{{$notification->id}}/delete" class="float-right mark-as-read" data-id="{{ $notification->id }}" onclick="myFunction()"> --}}
+                                        <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}" onclick="myFunction()">
+                                            <u>{{__('Mark as read')}}</u>
+                                        </a>
+                                        @else
+                                        [{{__('New product')}} <b> "{{ $notification->data['name'] }}"</b> {{__('has been added on')}} {{  date('j \\ F Y', strtotime($notification->created_at)) }}]  
+                        
+                                        <a href="#" class="float-right mark-as-read" data-id="{{ $notification->id }}" onclick="myFunction()">
+                                            <u>{{__('Mark as read')}}</u>
+                                        </a>
+                                        @endif
+                                        
+                                    </div>
+                                
+                                    @if($loop->last)
+                                        <a href="delete-all" id="mark-all">
+                                            @can('delete_all')
+                                            Mark all as read
+                                            @endcan
+                                        </a>
+                                    @endif
+                                @empty
+                                    <p style="margin-left: 20px;">No new notifications</p>
+                                @endforelse
+
+
                                     @if($sellers > 0)
                                         <li>
                                             <a class="media" href="{{ route('sellers.index') }}">
@@ -153,3 +196,29 @@
 
     </div>
 </header>
+
+<script>
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('markNotification') }}", {
+            method: 'POST',
+            data: {
+                _token:"{{ csrf_token() }}",
+                id
+            }
+        });
+    }
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+        $('#mark-all').click(function() {
+            let request = sendMarkRequest();
+            request.done(() => {
+                $('div.alert').remove();
+            })
+        });
+    });
+</script>
