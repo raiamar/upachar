@@ -381,13 +381,13 @@ function showFrontendAlert(type, message){
             $.ajax({
                 _token:"{{ csrf_token() }}",
                type:"POST",
-               url: '{{ route('cart.addToCart') }}',
+               url: '{{ route('cart.addTo_Cart') }}',
                data: $('#option-choice-form').serializeArray(),
                success: function(data){
-                   //$('#addToCart-modal-body').html(null);
-                   //$('.c-preloader').hide();
-                   //$('#modal-size').removeClass('modal-lg');
-                   //$('#addToCart-modal-body').html(data);
+                //    $('#addToCart-modal-body').html(null);
+                //    $('.c-preloader').hide();
+                //    $('#modal-size').removeClass('modal-lg');
+                //    $('#addToCart-modal-body').html(data);
                    updateNavCart();
                    $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
                    window.location.replace("{{ route('cart') }}");

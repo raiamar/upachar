@@ -141,10 +141,10 @@
                                 <?php echo $detailedProduct->description; ?>
                             </p>
                         </div>
-                        <form class="product-types" action="{{ route('cart.addTo_Cart') }}" method="POST">
+                        <form class="product-types" id="option-choice-form">
                             @csrf
                             <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
-                            <div class="form-row w-50">
+                            {{-- <div class="form-row w-50">
                                 <div class="form-group">
                                     <div class="image-size-wrapper">
                                         <div class="image-select mb-3">
@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <?php 
                                 $mydata = json_decode($detailedProduct->choice_options,true);
                                 $myvalues = Illuminate\Support\Arr::pluck($mydata, 'values');
@@ -195,10 +195,10 @@
                             @if ($detailedProduct->current_stock >= 0)
                             {{-- <button type="submit" class="effect add-to-cart" > --}}
                                 {{-- <button type="button" class="effect add-to-cart" onclick="addToCartDetails({{ $detailedProduct->id }})"> --}}
-                            <button type="button" class="effect add-to-cart" type="submit">
+                            <button type="button" class="effect add-to-cart" onclick="addToCart()">
                                 {{__('Add to cart')}}</span>
                             </button>
-                            <button type="submit" class="effect buy-now">
+                            <button class="effect buy-now" onclick="buyNow()">
                                 {{__('Buy Now')}}
                             </button>
                             @else
