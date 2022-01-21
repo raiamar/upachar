@@ -12,17 +12,17 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{__('Shop Informations')}}
+                                        {{__('Vendor Informations')}}
                                     </h2>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="float-md-right">
+                                    {{-- <div class="float-md-right">
                                         <ul class="breadcrumb">
                                             <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
                                             <li><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
                                             <li class="active"><a href="{{ route('shops.create') }}">{{__('Create Shop')}}</a></li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                             @if (!Auth::check())
                                 <div class="form-box bg-white mt-4">
                                     <div class="form-box-title px-3 py-2">
-                                        {{__('User Info')}}
+                                        {{__('Vendor Info')}}
                                     </div>
                                     <div class="form-box-content p-3">
                                         <div class="row">
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-styled btn-base-1">{{__('Save')}}</button>
+                                <button type="submit" class="effect anchor-btn px-4">{{__('Save')}}</button>
                             </div>
                         </form>
                     </div>
