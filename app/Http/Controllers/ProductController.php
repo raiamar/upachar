@@ -12,6 +12,9 @@ use App\SubSubCategory;
 use Session;
 use ImageOptimizer;
 use DB;
+use App\Events\ProductEvent;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ProductNotification;
 use CoreComponentRepository;
 
 class ProductController extends Controller
@@ -288,6 +291,7 @@ class ProductController extends Controller
        // }
 
 	    $product->save();
+        event(new ProductEvent($product));
 
         flash(__('Product has been inserted successfully'))->success();
         if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff'){

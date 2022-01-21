@@ -12,6 +12,7 @@
 */
 
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
+Route::post('/mark-as-read', 'HomeController@markNotification')->name('markNotification')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 
 

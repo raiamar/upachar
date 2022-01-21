@@ -142,7 +142,24 @@
                         <form class="product-types" id="option-choice-form">
                             @csrf
                             <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
-                           
+                            @if (count(json_decode($detailedProduct->colors)) > 0)
+                            <div class="form-row w-50">
+                                <div class="form-group">
+                                    <div class="image-size-wrapper">
+                                        <div class="image-select mb-3">
+                                            <h5>Color</h5>
+                                            <div class="select-image-size">
+                                            @foreach (json_decode($detailedProduct->colors) as $key => $color) 
+                                                <div class="imagesize" style="background:{{$color}}; border:{{$color}}">
+                                                    <input type="radio" id="{{ $detailedProduct->id }}-color-{{ $key }}" name="color" value="{{ $color }}" @if($key == 0) checked @endif style="color:{{$color}};">
+                                                </div>
+                                            @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                             {{-- <div class="form-row w-50">
                                 <div class="form-group">
                                     <div class="image-size-wrapper">
