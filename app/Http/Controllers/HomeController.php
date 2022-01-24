@@ -119,6 +119,12 @@ class HomeController extends Controller
         return response()->noContent();
     }
 
+    public function featuredProducts(Request $request)
+    {
+        $products = Product::where('featured',1)->get();
+        return view('frontend.featured-products',compact('products'));
+    }
+
     public function showBlogs($id)
     {
         $blog = Blog::findOrFail(decrypt($id));

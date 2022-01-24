@@ -59,11 +59,11 @@
                             <h2 class="font-weight-bold">{{__('Featured Products')}}</h2>
                             <p>THERE'S SOMETHING FOR EVERYONE</p>
                         </div>
-                        <div class="navigator"> <a href="{{ route('products') }}">See all</a> </div>
+                        <div class="navigator"> <a href="{{ route('featured.products') }}">See all</a> </div>
                     </div>
                 </div>
             @php
-                $new_products = \App\Product::where('featured', 1)->limit(4)->get();
+                $new_products = \App\Product::where('featured', 1)->limit(6)->get();
                 $currency = \App\Currency::where('status', 1)->first();
             @endphp
             @foreach ($new_products as $key => $product)
