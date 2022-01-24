@@ -250,10 +250,10 @@
                                                 @endforeach
                                             </td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <th>Material</th>
                                             <td>Silk</td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>

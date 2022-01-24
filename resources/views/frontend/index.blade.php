@@ -432,9 +432,9 @@
     </div>
 </section>
 <!-- Testimonial Ends -->
-<div class="c-preloader">
+{{-- <div class="c-preloader">
     <i class="fa fa-spin fa-spinner"></i>
-</div>
+</div> --}}
 <!-- Blog  -->
 <section id="blog-wrapper" class="py-5 bg-light">
     <div class="container">

@@ -50,12 +50,14 @@ Route::prefix('v1')->group(function () {
     Route::get('products/related/{id}', 'Api\ProductController@related')->name('products.related');
     Route::get('products/top-from-seller/{id}', 'Api\ProductController@topFromSeller')->name('products.topFromSeller');
     Route::get('products/search', 'Api\ProductController@search');
+
     Route::post('products/variant/price', 'Api\ProductController@variantPrice');
     Route::get('products/home', 'Api\ProductController@home');
     Route::apiResource('products', 'Api\ProductController')->except(['store', 'update', 'destroy']);
 
     Route::get('carts/{id}', 'Api\CartController@index')->middleware('auth:api');
     Route::post('carts/add', 'Api\CartController@add')->middleware('auth:api');
+
     Route::post('carts/change-quantity', 'Api\CartController@changeQuantity')->middleware('auth:api');
     Route::apiResource('carts', 'Api\CartController')->only('destroy')->middleware('auth:api');
 
@@ -90,13 +92,14 @@ Route::prefix('v1')->group(function () {
 
     Route::post('payments/pay/stripe', 'Api\StripeController@processPayment')->middleware('auth:api');
     Route::post('payments/pay/paypal', 'Api\PaypalController@processPayment')->middleware('auth:api');
+
     Route::post('payments/pay/cod', 'Api\PaymentController@cashOnDelivery')->middleware('auth:api');
 
     Route::post('order/store', 'Api\OrderController@store')->middleware('auth:api');
     
     Route::resource('addresses','Api\AddressController')->middleware('auth:api');
-   Route::get('/addresses/destroy/{id}', 'Api\AddressController@destroy')->middleware('auth:api');
-Route::get('/addresses/set_default/{id}', 'Api\AddressController@set_default')->middleware('auth:api');
+    Route::get('/addresses/destroy/{id}', 'Api\AddressController@destroy')->middleware('auth:api');
+    Route::get('/addresses/set_default/{id}', 'Api\AddressController@set_default')->middleware('auth:api');
 
 });
 
