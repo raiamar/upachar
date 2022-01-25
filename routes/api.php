@@ -57,7 +57,6 @@ Route::prefix('v1')->group(function () {
 
     Route::get('carts/{id}', 'Api\CartController@index')->middleware('auth:api');
     Route::post('carts/add', 'Api\CartController@add')->middleware('auth:api');
-
     Route::post('carts/change-quantity', 'Api\CartController@changeQuantity')->middleware('auth:api');
     Route::apiResource('carts', 'Api\CartController')->only('destroy')->middleware('auth:api');
 
@@ -92,7 +91,6 @@ Route::prefix('v1')->group(function () {
 
     Route::post('payments/pay/stripe', 'Api\StripeController@processPayment')->middleware('auth:api');
     Route::post('payments/pay/paypal', 'Api\PaypalController@processPayment')->middleware('auth:api');
-
     Route::post('payments/pay/cod', 'Api\PaymentController@cashOnDelivery')->middleware('auth:api');
 
     Route::post('order/store', 'Api\OrderController@store')->middleware('auth:api');
