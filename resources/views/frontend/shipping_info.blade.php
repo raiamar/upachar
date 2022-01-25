@@ -281,7 +281,7 @@
                                     @endforeach
                                 </div>
                                 <!-- Button trigger modal --> 
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="effect" data-toggle="modal" data-target="#exampleModal">
                                     Add New Address
                                 </button> 
                         </div>
@@ -360,7 +360,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -368,32 +368,39 @@
         <div class="modal-body">
             <form method="post" action="{{route('addAddress')}}">
                 @csrf
-            <div class="col-md-6">
-                <label for="" class="text_gray mt-3">Address</label>
-                <input type="text" class="form-control w-100" placeholder="Nepal" name="address">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="" class="text_gray mt-3">Address</label>
+                        <input type="text" class="form-control w-100" placeholder="Nepal" name="address">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="text_gray mt-3">City</label>
+                        <input type="text" class="form-control w-100" placeholder="Lalitpur" name="city">
+                    </div>
+                </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="" class="text_gray mt-3">Country</label>
+                    <input type="text" class="form-control w-100" placeholder="Nepal" name="country">
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="text_gray mt-3">Postal Code</label>
+                    <input type="text" class="form-control w-100" placeholder="5468" name="postal_code">
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="" class="text_gray mt-3">City</label>
-                <input type="text" class="form-control w-100" placeholder="Lalitpur" name="city">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="" class="text_gray mt-3">Phone</label>
+                    <input type="text" class="form-control w-100" placeholder="5468" name="phone">
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="" class="text_gray mt-3">Country</label>
-                <input type="text" class="form-control w-100" placeholder="Nepal" name="country">
-            </div>
-            <div class="col-md-6">
-                <label for="" class="text_gray mt-3">Postal Code</label>
-                <input type="text" class="form-control w-100" placeholder="5468" name="postal_code">
-            </div>
-            <div class="col-md-6">
-                <label for="" class="text_gray mt-3">Phone</label>
-                <input type="text" class="form-control w-100" placeholder="5468" name="phone">
-            </div>
-            <button type="submit">Add new address</button>
+           
+            <button type="submit" class="effect mt-4">Add new address</button>
             </form>
         </div>
-        <div class="modal-footer">
+        {{-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

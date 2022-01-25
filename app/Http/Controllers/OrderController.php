@@ -314,7 +314,7 @@ class OrderController extends Controller
             $pdf = PDF::setOptions([
                             'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                             'logOutputFile' => storage_path('logs/log.htm'),
-                            'tempDir' => storage_path('logs/')
+                            'tempDir' => storage_salarypath('logs/')
                         ])->loadView('invoices.customer_invoice', compact('order'));
             $output = $pdf->output();
     		file_put_contents(public_path('/invoices/'.'Order#'.$order->code.'.pdf'), $output);

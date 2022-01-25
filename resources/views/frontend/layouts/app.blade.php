@@ -68,6 +68,8 @@
     <!-- Bootstrap link Starts -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+
     <!-- Bootstrap link Ends -->
     <!-- Font Awesome Link Starts -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/font-awesome-4.7.0/css/font-awesome.min.css') }}">
