@@ -797,13 +797,13 @@ class HomeController extends Controller
        return redirect()->to('/');
     }
 
-    public function contactShop(Request $request){
+    public function contactShop(Request $request, $slug){
        $contact = new ShopContact();
        $contact->name = $request->name;
        $contact->email = $request->email;
        $contact->phone = $request->phone;
        $contact->vendor = $request->vendor;
        $contact->save();
-       return redirect()->to('/')->withSuccess('Received');
+       return redirect()->to('/shops/visit/'.$slug)->withSuccess('Received');
     }
 }

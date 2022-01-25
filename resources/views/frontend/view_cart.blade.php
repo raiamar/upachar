@@ -125,6 +125,7 @@
             @if(Session::has('cart'))
             <div class="row py-xl-5 py-md-3 py-0">
                 <div class="col-lg-8 col-md-12 col-12">
+                    
                     <div class="profile-side-detail-edit">
                         <div class="dashboard-content d-flex align-items-center h-100">
                             <div class="shopping-cart">
@@ -245,7 +246,8 @@
                 }
                 $admin_products = array();
                 $seller_products = array();
-            @endphp
+                @endphp
+
             @foreach (Session::get('cart') as $key => $cartItem)
                 @php
                     $product = \App\Product::find($cartItem['id']);
@@ -272,6 +274,7 @@
                 @endphp
                 
             @endforeach
+
             @php
                 if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
                     if(!empty($admin_products)){
@@ -284,6 +287,7 @@
                     }
                 }
             @endphp
+
                 <div class="col-lg-4 col-md-12 col-12 mb-xl-0 mb-lg-0 mb-3">
                     <div class="cart-box d-flex flex-wrap justify-content-between align-items-center text-center">
                         <div class="col-12">
@@ -324,7 +328,7 @@
                             <button class="btn btn-styled btn-base-1" onclick="showCheckoutModal()">{{__('Continue to Shipping')}}</button>
                             @endif
                         </div>
-                    </div>
+                </div>
         <!-- Mobile Profile Nav -->
         <div class="mobile-profile-nav d-lg-none d-flex flex align-items-center h-100 " data-toggle="modal"
             data-target="#profilemobilenav">

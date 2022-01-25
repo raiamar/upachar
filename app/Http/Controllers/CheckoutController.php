@@ -447,7 +447,7 @@ class CheckoutController extends Controller
     }
 
     public function apply_coupon_code(Request $request){
-        //dd($request->all());
+        // dd($request->all());
         $coupon = Coupon::where('code', $request->code)->first();
 
         if($coupon != null){

@@ -3,7 +3,7 @@
 @section('content')
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
         <div class="title p-4">Blog Details</div>

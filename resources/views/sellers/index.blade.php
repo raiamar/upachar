@@ -55,7 +55,7 @@
                                                 <h5 class="mb-0"> Contact Us</h5>
                                             </div>
                                             <div class="card border-0">
-                                                <form class="contact-form" method="post" action="{{route('contac.seller')}}">
+                                                <form class="contact-form" method="post" action="{{route('contac.seller', ['slug' => $shop->slug])}}">
                                                     @csrf
                                                     <input type="hidden" name="vendor" value="{{$shop->name}}">
                                                     <div class="form-group">

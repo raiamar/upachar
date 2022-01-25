@@ -54,7 +54,11 @@
     </div>
     <div class="overlay position-absolute">
         {{-- {{ ($bread_crumb->name) }} --}}
-        <div class="title p-4">{{__('Home')}}></div>
+        @if(isset($bread_crumb))
+        <div class="title p-4">{{$bread_crumb->name}}</div>
+        @else
+        <div class="title p-4">{{__('Products')}}</div>
+        @endif
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -83,8 +87,7 @@
                                         </div>
                                         <div class="filter-content2 mt-3">
                                             <div class="card-body">
-                                                <div class="slider" id="range-slider-div" onchange="rangeTest()">
-                                                </div>
+                                                <div class="slider" id="range-slider-div" onchange="rangeTest()"></div>
                                             </div>
                                             <!-- card-body.// -->
                                         </div>
@@ -289,13 +292,18 @@
         function filter(){
             $('#search-form').submit();
         }
-        
-function rangeTest(){
-    let value = document.getElementById('range-slider-div').value;
-    document.getElementById('min_price').value = value[0];
-    document.getElementById('max_price').value = value[1];
-    setTimeout($('#rangeForm').submit(), 4000);
-};
+        function rangefilter(arg){
+            console.log('here');
+            $('input[name=min_price]').val(arg[0]);
+            $('input[name=max_price]').val(arg[1]);
+            filter();
+        }
+        function rangeTest(){
+            let value = document.getElementById('range-slider-div').value;
+            document.getElementById('min_price').value = value[0];
+            document.getElementById('max_price').value = value[1];
+            setTimeout($('#rangeForm').submit(), 4000);
+        };
 
 
 

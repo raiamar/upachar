@@ -53,7 +53,7 @@ Route::post('/contact','HomeController@storeContact')->name('store.contact');
 Route::get('/about', 'HomeController@about_us')->name('about.us');
 Route::get('featured-products','HomeController@featuredProducts')->name('featured.products');
 Route::get('/all_sellers', 'HomeController@vendors')->name('all.sellers');
-Route::post('/contact/shop','HomeController@contactShop')->name('contac.seller');
+Route::post('/contact/shop/{slug}','HomeController@contactShop')->name('contac.seller');
 Route::get('/vendor/dashboard', 'HomeController@vendor_dashboard')->name('vendor.dashboard');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');

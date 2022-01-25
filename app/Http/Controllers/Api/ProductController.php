@@ -163,6 +163,7 @@ class ProductController extends Controller
         }
 
         foreach (json_decode($request->choice) as $option) {
+            return $option;
             $str .= $str != '' ?  '-'.str_replace(' ', '', $option->name) : str_replace(' ', '', $option->name);
         }
 

@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->call(function () {
-            DB::table('notifications')->where('updated_at', '<', Carbon::now()->subDays(7))->delete();
+            DB::table('notifications')->where('read_at', '<', Carbon::now()->subDays(7))->delete();
         })->weekly();
     }
 

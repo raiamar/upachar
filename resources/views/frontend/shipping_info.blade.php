@@ -12,6 +12,10 @@
 </section>
 <!-- Breadcrumbs Ends -->
 
+
+
+
+
 <!-- Checkout -->
 <section id="checkout-wrapper" class="py-3">
     <form method="post" action="{{route('checkout.store_shipping_infostore')}}">
@@ -30,11 +34,12 @@
                     </div>
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            <section id="cart-wrapper" class="">
-                            
-                                    <div class="row">
-                                        <div class="col-12">
-                                            @if(Session::has('cart'))
+                            <section id="cart-wrapper" class="py-3">
+                                <div class="container">
+                                    @if(Session::has('cart'))
+                                    <div class="row py-xl-5 py-md-3 py-0">
+                                        <div class="col-lg-8 col-md-12 col-12">
+                                            
                                             <div class="profile-side-detail-edit">
                                                 <div class="dashboard-content d-flex align-items-center h-100">
                                                     <div class="shopping-cart">
@@ -48,29 +53,38 @@
                                                                             <th class="cart-qty item">Quantity</th>
                                                                             <th class="cart-total last-item">Total</th>
                                                                             <th class="cart-romove item">Remove</th>
-
+                        
                                                                         </tr>
                                                                     </thead>
                                                                     <!-- /thead -->
                                                                     <tbody>
-                                                                        @foreach (Session::get('cart') as $key => $cartItem)
                                                                         @php
-                                                                            $total = 0;
+                                                                        $total = 0;
+                                                                        @endphp
+                                                                        @foreach (Session::get('cart') as $key => $cartItem)
+                                                                            @php
                                                                             $product = \App\Product::find($cartItem['id']);
                                                                             $total = $total + $cartItem['price']*$cartItem['quantity'];
                                                                             $product_name_with_choice = $product->name;
                                                                             if ($cartItem['variant'] != null) {
                                                                                 $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
                                                                             }
-                                                                        @endphp
+                                                                            // if(isset($cartItem['color'])){
+                                                                            //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
+                                                                            // }
+                                                                            // foreach (json_decode($product->choice_options) as $choice){
+                                                                            //     $str = $choice->name; // example $str =  choice_0
+                                                                            //     $product_name_with_choice .= ' - '.$cartItem[$str];
+                                                                            // }
+                                                                            @endphp
                                                                         <tr>
                                                                             <td class="cart-image">
-                                                                                <a class="entry-thumbnail" href="#">
+                                                                                <a class="entry-thumbnail" href="">
                                                                                     <img src="{{ asset($product->thumbnail_img) }}" class="img-fluid">
                                                                                 </a>
                                                                             </td>
                                                                             <td class="cart-product-name-info">
-                                                                                <h4 class="cart-product-description"><a href="product-product-detail.html">{{ $product_name_with_choice }}</a></h4>
+                                                                                <h4 class="cart-product-description"><a href="">{{ $product_name_with_choice }}</a></h4>
                                                                                 <div class="row">
                                                                                     <div class="col-4">
                                                                                         <div class="rating rateit-small"></div>
@@ -78,59 +92,136 @@
                                                                                 </div>
                                                                                 <!-- /.row -->
                                                                             </td>
-
-
                                                                             <td class="cart-product-quantity">
-                                                                                {{-- <div class="quant-input">
-                                                                                    <input type="number" value="1">
-                                                                                </div> --}}
                                                                                 @if($cartItem['digital'] != 1)
-                                                                                    <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
-                                                                                        <span class="input-group-btn">
-                                                                                            <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
-                                                                                                <i class="la la-minus"></i>
-                                                                                            </button>
-                                                                                        </span>
-                                                                                            <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
-                                                                                            <span class="input-group-btn">
-                                                                                            <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
-                                                                                                <i class="la la-plus"></i>
-                                                                                            </button>
-                                                                                        </span>
-                                                                                    </div>
+                                                                                <div class="quant-input">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn btn-number" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                                                            <i class="la la-minus"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                    <input type="text" name="quantity[{{ $key }}]" class="form-control input-number" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="10" onchange="updateQuantity({{ $key }}, this)">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                                                            <i class="la la-plus"></i>
+                                                                                        </button>
+                                                                                    </span>
+                                                                                </div>
                                                                                 @endif
                                                                             </td>
                                                                             <td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ single_price($cartItem['price']) }}</span>
                                                                             </td>
-                                                                            <td class="romove-item"><a href="#" title="cancel" onclick="removeFromCartView(event, {{ $key }})" class="icon"><i class="fa fa-trash-o"></i></a>
+                                                                            <td class="romove-item"><a onclick="removeFromCartView(event, {{ $key }})" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
                                                                             </td>
                                                                         </tr>
+                                                                        @endforeach
                                                                     </tbody>
                                                                     <!-- /tbody -->
-                                                                    @endforeach
                                                                 </table>
-                                                                <div class="d-flex justify-content-around align-items-center w-100 my-3 flex-wrap">
-                                                                    <!-- <form class="coupon-field d-flex flex-wrap align-items-center justify-content-center">
-                                                                        <input type="text" placeholder="Apply Coupon Code" class="mr-2">
-                                                                        <button type="button" class="effect mt-xl-0 mt-md-0 mt-2">Apply
-                                                                            Coupon</button>
-                                                                    </form> -->
-                                                                    {{-- <div class="total-amount font-weight-bold mt-xl-0 mt-md-0 mt-2">
-                                                                        Total Amount : <span>$2000</span>
-                                                                    </div> --}}
-                                                                </div>
                                                             </div>
                                                         </div>
-
+                        
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endif
-                                            
                                         </div>
-
+                                        @php
+                                        $subtotal = 0;
+                                        $tax = 0;
+                                        $shipping = 0;
+                                        if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
+                                            $shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
+                                        }
+                                        $admin_products = array();
+                                        $seller_products = array();
+                                        @endphp
+                        
+                                    @foreach (Session::get('cart') as $key => $cartItem)
+                                        @php
+                                            $product = \App\Product::find($cartItem['id']);
+                                            if($product->added_by == 'admin'){
+                                                array_push($admin_products, $cartItem['id']);
+                                            }
+                                            else{
+                                                $product_ids = array();
+                                                if(array_key_exists($product->user_id, $seller_products)){
+                                                    $product_ids = $seller_products[$product->user_id];
+                                                }
+                                                array_push($product_ids, $cartItem['id']);
+                                                $seller_products[$product->user_id] = $product_ids;
+                                            }
+                                            $subtotal += $cartItem['price']*$cartItem['quantity'];
+                                            $tax += $cartItem['tax']*$cartItem['quantity'];
+                                            if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping') {
+                                                $shipping += $cartItem['shipping'];
+                                            }
+                                            $product_name_with_choice = $product->name;
+                                            if ($cartItem['variant'] != null) {
+                                                $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
+                                            }
+                                        @endphp
+                                        
+                                    @endforeach
+                        
+                                    @php
+                                        if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
+                                            if(!empty($admin_products)){
+                                                $shipping = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value;
+                                            }
+                                            if(!empty($seller_products)){
+                                                foreach ($seller_products as $key => $seller_product) {
+                                                    $shipping += \App\Shop::where('user_id', $key)->first()->shipping_cost;
+                                                }
+                                            }
+                                        }
+                                    @endphp
+                        
+                                        <div class="col-lg-4 col-md-12 col-12 mb-xl-0 mb-lg-0 mb-3">
+                                            <div class="cart-box d-flex flex-wrap justify-content-between align-items-center text-center">
+                                                <div class="col-12">
+                                                    <div class="cart-summary sub_border_shadow p-xl-4 p-lg-4 p-md-3 p-3 text-left">
+                                                        <strong class="cart_text mb-3 d-block font-weight-bold">Cart Summary</strong>
+                                                        <div class="cart-price d-flex justify-content-between mb-2">
+                                                            <h6 class="">Sub Total</h6>
+                                                            <span class="cart_text">{{ single_price($subtotal) }}</span>
+                                                        </div>
+                                                        <div class="cart-price d-flex justify-content-between mb-2">
+                                                            <h6 class="">Shipping Cost</h6>
+                                                            <span class="cart_text">{{ single_price($shipping) }}</span>
+                                                        </div>
+                                                        
+                                                        <hr>
+                                                        @if (Session::has('coupon_discount'))
+                                                        <div class="cart-price d-flex justify-content-between mb-2">
+                                                            <h6 class="">Coupon Discount</h6>
+                                                            <span class="cart_text">{{ single_price(Session::get('coupon_discount')) }}</span>
+                                                        </div>
+                                                        @endif
+                                                        @php
+                                                        $total = $subtotal+$tax+$shipping;
+                                                        if(Session::has('coupon_discount')){
+                                                            $total -= Session::get('coupon_discount');
+                                                        }
+                                                    @endphp
+                                                        <div class="cart-price d-flex justify-content-between mb-2">
+                                                            <h6 class="">Grand Total</h6>
+                                                            <span class="cart_text">{{ single_price($total) }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                <!-- Mobile Profile Nav -->
+                                <div class="mobile-profile-nav d-lg-none d-flex flex align-items-center h-100 " data-toggle="modal"
+                                    data-target="#profilemobilenav">
+                                    <button class="effect">
+                                        <span class="mr-2"><i class="fa fa-tachometer" aria-hidden="true"></i></span> Dashboard Menu
+                                    </button>
+                            </div>
+                            <!-- Mobile Profile Nav Ends-->
+                                        </div>
                                     </div>
-                            
+                                    @endif
+                                </div>
                             </section>
                         </div>
                     </div>
@@ -152,34 +243,40 @@
                                 <div class="row">
                                     @foreach (Auth::user()->addresses as $key => $address)
                                     <div class="col-md-6">
-                                        <label class="aiz-megabox d-block bg-white">
-                                        <input type="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default) checked @endif required>
-                                        <span class="d-flex p-3 aiz-megabox-elem">
-                                            <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
-                                            <span class="flex-grow-1 pl-3">
-                                                <div>
-                                                    <span class="alpha-6">Address:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->address }}</span>
-                                                </div>
-                                                <div>
-                                                    <span class="alpha-6">Postal Code:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                </div>
-                                                <div>
-                                                    <span class="alpha-6">City:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                </div>
-                                                <div>
-                                                    <span class="alpha-6">Country:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->country }}</span>
-                                                </div>
-                                                <div>
-                                                    <span class="alpha-6">Phone:</span>
-                                                    <span class="strong-600 ml-2">{{ $address->phone }}</span>
-                                                </div>
-                                            </span>
-                                        </span>
-                                        </label>
+
+                                        <div class="card w-75">
+                                            <div class="card-body">
+                                              <label class="aiz-megabox d-block bg-white">
+                                                <input type="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default) checked @endif required>
+                                                <span class="d-flex p-3 aiz-megabox-elem">
+                                                    <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
+                                                    <span class="flex-grow-1 pl-3">
+                                                        <div>
+                                                            <span class="alpha-6">Address:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->address }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Postal Code:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">City:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->city }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Country:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->country }}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="alpha-6">Phone:</span>
+                                                            <span class="strong-600 ml-2">{{ $address->phone }}</span>
+                                                        </div>
+                                                    </span>
+                                                </span>
+                                                </label>
+                                            </div>
+                                          </div>
+
                                     </div>
                                     @endforeach
                                 </div>
@@ -191,6 +288,7 @@
                     </div>
                 </div>
                 <!-- Second Collapse End -->
+
                 <!-- Third Collapse  -->
                 <div class="card">
                     <div class="card-header p-0 bg-light" id="headingThree">
@@ -202,46 +300,50 @@
                     </div>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
-                            <div class="row">
                                 {{-- <div class="col-6">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1" name="payment_option" value="" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="customRadio1">Cash On Delivery</label>
                                     </div>
                                 </div> --}}
-                                <div class="col-6">
-                                    @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
-                                    @php
-                                        $digital = 0;
-                                        foreach(Session::get('cart') as $cartItem){
-                                            if($cartItem['digital'] == 1){
-                                                $digital = 1;
+                                <div class="row">
+                                    <div class="column">
+                                        @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
+                                        @php
+                                            $digital = 0;
+                                            foreach(Session::get('cart') as $cartItem){
+                                                if($cartItem['digital'] == 1){
+                                                    $digital = 1;
+                                                }
                                             }
-                                        }
-                                    @endphp
-                                    @if($digital != 1)
-                                        <div class="col-6">
-                                            <label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
-                                                <input type="radio" id="" name="payment_option" value="cash_on_delivery" checked>
-                                                <span>
-                                                    <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid">
-                                                </span>
-                                            </label>
+                                        @endphp
+                                        @if($digital != 1)
+                                            <div class="col-5" style="margin-left: 10px;">
+                                                <label class="payment_option mb-4" data-toggle="tooltip" data-title="Cash on Delivery">
+                                                    <input type="radio" id="" name="payment_option" value="cash_on_delivery" checked>
+                                                    <span >
+                                                        <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/cod.png')}}" class="img-fluid">
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        @endif
+                                        @endif
+                                    </div>
+
+                                    <div class="column">
+                                        <div class="col-5" >
+                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="esewa">
+                                            <input type="radio" id="" name="payment_option" value="esewa">
+                                            <span class="esewa">
+                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/esewa.jpg')}}" class="img-fluid">
+                                            </span>
+                                        </label>
                                         </div>
-                                    @endif
-                                @endif
-
-
-
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="payment_option" value="" class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadio2" data-toggle="collapse" href="#cus-collapse1" role="button" aria-expanded="false" aria-controls="cus-collapse1" >E-Sewa</label>
                                     </div>
                                 </div>
+                
                             </div>
                         </div>
-                    </div>
-                </div>
                 <!-- Third Collapse End -->
             </div>
             <button class="effect mx-auto px-4" type="submit">Checkout</button> </div>
@@ -303,7 +405,14 @@
     </div>
   </div>
 
-
+<style>
+    .esewa img{
+        width: 450px;
+    }
+    .alpha-6{
+        font-weight: 600;
+    }
+    </style>
 
 <script type="text/javascript">
     function removeFromCartView(e, key){
