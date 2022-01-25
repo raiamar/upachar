@@ -329,6 +329,8 @@ $(document).ready(function () {
             });
     }
 
+ 
+
     // Flip cards
     if ($(".card-flip")[0]) {
         $(".card-flip-container").imagesLoaded(function () {
