@@ -56,6 +56,8 @@
         {{-- {{ ($bread_crumb->name) }} --}}
         @if(isset($bread_crumb))
         <div class="title p-4">{{$bread_crumb->name}}</div>
+        @elseif(isset($bread_crumbs))
+        <div class="title p-4">{{$bread_crumbs->name}}</div>
         @else
         <div class="title p-4">{{__('Products')}}</div>
         @endif
