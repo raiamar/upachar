@@ -7,19 +7,20 @@
                         @php
                             $filepath = $product->featured_img;
                         @endphp
-                        @if (isset($filepath))
+                        {{-- @if (isset($filepath)) --}}
                         <img src="{{ asset($product->featured_img) }}" class="xzoom img-fluid lazyload"
                         src="{{ asset($product->featured_img) }}"
                         data-src="{{ asset(json_decode($product->photos)[0]) }}"
                         xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
-                        @else
+                        {{-- @else
                         <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="xzoom img-fluid lazyload"
                              src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg"
                              data-src="{{ asset(json_decode($product->photos)[0]) }}"
                              xoriginal="{{ asset(json_decode($product->photos)[0]) }}"/>
-                        @endif
+                        @endif --}}
                         
                     </div>
+
                     <div class="product-gal-thumb">
                         <div class="xzoom-thumbs">
                             @foreach (json_decode($product->photos) as $key => $photo)

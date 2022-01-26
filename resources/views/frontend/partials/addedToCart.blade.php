@@ -10,7 +10,7 @@
                     $filepath = $product->featured_img;
                 @endphp
                 @if(isset($filepath))
-                    <img src="{{ asset($product->featured_img) }}" class="lazyload" alt="Product Image" style="width:100%; max-height: 300px;min-height: 300px; object-fit:cover; object-position:center;"> 
+                    <img src="{{ asset($product->featured_img) }}" class="lazyload" alt="{{ $product->name }}" style="width:100%; max-height: 300px;min-height: 300px; object-fit:cover; object-position:center;"> 
                 @else
                     <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
                 @endif

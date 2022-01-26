@@ -74,3 +74,19 @@
 <!-- Checkout Ends -->
 
 @endsection
+
+<script>
+     function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+            }
+            swal({
+                position: 'top-end',
+                type: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    showFrontendAlert('success', 'Item has been removed from cart');
+</script>

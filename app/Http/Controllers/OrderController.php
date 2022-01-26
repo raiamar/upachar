@@ -189,6 +189,7 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+   
     {
         $order = new Order;
         if(Auth::check()){
@@ -311,17 +312,21 @@ class OrderController extends Controller
             }
             $order->save();
             //stores the pdf for invoice
+            
             $pdf = PDF::setOptions([
                             'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
                             'logOutputFile' => storage_path('logs/log.htm'),
-                            'tempDir' => storage_salarypath('logs/')
+                            // 'tempDir' => storage_salarypath('logs/')
                         ])->loadView('invoices.customer_invoice', compact('order'));
             $output = $pdf->output();
-    		file_put_contents(public_path('/invoices/'.'Order#'.$order->code.'.pdf'), $output);
+           file_put_contents(public_path('/invoices/Order#'.$order->code.'.pdf'),$output); 
+            // file_put_contents(str_replace(public_path('/invoices/Order#'.$order->code.'.pdf',$output)));
+    		// file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
             // file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
             $data['view'] = 'emails.invoice';
             $data['subject'] = 'Order Placed - '.$order->code;
             $data['from'] = \Config::get('mail.username');
+            
             $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
            	$data['file'] = public_path('/invoices/Order#'.$order->code.'.pdf');
             $data['file_name'] = 'Order#'.$order->code.'.pdf';
@@ -335,12 +340,15 @@ class OrderController extends Controller
                         'tempDir' => storage_path('logs/'),
                     ])->loadView('invoices.sellers_invoice', compact('order', 'user'));
                     $output = $pdf->output();
-                    file_put_contents(public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf'), $output);
+                    file_put_contents('public/invoices/seller/Order#'.$order->code.'.pdf',$output); 
+
+                    // file_put_contents(public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf'), $output);
                     $array['view'] = 'emails.invoice';
                     $array['subject'] = 'Order Placed - ' . $order->code;
                     $array['from'] = \Config::get('mail.username');
                     $array['content'] = 'Hello. A new order has been placed. Please check the attached invoice.';
                     $array['file'] = public_path('invoices/seller/' . 'Order#' . $order->code . '.pdf');
+                    dd($array);
                     $array['file_name'] = 'Order#' . $order->code . '.pdf';
                     Mail::to(\App\User::find($key)->email)->send(new InvoiceEmailManager($array));
                 }

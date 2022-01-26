@@ -74,7 +74,7 @@
                             <div class="card-body">
                                 <div class="text-center py-4 border-bottom mb-4">
                                     <i class="la la-check-circle la-3x text-success mb-3"></i>
-                                    <h1 class="h3 mb-3">{{__('Thank You for Your Order!')}}</h1>
+                                    <h1 class="h2 mb-3">{{__('Thank You for Your Order!')}}</h1>
                                     <h2 class="h5 strong-700">{{__('Order Code:')}} {{ $order->code }}</h2>
                                     <p class="text-muted text-italic">{{ __('A copy or your order summary has been sent to') }} {{ json_decode($order->shipping_address)->email }}</p>
                                 </div>
@@ -134,11 +134,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th width="30%">{{__('Product')}}</th>
-                                                    <th>{{__('Variation')}}</th>
-                                                    <th>{{__('Quantity')}}</th>
-                                                    <th>{{__('Delivery Type')}}</th>
-                                                    <th class="text-right">{{__('Price')}}</th>
+                                                    <th width="30%" class="strong-600">{{__('Product')}}</th>
+                                                    <th  class="strong-600">{{__('Variation')}}</th>
+                                                    <th  class="strong-600">{{__('Quantity')}}</th>
+                                                    <th  class="strong-600">{{__('Delivery Type')}}</th>
+                                                    <th class="text-right strong-600">{{__('Price')}}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -148,14 +148,14 @@
                                                         <td>
                                                             @if ($orderDetail->product != null)
                                                                 <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">
-                                                                    {{ $orderDetail->product->name }}
+                                                                    {{ ucfirst($orderDetail->product->name) }}
                                                                 </a>
                                                             @else
                                                                 <strong>{{ __('Product Unavailable') }}</strong>
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            {{ $orderDetail->variation }}
+                                                            {{ ucfirst($orderDetail->variation) }}
                                                         </td>
                                                         <td>
                                                             {{ $orderDetail->quantity }}
