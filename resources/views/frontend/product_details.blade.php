@@ -60,8 +60,9 @@
                                             $filepath = $detailedProduct->featured_img;
                                         @endphp
                                         @if(isset($filepath))
+                                        
                                         {{-- <a href="{{ asset($detailedProduct->featured_img) }}"> --}}
-                                            <img src="{{asset($detailedProduct->featured_img)}}" alt="slider-image" class="img-fluid">
+                                            <img src="{{asset($detailedProduct->featured_img)}}" alt="{{ $detailedProduct->name }}" class="img-fluid" data-src="{{ asset(json_decode($detailedProduct->featured_img)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->featured_img)[0]) }}">
                                         {{-- </a> --}}
                                         @else
                                             <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="img-fluid pic-1">
@@ -80,8 +81,8 @@
                                 @endphp
                                 @foreach ($slide_image as $key => $image)
                                 <div class="swiper-slide">
-                                <a href="{{ asset($image) }}" target="_blank">
-                                    <img src="{{asset($image)}}" alt="slider-image" class="img-fluid" data-src="{{ asset($image) }}"  @if($key == 0) xpreview="{{ asset($image) }}" @endif>
+                                <a href="{{ asset($image) }}">
+                                    <img src="{{asset($image)}}" alt="slider-image" class="img-fluid" />
                                 </a>
                                 </div>
                                 @endforeach

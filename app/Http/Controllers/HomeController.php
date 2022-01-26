@@ -794,7 +794,7 @@ class HomeController extends Controller
        $contact->phone = $request->phone;
        $contact->message = $request->message;
        $contact->save();
-       return redirect()->to('/');
+       return redirect()->to('/')->with('success','Contact information has been saved ');
     }
 
     public function contactShop(Request $request, $slug){

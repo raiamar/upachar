@@ -1,4 +1,5 @@
 <!-- Modal -->
+
 <div class="modal fade" id="searchpopupmodal" tabindex="-1" role="dialog" aria-labelledby="searchpopupmodallabel"
 aria-hidden="true">
 <div class="modal-dialog modal-lg" role="document">
@@ -136,7 +137,7 @@ aria-hidden="true">
                                                     $filepath = $product->featured_img;
                                                 @endphp
                                                 @if(isset($filepath))
-                                                    <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                                    <img src="{{ asset( $product->featured_img) }}" alt="No Image" data-src="{{ asset($product->thumbnail_img) }}"  class="img-fluid"> </a>  
                                                 @else
                                                     <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
                                                 @endif

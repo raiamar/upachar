@@ -17,10 +17,12 @@ Route::get('/demo/cron_2', 'DemoController@cron_2');
 
 
 Route::get('clear', function () {
+	Artisan::call('optimize:clear');
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('config:cache');
 });
+
 
 
 Auth::routes(['verify' => true]);
