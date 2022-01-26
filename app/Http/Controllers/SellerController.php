@@ -37,7 +37,7 @@ class SellerController extends Controller
             $sellers = $sellers->where('verification_status', $approved);
         }
         $sellers = $sellers->paginate(15);
-        return view('sellers.index', compact('sellers', 'sort_search', 'approved'));
+        return view('sellers.oldindex', compact('sellers', 'sort_search', 'approved'));
     }
 
     /**

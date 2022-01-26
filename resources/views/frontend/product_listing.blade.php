@@ -90,6 +90,7 @@
                                         <div class="filter-content2 mt-3">
                                             <div class="card-body">
                                                 <div class="slider" id="range-slider-div" onchange="rangeTest()"></div>
+                                                {{-- <div class="slider" id="range-slider-div" > i am</div> --}}
                                             </div>
                                             <!-- card-body.// -->
                                         </div>
@@ -305,9 +306,14 @@
             document.getElementById('min_price').value = value[0];
             document.getElementById('max_price').value = value[1];
             setTimeout($('#rangeForm').submit(), 4000);
-        };
+        }
 
+        
+    </script>
 
-
+    <script>
+        function mouseUp() {
+            alert('hel');
+        }
 
     </script>

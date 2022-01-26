@@ -94,7 +94,9 @@ class ShopController extends Controller
             $shop = new Shop;
             $shop->user_id = $user->id;
             $shop->name = $request->name;
+            $shop->logo = $request->logo;
             $shop->address = $request->address;
+            $shop->location = $request->location;
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             if($shop->save()){
@@ -155,6 +157,7 @@ class ShopController extends Controller
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             $shop->meta_title = $request->meta_title;
+            $shop->location = $request->location;
             $shop->meta_description = $request->meta_description;
 
             if($request->hasFile('logo')){

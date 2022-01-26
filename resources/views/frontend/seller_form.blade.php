@@ -128,6 +128,15 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Address')}}" name="address" required>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Shop Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <textarea name="location" rows="6" class="form-control mb-3" placeholder="{{__('Paste iframe src link here')}}" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-right mt-4">
