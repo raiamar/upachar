@@ -76,7 +76,7 @@
                                     $filepath = $product->featured_img;
                                 @endphp
                                 @if(isset($filepath))
-                                    <img src="{{ asset( $product->featured_img) }}" alt="No image" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                    <img src="{{ asset( $product->featured_img) }}" alt="{{ $product->name }}" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
                                 @else
                                     <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($product->thumbnail_img) }}" class="img-fluid pic-1">
                                 @endif
@@ -410,7 +410,8 @@
                                         $filepath = $testimonial->image;
                                     @endphp
                                     @if(isset($filepath))
-                                        <img src="{{ asset( $testimonial->image) }}" alt="No Image" class="m-auto img-fluid"> 
+                                    
+                                        <img src="{{ asset( $testimonial->image) }}" alt="testimonial" class="m-auto img-fluid"> 
                                     @else
                                         <img src="https://montechbd.com/shopist/demo/public/uploads/1616786115-h-100-1.png" class="m-auto img-fluid">
                                     @endif                       
@@ -459,7 +460,7 @@
             <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto mt-4">
                 <div class="blog-content bg-white">
                     <div class="image">
-                        <img src="{{ asset($blogs->photo) }}" alt="blog-image" class="img-fluid">
+                        <img src="{{ asset($blogs->photo) }}" alt="blog" class="img-fluid">
                     </div>
                     <div class="blog-content px-4 py-3">
                         <h5 class="title">

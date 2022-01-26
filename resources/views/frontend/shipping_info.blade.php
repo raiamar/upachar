@@ -1,6 +1,30 @@
 @extends('frontend.layouts.app')
 @section('content')
+<style>
+    label {
+    width: 100%;
+}
 
+.card-input-element {
+    font-size: inherit;
+  margin: 10px;
+  position: absolute;
+  
+}
+
+.card-input {
+    margin: 10px;
+    padding: 00px;
+}
+
+.card-input:hover {
+    cursor: pointer;
+}
+
+.card-input-element:checked + .card-input {
+     box-shadow: 0 0 3px 3px #2DBDEF;
+ }
+</style>
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
@@ -150,7 +174,7 @@
                         <div class="card-body">
                             {{-- <form> --}}
                                 <div class="row">
-                                    @foreach (Auth::user()->addresses as $key => $address)
+                                    {{-- @foreach (Auth::user()->addresses as $key => $address)
                                     <div class="col-md-6">
                                         <label class="aiz-megabox d-block bg-white">
                                         <input type="radio" name="address_id" value="{{ $address->id }}" @if ($address->set_default) checked @endif required>
@@ -181,8 +205,46 @@
                                         </span>
                                         </label>
                                     </div>
+                                    @endforeach --}}
+                                    @foreach (Auth::user()->addresses as $key => $address)
+                                    <div class="col-md-6">
+        
+                                        <label>
+                                          {{-- <input type="radio" name="product" class="card-input-element" /> --}}
+                                
+                                            <input type="radio" class="card-input-element"  name="address_id" value="{{ $address->id }}" @if ($address->set_default) checked @endif required>
+                                        <span class="d-flex p-3 aiz-megabox-elem card-input">
+                                            <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
+                                            <span class="flex-grow-1 pl-3">
+                                                <div>
+                                                    <span class="alpha-6">Address:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->address }}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="alpha-6">Postal Code:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="alpha-6">City:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->city }}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="alpha-6">Country:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->country }}</span>
+                                                </div>
+                                                <div>
+                                                    <span class="alpha-6">Phone:</span>
+                                                    <span class="strong-600 ml-2">{{ $address->phone }}</span>
+                                                </div>
+                                            </span>
+                                        </span>
+                                
+                                        </label>
+                                        
+                                      </div>
                                     @endforeach
                                 </div>
+                                
                                 <!-- Button trigger modal --> 
                                 <button type="button" class="effect" data-toggle="modal" data-target="#exampleModal">
                                     Add New Address
@@ -258,7 +320,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><b>Add New Address </b></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -289,7 +351,7 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="" class="text_gray mt-3">Phone</label>
-                    <input type="text" class="form-control w-100" placeholder="5468" name="phone">
+                    <input type="text" class="form-control w-100" placeholder="9841111111" name="phone">
                 </div>
             </div>
            

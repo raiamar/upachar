@@ -234,7 +234,7 @@
                                         $filepath = $product->featured_img;
                                         @endphp
                                         @if(isset($filepath))
-                                            <img src="{{ asset( $product->featured_img) }}" class="img-fluid pic-1"> </a>  
+                                            <img src="{{ asset( $product->featured_img) }}" alt="{{ $product->name }}" class="img-fluid pic-1"> </a>  
                                         @else
                                             <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="img-fluid pic-1">
                                         @endif

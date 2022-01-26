@@ -54,8 +54,8 @@
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
 @endif
 
-{{-- <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script> --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
@@ -68,6 +68,7 @@
     <!-- Bootstrap link Starts -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}">
+    <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
     <!-- Bootstrap link Ends -->
@@ -296,6 +297,7 @@ function showFrontendAlert(type, message){
                 $.post('{{ route('cart.addToCart') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
                     if(data != 0){
                         $('#nav-cart-count').html(data);
+                        $('#nav-cart-count').html(parseInt($('#nav-cart-count').html())+1);
                         alert('success', 'Item has been added to wishlist');
                     }
                     else{
@@ -324,7 +326,7 @@ function showFrontendAlert(type, message){
                    $('#modal-size').removeClass('modal-lg');
                    $('#addToCart-modal-body').html(data);
                    updateNavCart();
-                   $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())+1);
+                   $('.cart-item').html(parseInt($('.cart-item').html())+1);
                }
            });
         // }

@@ -42,7 +42,8 @@
                                         <span class="dc-price">{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
                                     </div>
                                     <div class="dc-actions">
-                                        <button onclick="removeFromCart({{ $cartItem->id }})">
+                                      
+                                        <button onclick="removeFromCart({{ $cartItem['id'] }})">
                                             <i class="la la-close"></i>
                                         </button>
                                     </div>

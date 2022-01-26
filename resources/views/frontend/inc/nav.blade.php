@@ -159,9 +159,9 @@
                         <i class="la la-shopping-cart d-inline-block nav-box-icon"></i>
                         <span class="mr-1"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
                         @if(Session::has('cart'))
-                            <sup class="cart-items text-white" id="nav-cart-count">{{ count(Session::get('cart'))}}</sup>
+                            <sup class="cart-item text-white" id="nav-cart-count">{{ count(Session::get('cart'))}}</sup>
                         @else
-                            <sup class="cart-items text-white" id="nav-cart-count">0</sup>
+                            <sup class="cart-item text-white" id="nav-cart-count">0</sup>
                         @endif
                     </a>
                 </li>

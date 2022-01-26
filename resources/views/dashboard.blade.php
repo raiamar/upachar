@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if(env('MAIL_USERNAME') == null && env('MAIL_PASSWORD') == null)
+@if(\Config::get('mail.username')== null && \Config::get('mail.password') == null)
     <div class="row">
         <div class="col-sm-12">
             <div class="bg-danger pad-all text-center mar-btm">
