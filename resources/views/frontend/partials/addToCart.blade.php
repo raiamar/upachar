@@ -24,7 +24,7 @@
                     <div class="product-gal-thumb">
                         <div class="xzoom-thumbs">
                             @foreach (json_decode($product->photos) as $key => $photo)
-                                <a href="{{ asset($photo) }}">
+                                <a href="{{ asset($photo) }}" target="_blank">
                                     <img src="{{ asset($photo) }}"
                                          class="xzoom-gallery lazyload"
                                          src="{{ asset($photo) }}" width="80"

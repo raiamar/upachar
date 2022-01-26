@@ -457,6 +457,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $bread_crumb = Category::where('slug',$request->category)->first();
+        $bread_crumbs = Category::where('slug',$request->subcategory)->first();
         $query = $request->q;
         $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
         $sort_by = $request->sort_by;
@@ -601,7 +602,7 @@ class HomeController extends Controller
 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id','bread_crumb', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id','bread_crumb', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color', 'bread_crumbs'));
     }
 
     public function product_content(Request $request){
