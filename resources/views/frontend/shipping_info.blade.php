@@ -391,17 +391,18 @@
                                         @endif
                                         @endif
                                     </div>
-
+                                    @if(\App\BusinessSetting::where('type','esewa')->first()->value == 1)
                                     <div class="column">
                                         <div class="col-5" >
                                         <label class="payment_option mb-4" data-toggle="tooltip" data-title="esewa">
                                             <input type="radio" id="" name="payment_option" value="esewa">
                                             <span class="esewa">
-                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/esewa.jpg')}}" class="img-fluid">
+                                                <img loading="lazy"  src="{{ asset('frontend/images/icons/cards/esewa.png')}}" class="img-fluid">
                                             </span>
                                         </label>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                 
                             </div>
