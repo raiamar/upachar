@@ -126,6 +126,14 @@ Route::post('/faq/update_status', 'PageController@faqupdate_status')->name('page
 	Route::get('/terms/{type}', 'PolicyController@index')->name('terms.index');
 	Route::get('/privacypolicy/{type}', 'PolicyController@index')->name('privacypolicy.index');
 
+	//Bredcrum
+	Route::get('/frontend_settings/bredcrum', 'BredcrumController@bredcrum_settings')->name('bredcrum.index');
+	Route::get('/bredcrum/create', 'BredcrumController@create')->name('bredcrum.create');
+	Route::Post('/bredcrum/store','BredcrumController@store' )->name('bredcrum.store');
+	Route::post('/bredcrum/update_status', 'BredcrumController@update_status')->name('bredcrum.update_status');
+	Route::get('/bredcrum/destroy/{id}', 'BredcrumController@destroy')->name('bredcrum.destroy');
+	Route::get('/bredcrum/edit/{id}', 'BredcrumController@edit')->name('bredcrum.edit');
+	Route::post('/bredcrum/update/{id}', 'BredcrumController@update')->name('bredcrum.update');
 	//Policy Controller
 	Route::post('/policies/store', 'PolicyController@store')->name('policies.store');
 
