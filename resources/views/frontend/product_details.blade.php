@@ -40,7 +40,7 @@
         <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
-        <a href="/" class="title p-4">{{__('Home')}}>{{$detailedProduct->category->name}}>{{$detailedProduct->subcategory->name}}</a>
+        <a href="/" class="title p-4">{{__('Home')}} > {{$detailedProduct->category->name}} > {{$detailedProduct->subcategory->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -278,23 +278,25 @@
                             </div>
                             <!-- people Comments Ends -->
 
-
                             <div class="col-lg-4 col-12 mx-auto">
                                 <!-- User Comment -->
                                 <div class="user-comment py-4 px-3">
+                                    @if(Auth::check())
+                                        @php
+                                            $commentable = false;
+                                        @endphp
+                                        @foreach ($detailedProduct->orderDetails as $key => $orderDetail)
+                                            @if($orderDetail->order != null && $orderDetail->order->user_id == Auth::user()->id && $orderDetail->delivery_status == 'delivered' && \App\Review::where('user_id', Auth::user()->id)->where('product_id', $detailedProduct->id)->first() == null)
+                                                @php
+                                                    $commentable = true;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        
+                                    
                                     <div class="title mb-3 text-center">
                                         <h2 class="font-weight-bold mb-2">{{__('Add a comment')}}</h2>
                                     </div>
-                                    @php
-                                        $commentable = false;
-                                    @endphp
-                                    @foreach ($detailedProduct->orderDetails as $key => $orderDetail)
-                                        @if ($orderDetail->order != null && $orderDetail->order->user_id == Auth::user()->id && $orderDetail->delivery_status == 'delivered' && \App\Review::where('user_id', Auth::user()->id)->where('product_id', $detailedProduct->id)->first() == null)
-                                            @php
-                                                $commentable = true;
-                                            @endphp
-                                        @endif
-                                    @endforeach
                                     <div class="col-12">
                                         <form action="{{ route('reviews.store') }}" method="POST">
                                             @csrf
@@ -340,16 +342,19 @@
                                                 <div class="button-wrapper mx-auto mb-3">
                                                     @if ($commentable)
                                                         <button class="effect px-4" type="submit">{{__('Send')}}</button>
-                                                    {{-- @else
-                                                        <p>{{__('Buy product to comment')}}</p> --}}
+                                                    @else
+                                                        <p>{{__('Comment after purchase')}}</p>
                                                     @endif
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+                                   
+                                    @endif
                                 </div>
                                 <!-- User Comment Ends-->
                             </div>
+                            
                         </div>
                     </div>
                 </div>
