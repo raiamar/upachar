@@ -93,7 +93,7 @@
                                 </li>
                             </ul> 
                             @if (! $product->discount == 0)
-                                <span class="product-discount-label">-{{$product->discount}}%</span>
+                                <span class="product-discount-label">{{$product->discount}}%</span>
                             @endif
                             
                             </div>
@@ -283,7 +283,7 @@
                             </li>
                         </ul> 
                         @if (! $product->discount == 0)
-                            <span class="product-discount-label">-{{$product->discount}}%</span>
+                            <span class="product-discount-label">{{$product->discount}}%</span>
                         @endif
                         </div>
                     <div class="product-content">
