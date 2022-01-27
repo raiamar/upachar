@@ -50,12 +50,17 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
+        @php
+            $bredcrum_image = \App\Bredcrum::where('page', 'product_list')->orWhere('page', 'all')->where('published', 1)->first();
+        @endphp
+        <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
     </div>
     <div class="overlay position-absolute">
         {{-- {{ ($bread_crumb->name) }} --}}
         @if(isset($bread_crumb))
         <div class="title p-4">{{$bread_crumb->name}}</div>
+        @elseif(isset($bread_crumbs))
+        <div class="title p-4">{{$bread_crumbs->name}}</div>
         @else
         <div class="title p-4">{{__('Products')}}</div>
         @endif
@@ -88,6 +93,7 @@
                                         <div class="filter-content2 mt-3">
                                             <div class="card-body">
                                                 <div class="slider" id="range-slider-div" onchange="rangeTest()"></div>
+                                                {{-- <div class="slider" id="range-slider-div" > i am</div> --}}
                                             </div>
                                             <!-- card-body.// -->
                                         </div>
@@ -254,7 +260,7 @@
                                         </li>
                                     </ul>
                                     @if (! $product->discount == 0)
-                                        <span class="product-discount-label">-{{$product->discount}}%</span>
+                                        <span class="product-discount-label">{{$product->discount}}%</span>
                                     @endif
                                 </div>
                                 <div class="product-content">
@@ -303,9 +309,14 @@
             document.getElementById('min_price').value = value[0];
             document.getElementById('max_price').value = value[1];
             setTimeout($('#rangeForm').submit(), 4000);
-        };
+        }
 
+        
+    </script>
 
-
+    <script>
+        function mouseUp() {
+            alert('hel');
+        }
 
     </script>

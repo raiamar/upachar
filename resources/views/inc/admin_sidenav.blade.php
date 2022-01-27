@@ -422,13 +422,16 @@
                                 <li class="{{ areActiveRoutes(['generalsettings.logo'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.logo')}}">{{__('Logo Settings')}}</a>
                                 </li>
+                                <li class="{{ areActiveRoutes(['bredcrum.index'])}}">
+                                    <a class="nav-link" href="{{route('bredcrum.index')}}">{{__('Bredcrum Settings')}}</a>
+                                </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.color')}}">{{__('Color Settings')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('pages.faqindex')}}">{{__('FAQ')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                <li class="{{ areActiveRoutes(['pages.testimonialindex'])}}">
                                     <a class="nav-link" href="{{route('pages.testimonialindex')}}">{{__('Testimonial')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">

@@ -24,7 +24,7 @@
                                     <div class="float-md-right">
                                         <ul class="breadcrumb">
                                             <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                                            <li><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
+                                            <li><a href="{{ route('shop.visit', $shop->slug) }}">{{__('Dashboard')}}</a></li>
                                             <li class="active"><a href="{{ route('shops.index') }}">{{__('Shop Settings')}}</a></li>
                                         </ul>
                                     </div>
@@ -106,6 +106,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
+                                            <label>{{__('Shop Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <textarea name="location" rows="6" class="form-control mb-3" required>{{ $shop->location }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
                                             <label>{{__('Meta Description')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
@@ -115,7 +123,9 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
+
                                 <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
 
@@ -163,7 +173,9 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
+
                                 <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
 
@@ -210,7 +222,9 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
+
                                 <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
                     </div>

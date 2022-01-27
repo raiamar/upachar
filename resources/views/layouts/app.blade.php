@@ -11,7 +11,8 @@
     <link name="favicon" type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
+    <link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -58,7 +59,6 @@
 
     <!--Custom Stylesheet [ REQUIRED ]-->
     <link href="{{ asset('css/custom.css')}}" rel="stylesheet">
-
 
     <!--JAVASCRIPT-->
     <!--=================================================-->
@@ -118,6 +118,8 @@
 
     <!--Custom JavaScript [ REQUIRED ]-->
     <script src="{{ asset('js/custom.js')}}"></script>
+
+
 
     <script type="text/javascript">
 
