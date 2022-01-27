@@ -37,7 +37,15 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
+        @php
+            $bredcrum_image = \App\Bredcrum::where('page', 'product_details')->where('published', 1)->first();
+            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
+        @endphp
+        @if ($bredcrum_image)
+            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
+        @else
+            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
+        @endif  
     </div>
     <div class="overlay position-absolute">
         <a href="/" class="title p-4">{{__('Home')}} > {{$detailedProduct->category->name}} > {{$detailedProduct->subcategory->name}}</a>
@@ -56,23 +64,16 @@
                     <!-- Swiper and EasyZoom plugins start -->
                     <div class="swiper-container gallery-top" style="height:400px">
                         <div class="swiper-wrapper">
-                           <div class="swiper-slide easyzoom easyzoom--overlay">
-                               <a href="#">
-                                   @php
-                                       $filepath = $detailedProduct->featured_img;
-                                       $other_image = json_decode($detailedProduct->featured_img);
-                                   @endphp
-                                   @if (isset($filepath))
-                                    @if (isset($other_image))
-                                        <img src="{{asset($detailedProduct->featured_img)}}" alt="{{ $detailedProduct->name }}" class="img-fluid"  data-src="{{ asset(json_decode($detailedProduct->featured_img)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->featured_img)[0]) }}">
-                                        @else
-                                        <img src="{{asset($detailedProduct->featured_img)}}">
-                                    @endif
-                                   @else   
-                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" class="img-fluid pic-1">
-                                   @endif
-                               </a>
-                            </div>    
+                            @if (is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                <div class="swiper-slide easyzoom easyzoom--overlay">
+                                    <a href="{{ asset($photo) }}">
+                                        <img src="{{ asset($photo) }}" alt="slider-image" class="img-fluid" />
+                                    </a>
+                                </div>
+                                @endforeach
+                            @endif
+                            
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next swiper-button-white"></div>
@@ -80,16 +81,13 @@
                     </div>
                     <div class="swiper-container gallery-thumbs">
                         <div class="swiper-wrapper">
-                            @php
-                                $slide_image = json_decode($detailedProduct->photos,true);
-                            @endphp
-                            @foreach ($slide_image as $key => $image)
+                            
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                 <div class="swiper-slide">
-                                    <a href="{{ asset($image) }}">
-                                        <img src="{{asset($image)}}" alt="slider-image" class="img-fluid" />
-                                    </a>
+                                    <img src="{{ asset($photo) }}" alt="slider-image" class="img-fluid" />
                                 </div>
-                            @endforeach
+                                @endforeach
+                            
                         </div>
                     </div>
                     <!-- Swiper and EasyZoom plugins end -->

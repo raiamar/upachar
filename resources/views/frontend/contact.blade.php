@@ -4,10 +4,18 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+        @php
+            $bredcrum_image = \App\Bredcrum::where('page', 'contact_us')->where('published', 1)->first();
+            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
+        @endphp
+        @if ($bredcrum_image)
+            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
+        @else
+            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
+        @endif
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/">{{__('Home')}} >{{__('Contact Us')}}</a>
+        <a class="title p-4" href="/">{{__('Home')}} > {{__('Contact Us')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
