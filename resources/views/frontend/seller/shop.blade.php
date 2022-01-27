@@ -123,7 +123,9 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-primary">{{__('Save')}}</button>
+
+                                <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
 
@@ -166,12 +168,14 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-info mb-3" onclick="add_more_slider_image()">{{ __('Add More') }}</button>
+                                        <button type="button" class="effect mb-3" onclick="add_more_slider_image()">{{ __('Add More') }}</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-primary">{{__('Save')}}</button>
+
+                                <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
 
@@ -185,7 +189,7 @@
                                 <div class="form-box-content p-3">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label ><i class="line-height-1_8 size-24 mr-2 fa fa-facebook bg-facebook c-white text-center"></i>{{__('Facebook')}} </label>
+                                            <label ><i class="line-height-1_8 size-10 mr-2 fa fa-facebook bg-facebook c-white text-center"></i>{{__('Facebook')}} </label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Facebook')}}" name="facebook" value="{{ $shop->facebook }}">
@@ -218,7 +222,9 @@
                                 </div>
                             </div>
                             <div class="text-right mt-4">
-                                <button type="submit" class="btn btn-primary">{{__('Save')}}</button>
+
+                                <button type="submit" class="effect">{{__('Save')}}</button>
+
                             </div>
                         </form>
                     </div>

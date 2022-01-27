@@ -11,6 +11,7 @@ use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PublicSslCommerzPaymentController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\EsewaController;
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\PaytmController;
 use App\Order;
@@ -32,6 +33,7 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
+        dd('ad');
         if ($request->payment_option != null) {
 
             $orderController = new OrderController;
@@ -47,6 +49,11 @@ class CheckoutController extends Controller
                 elseif ($request->payment_option == 'stripe') {
                     $stripe = new StripePaymentController;
                     return $stripe->stripe();
+                }
+                elseif ($request->payment_option == 'esewa')
+                {
+                    $esewa = new EsewaController;
+                    return $esewa->esewa();
                 }
                 elseif ($request->payment_option == 'sslcommerz') {
                     $sslcommerz = new PublicSslCommerzPaymentController;
@@ -305,6 +312,11 @@ class CheckoutController extends Controller
                 elseif ($request->payment_option == 'stripe') {
                     $stripe = new StripePaymentController;
                     return $stripe->stripe();
+                }
+                elseif ($request->payment_option == 'esewa')
+                {
+                    $esewa = new EsewaController;
+                    return $esewa->esewa();
                 }
                 elseif ($request->payment_option == 'sslcommerz') {
                     $sslcommerz = new PublicSslCommerzPaymentController;

@@ -6,6 +6,44 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
+                <h3 class="panel-title text-center">{{__('Esewa Credential')}}</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
+                    <input type="hidden" name="payment_method" value="esewa">
+                    @csrf
+                    <div class="form-group">
+                        <input type="hidden" name="types[]" value="ESEWA_CLIENT_ID">
+                        <div class="col-lg-3">
+                            <label class="control-label">{{__('Esewa Client Id')}}</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="ESEWA" value="{{  env('ESEWA_KEY') }}" placeholder="Esewa Client ID" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="types[]" value="ESEWA_CLIENT_ID">
+                        <div class="col-lg-3">
+                            <label class="control-label">{{__('Esewa Client Secret')}}</label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control" name="ESEWA_CLIENT_SECRET" value="{{  env('ESEWA_CLIENT_SECRET') }}" placeholder="Esewa Client Secret" required>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <div class="col-lg-12 text-right">
+                            <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel">
+            <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Paypal Credential')}}</h3>
             </div>
             <div class="panel-body">

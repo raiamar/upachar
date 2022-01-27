@@ -304,9 +304,25 @@
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
-                    <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/cod.png') }}" height="30">
+                    <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/cod.png') }}" height="50px">
                     <label class="switch pull-right">
                         <input type="checkbox" onchange="updateSettings(this, 'cash_payment')" <?php if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1) echo "checked";?>>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">{{__('Esewa Activation')}}</h3>
+            </div>
+            <div class="panel-body text-center">
+                <div class="clearfix">
+                    <img loading="lazy"  class="pull-left" src="{{ asset('frontend/images/icons/cards/esewa.png') }}" height="50px">
+                    <label class="switch pull-right">
+                        <input type="checkbox" onchange="updateSettings(this, 'esewa')" <?php if(\App\BusinessSetting::where('type', 'esewa')->first()->value == 1) echo "checked";?>>
                         <span class="slider round"></span>
                     </label>
                 </div>
