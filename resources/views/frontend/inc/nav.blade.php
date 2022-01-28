@@ -10,6 +10,9 @@
                 <a href="{{ route('affiliate.apply') }}" class="nav-link text-white">{{__('Be an affiliate partner')}}</a>
             </li> --}}
             <li>
+                <a href="{{ route('dashboard') }}" class="nav-link text-white">{{__('My Panel')}}</a>
+            </li>
+            <li>
                 <a href="{{ route('logout') }}" class="nav-link text-white">{{__('Logout')}}</a>
             </li>
             @else
