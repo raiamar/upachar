@@ -95,10 +95,10 @@
         }
         $.post('{{ route('bredcrum.update_status') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
             if(data == 1){
-                showAlert('success', 'Banner status updated successfully');
+                showAlert('success', 'Bredcrum status updated successfully');
             }
             else{
-                showAlert('danger', 'Maximum 24 banners to be published');
+                showAlert('danger', 'Maximum 24 bredcrum to be published');
             }
         });
     }
