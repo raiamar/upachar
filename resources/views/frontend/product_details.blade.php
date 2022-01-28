@@ -48,7 +48,7 @@
         @endif  
     </div>
     <div class="overlay position-absolute">
-        <a href="/" class="title p-4">{{__('Home')}} > {{$detailedProduct->category->name}} > {{$detailedProduct->subcategory->name}}</a>
+        <a href="/" class="title p-4">{{__('Home')}} > {{$detailedProduct->category->name}}  @if($detailedProduct->subcategory) > {{$detailedProduct->subcategory->name}} @endif > {{$detailedProduct->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->

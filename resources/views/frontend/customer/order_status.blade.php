@@ -5,10 +5,18 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
+        @php
+            $bredcrum_image = \App\Bredcrum::where('page', 'order_status')->where('published', 1)->first();
+            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
+        @endphp
+        @if ($bredcrum_image)
+            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
+        @else
+            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
+        @endif
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/profile">{{__('Profile')}} > {{__('Order Status')}}</a>
+        <a class="title p-4" href="/profile">{{Auth::user()->name }} > {{__('Order Status')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -54,7 +62,7 @@
                                     <!-- /thead -->
                                     @foreach ($order as $orders)
                                 @php
-                                $order_details = \App\OrderDetail::where('order_id', $orders->id)->get();
+                                    $order_details = \App\OrderDetail::where('order_id', $orders->id)->get();
                                 @endphp
                                     <tbody>  
                                    

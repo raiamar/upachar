@@ -66,7 +66,6 @@ class BredcrumController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($id);
         $banner = Bredcrum::find($id);
         $banner->photo = $request->previous_photo;
         if($request->hasFile('photo')){
