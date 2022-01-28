@@ -5,10 +5,18 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+        @php
+            $bredcrum_image = \App\Bredcrum::where('page', 'change_password')->where('published', 1)->first();
+            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
+        @endphp
+        @if ($bredcrum_image)
+            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
+        @else
+            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
+        @endif
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">{{__('Change Password')}}</div>
+        <div class="title p-4" href="/profile">{{Auth::user()->name}} > {{__('Change Password')}}</div>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
