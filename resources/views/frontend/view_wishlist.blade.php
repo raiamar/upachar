@@ -5,7 +5,10 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        @php
+
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'wishlist')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
+        {{-- @php
             $bredcrum_image = \App\Bredcrum::where('page', 'wishlist')->where('published', 1)->first();
             $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
         @endphp
@@ -13,7 +16,7 @@
             <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
         @else
             <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
-        @endif
+        @endif --}}
     </div>
     <div class="overlay position-absolute">
         <a class="title p-4" href="/profile">{{Auth::user()->name}} > {{__('Wishlist')}}</a>

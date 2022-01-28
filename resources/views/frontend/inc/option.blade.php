@@ -6,6 +6,7 @@
                         <option value="product_details">Product Detail</option>
                         <option value="profile">Profile</option>
                         <option value="wishlist">Wishlist</option>
+                        <option value="blog">Blog</option>
                         <option value="order_status">Order Status</option>
                         <option value="change_password">Change Password</option>
                         <option value="vendor">Vendor</option>
