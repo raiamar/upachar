@@ -16,7 +16,7 @@
         @endif 
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/">{{__('Home')}} > {{__('Profile')}}</a>
+        <a class="title p-4" href="/">{{__('Home')}} > {{Auth::user()->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->

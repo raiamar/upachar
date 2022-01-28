@@ -20,6 +20,7 @@
                         <option value="product_details">Product Detail</option>
                         <option value="profile">Profile</option>
                         <option value="wishlist">Wishlist</option>
+                        <option value="order_status">Order Status</option>
                         <option value="vendor">Vendor</option>
                     </select>
                 </div>
