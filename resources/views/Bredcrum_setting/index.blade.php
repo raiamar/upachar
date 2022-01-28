@@ -14,7 +14,8 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <a onclick="add_bredcrum()" class="btn btn-rounded btn-info pull-right">{{__('Add New')}}</a>
+                    <a onclick="add_bredcrum()" class="btn btn-rounded btn-info pull-right">{{__('Add New')}}</a> 
+                    
                 </div>
             </div>
 

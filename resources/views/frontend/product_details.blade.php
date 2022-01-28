@@ -181,24 +181,46 @@
                               @endforeach
                             </select>
                             </div>
-                            
+                            @php
+                                $qty = 0;
+                                if($detailedProduct->variant_product){
+                                    foreach ($detailedProduct->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
+                                    }
+                                }
+                                else{
+                                    $qty = $detailedProduct->current_stock;
+                                }
+                            @endphp
                             <div class="form-group col-md-4">
                                 <div class="quantity mb-3">
                                     <label>{{__('Quantity')}}</label>
                                     <div>
-                                        <input type="number" name="quantity" placeholder="1" />
+                                        @if ($qty < 10)
+                                            <input type="number" name="quantity" max="{{$qty}}" placeholder="1" />
+                                            @else
+                                            <input type="number" name="quantity" max="10" placeholder="1" />
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+                        @if (Auth::check())
                         @if ($detailedProduct->current_stock >= 0)
                             <button type="button" class="effect add-to-cart" onclick="addToCart()">{{__('Add to cart')}}</button>
                             <button class="effect buy-now" onclick="buyNow()">{{__('Buy Now')}}</button>
-                            @else
+                        @else
                             <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
                                 <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
                             </button>
                         @endif
+                        @else
+                          <div class="alert alert-danger" role="alert">
+                            <a href="/users/login"><p class="text-center">Login to purchase</p></a>
+                          </div>
+                        @endif 
+                        
                         
                     </form>
                 </div>
@@ -245,7 +267,11 @@
                     <div class="tab-pane fade p-3" id="second" role="tabpanel" aria-labelledby="second-tab">
                         <div class="row align-items-center justify-content-center">
                             <!-- people Comments -->
-                            <div class="col-xl-8 col-lg-8 col-12 mb-4">
+                            @if(Auth::check())
+                                <div class="col-xl-8 col-lg-8 col-12 mb-4">
+                            @else
+                                <div class="col-xl-12 col-lg-12 col-12 mb-12">
+                            @endif
                                 <div class="d-flex people-comment">
                                     <ul class="comment-wrapper">
                                         @foreach ($detailedProduct->reviews as $key => $review)
@@ -275,11 +301,11 @@
                                 </div> 
                             </div>
                             <!-- people Comments Ends -->
-
+                            @if(Auth::check())
                             <div class="col-lg-4 col-12 mx-auto">
                                 <!-- User Comment -->
                                 <div class="user-comment py-4 px-3">
-                                    @if(Auth::check())
+                                    
                                         @php
                                             $commentable = false;
                                         @endphp
@@ -348,11 +374,11 @@
                                         </form>
                                     </div>
                                    
-                                    @endif
+                                    
                                 </div>
                                 <!-- User Comment Ends-->
                             </div>
-                            
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -172,8 +172,12 @@
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </span>
-                                        <input type="text" name="quantity" class="form-control input-number"
-                                                 min="1" max="10" placeholder="1">
+                                        @if ($qty < 10)
+                                            <input type="text" name="quantity" class="form-control input-number" min="1" max="{{$qty}}" placeholder="1">
+                                        @else
+                                            <input type="text" name="quantity" class="form-control input-number" min="1" max="10" placeholder="1">
+                                        @endif
+                                        
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity">

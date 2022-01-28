@@ -132,7 +132,7 @@
                     <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
                 </li>
                 <!-- Popup Search Modal Anchor -->
-                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4" style=" text-align: center; margin-top: auto; margin-bottom: auto;">
                     <a class="btn" data-toggle="modal" data-target="#searchpopupmodal"><i class="fa fa-search"></i></a>
                 </li>
                 <!-- Popup Search Modal Anchor Ends -->

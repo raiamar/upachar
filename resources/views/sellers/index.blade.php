@@ -46,8 +46,7 @@
                                             </div>
                                             <div class="card border-0">
                                                 @if (isset($shop->location))
-                                                <iframe src="{{$shop->location}}" style="border:0;" allowfullscreen=""
-                                                loading="lazy"></iframe>  
+                                                <iframe src="{{$shop->location}}" style="border:0;" allowfullscreen="" loading="lazy"></iframe>  
                                                 @else
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15905.097732956485!2d85.32549341514847!3d27.71570751415664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1640345157005!5m2!1sen!2snp" style="border:0;" allowfullscreen=""
                                                     loading="lazy"></iframe> 

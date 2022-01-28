@@ -14,14 +14,7 @@
                 <div class="col-sm-9">
                     <select class="form-control" name="page">
                         <option value="{{ $banner->page }}">{{ $banner->page }}</option>
-                        <option value="all">For All</option>
-                        <option value="contact_us">Contact Us</option>
-                        <option value="product_list">Product Listing</option>
-                        <option value="product_details">Product Detail</option>
-                        <option value="profile">Profile</option>
-                        <option value="wishlist">Wishlist</option>
-                        <option value="order_status">Order Status</option>
-                        <option value="vendor">Vendor</option>
+                        @include('frontend.inc.option')
                     </select>
                 </div>
             </div>
