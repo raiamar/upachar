@@ -170,14 +170,14 @@
                         </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                             <a class="nav-link" href="{{ route('pick_up_point.order_index') }}">
                                 <i class="fa fa-money"></i>
                                 <span class="menu-title">{{__('Pick-up Point Order')}}</span>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['sales.index', 'sales.show'])}}">
@@ -479,7 +479,7 @@
                         </li>
                         @endif
 
-                        @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-link"></i>
@@ -503,7 +503,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
 
                         @if (\App\Addon::where('unique_identifier', 'offline_payment')->first() != null)
                             <li>

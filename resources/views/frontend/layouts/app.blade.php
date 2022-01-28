@@ -249,6 +249,29 @@
 
 
 <style>
+    .c-preloader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background: #fff;
+    z-index: 9999;
+}
+
+.c-preloader i {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+    line-height: 50px;
+    font-size: 20px;
+}
     .fix-text{
         height:fixed; max-height: 30px; overflow:hidden;
     }
