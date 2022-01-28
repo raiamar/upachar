@@ -170,12 +170,14 @@ class HomeController extends Controller
 
         $userPassword = $user->password;
 
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|required_with:confirm_password|same:confirm_password',
-            'confirm_password' => 'required'
+            'new_password'=>'required|min:6|max:15',
+            'confirm_password' => 'required|min:6|max:15|same:new_password',
+        ],[
+            'confirm_password.same' => `Password doesn't match`,
         ]);
-        $messages = $validator->errors();
+
         if (!Hash::check($request->current_password, $userPassword)) {
             return back()->withErrors(['current_password'=>'password not match']);
         }

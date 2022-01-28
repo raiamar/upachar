@@ -196,10 +196,10 @@
                                 <div class="quantity mb-3">
                                     <label>{{__('Quantity')}}</label>
                                     <div>
-                                        @if ($qty < 10)
-                                            <input type="number" name="quantity" max="{{$qty}}" placeholder="1" />
+                                        @if ($qty < 10 || $detailedProduct->current_stock <= 0)
+                                            <input type="number" name="quantity" max="{{$qty}}" min="1" placeholder="1" />
                                             @else
-                                            <input type="number" name="quantity" max="10" placeholder="1" />
+                                            <input type="number" name="quantity" max="10" min="1" placeholder="1" />
                                         @endif
                                         
                                     </div>
