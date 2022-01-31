@@ -177,7 +177,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Flash Deal')}} <small>(290x300)</small></label>
                                         </div>
@@ -191,7 +191,7 @@
                                                 </strong>
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-box bg-white mt-4">
@@ -457,7 +457,7 @@
                                 </div>
                             </div>
                             <div class="form-box mt-4 text-right">
-                                <button type="submit" class="btn btn-styled btn-base-1">{{ __('Save') }}</button>
+                                <button type="submit" class="effect">{{ __('Save') }}</button>
                             </div>
                         </form>
                     </div>

@@ -134,7 +134,7 @@
                                                         </button>
 
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton-{{ $key }}">
-                                                            <a href="{{route('seller.products.edit', encrypt($product->id))}}" class="dropdown-item">{{__('Edit')}}</a>
+                                                            <a href="{{route('seller.products.edit', encrypt($product->id))}}" class="dropdown-item" style="color: black">{{__('Edit')}}</a>
         					                                <button onclick="confirm_modal('{{route('products.destroy', $product->id)}}')" class="dropdown-item">{{__('Delete')}}</button>
                                                             <a href="{{route('products.duplicate', $product->id)}}" class="dropdown-item">{{__('Duplicate')}}</a>
                                                         </div>
