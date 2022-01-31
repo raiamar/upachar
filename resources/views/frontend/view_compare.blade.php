@@ -2,23 +2,18 @@
 
 @section('content')
 
-    <div class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <ul class="breadcrumb">
-                        <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                        <li class="active"><a href="{{ route('compare') }}">{{__('Compare')}}</a></li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <div class="text-right">
-                        <a href="{{ route('compare.reset') }}" style="text-decoration: none;" class="btn btn-link btn-base-5 btn-sm">{{__('Reset Compare List')}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Breadcrumbs -->
+<section id="breadcrumb-wrapper" class="position-relative">
+    <div class="image">
+
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'wishlist')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
+    <div class="overlay position-absolute">
+        <a class="title p-4" href="/">{{__('Home')}} > {{__('Compare')}}</a>
+    </div>
+</section>
+<!-- Breadcrumbs Ends -->
 
 
     <section class="gry-bg py-4">
@@ -49,7 +44,7 @@
                                             <tr>
                                                 <th scope="row">{{__('Image')}}</th>
                                                 @foreach (Session::get('compare') as $key => $item)
-                                                    <td>
+                                                    <td id="image_th">
                                                         <img loading="lazy"  src="{{ asset(\App\Product::find($item)->thumbnail_img) }}" alt="Product Image" class="img-fluid py-4">
                                                     </td>
                                                 @endforeach
@@ -128,3 +123,11 @@
     </div>
 
 @endsection
+
+<style>
+    #image_th img{
+        height: 180px;
+        width:150px;
+
+    }
+</style>

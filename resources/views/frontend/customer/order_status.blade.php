@@ -5,18 +5,11 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        @php
-            $bredcrum_image = \App\Bredcrum::where('page', 'order_status')->where('published', 1)->first();
-            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
-        @endphp
-        @if ($bredcrum_image)
-            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
-        @else
-            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
-        @endif
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'order_status')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/profile">{{Auth::user()->name }} > {{__('Order Status')}}</a>
+        <a class="title p-4" href="/dashboard">{{Auth::user()->name }} > {{__('Order Status')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->

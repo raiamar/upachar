@@ -3,7 +3,8 @@
 @section('content')
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'blog')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
         <div class="title p-4">Blog Details</div>

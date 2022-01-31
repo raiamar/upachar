@@ -351,13 +351,24 @@
             <div class="slick-item position-relative py-4">
                 <div class="product-grid-item3 mx-2 bg-white">
                     <div class="product-grid-image3">
-                        <a href="{{ route('shop.visit', $seller->user->shop->slug) }}"> 
+                        <a href="{{ route('shop.visit', $seller->user->shop->slug) }}">
+                            <?php $icon= $seller->user->shop->logo ?> 
+                            @if (isset($icon))
+                            <img
+                            src="{{ asset($seller->user->shop->logo) }}"
+                            data-src="@if ($seller->user->shop->logo !== null) {{ asset($seller->user->shop->logo) }} @else {{ asset('frontend/images/placeholder.jpg') }} @endif"
+                            alt="{{ $seller->user->shop->name }}"
+                            class="img-fluid lazyload"
+                            />
+                            @else
                             <img
                             src="{{ asset('frontend/images/placeholder.jpg') }}"
                             data-src="@if ($seller->user->shop->logo !== null) {{ asset($seller->user->shop->logo) }} @else {{ asset('frontend/images/placeholder.jpg') }} @endif"
                             alt="{{ $seller->user->shop->name }}"
                             class="img-fluid lazyload"
                             />
+                            @endif
+                            
                         </div>
                     <div class="product-content">
                         <h3 class="title text-center fix-text"> <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a></h3>

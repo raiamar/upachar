@@ -50,10 +50,8 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        @php
-            $bredcrum_image = \App\Bredcrum::where('page', 'product_list')->orWhere('page', 'all')->where('published', 1)->first();
-        @endphp
-        <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'product_list')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
         {{-- {{ ($bread_crumb->name) }} --}}

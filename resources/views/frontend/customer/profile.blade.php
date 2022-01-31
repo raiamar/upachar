@@ -5,18 +5,11 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        @php
-            $bredcrum_image = \App\Bredcrum::where('page', 'profile')->where('published', 1)->first();
-            $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
-        @endphp
-        @if ($bredcrum_image)
-            <img src="{{asset($bredcrum_image->photo)}}" alt="breadcrumb-image" class="img-fluid">
-        @else
-            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid"> 
-        @endif 
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'profile')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/">{{__('Home')}} > {{Auth::user()->name}}</a>
+        <a class="title p-4" href="/dashboard">{{__('Home')}} > {{Auth::user()->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -85,6 +78,22 @@
                                         <label>{{__('Confirm Password')}}</label>
                                         <input type="password" class="form-control" placeholder="{{__('Confirm Password')}}" name="confirm_password">
                                     </div> --}}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>{{__('Photo')}}</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input placeholder="Choose your image" type="file" name="photo" id="file-3" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" accept="image/*" />
+                                        <label for="file-3" class="mw-100 mb-3">
+                                            <span></span>
+                                            <strong>
+                                                <i class="fa fa-upload"></i>
+                                                {{__('Choose image')}}
+                                            </strong>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="form-group col-12 mx-auto text-center">
                                     <button class="effect px-5" type="submit">{{__('Save')}}</button>
