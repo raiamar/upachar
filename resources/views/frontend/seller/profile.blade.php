@@ -8,7 +8,7 @@
         @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/">{{__('Home')}} > {{Auth::user()->name}}</a>
+        <a class="title p-4" href="/dashboard">{{__('Home')}} > {{Auth::user()->name}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->

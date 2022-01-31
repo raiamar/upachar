@@ -8,10 +8,10 @@
         @endif
 
         <h5>{{ Auth::user()->name }}</h5>
-        <label for="file-input" style="color:#45b46f">
+        {{-- <label for="file-input" style="color:#45b46f">
             <i class="fa fa-pencil" aria-hidden="true"></i>
             <input class="mr-1" type="file" name="photo" style="display: none;" id="file-input"></input> Upload Image
-        </label>
+        </label> --}}
         
     </div>
     <ul class="sidebar">
@@ -30,6 +30,10 @@
         <li class="mb-3 p-2">
             <a href="{{ route('wishlists.index') }}"><span class="mr-2"><i class="fa fa-heart"
                         aria-hidden="true"></i></span>{{__('Wishlist')}}</a>
+        </li>
+        <li class="mb-3 p-2">
+            <a href="/compare"><span class="mr-2"><i class="fa fa-exchange"
+                        aria-hidden="true"></i></span>{{__('Compare-list')}}</a>
         </li>
         <li class="mb-3 p-2">
             <a href="{{route('changePassword')}}"><span class="mr-2"><i class="fa fa-lock"

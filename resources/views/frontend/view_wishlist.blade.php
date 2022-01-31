@@ -19,7 +19,7 @@
         @endif --}}
     </div>
     <div class="overlay position-absolute">
-        <a class="title p-4" href="/profile">{{Auth::user()->name}} > {{__('Wishlist')}}</a>
+        <a class="title p-4" href="/dashboard">{{Auth::user()->name}} > {{__('Wishlist')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
