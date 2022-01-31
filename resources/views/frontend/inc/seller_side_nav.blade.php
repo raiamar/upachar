@@ -52,14 +52,14 @@
             </a>
         </li>
 
-        <li class="mb-3 p-2">
+        {{-- <li class="mb-3 p-2">
             <a href="{{ route('shops.create') }}" class="{{ areActiveRoutesHome(['shops.create'])}}">
                 <i class="la la-cog"></i>
                 <span class="category-name">
                     {{__('Create Shop')}}
                 </span>
             </a>
-        </li>
+        </li> --}}
 
         <li class="mb-3 p-2">
             <a href="{{ route('digital_purchase_history.index') }}" class="{{ areActiveRoutesHome(['digital_purchase_history.index'])}}">
