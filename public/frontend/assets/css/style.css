@@ -1421,7 +1421,7 @@ small.round {
 /* color select box end  */
 a.btn {
   color: var(--white);
-  background: var(--black_light);
+  /* background: var(--black_light); */
   padding: 0;
   height: 1.5rem;
   line-height: 2rem;
