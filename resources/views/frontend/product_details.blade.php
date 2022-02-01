@@ -1,5 +1,9 @@
 @extends('frontend.layouts.app')
-
+<style>
+    .jssocials-share-link {
+    border-radius: 5px;
+    }
+</style>
 @section('title'){{ $detailedProduct->meta_title }}@stop
 
 @section('meta_description'){{ $detailedProduct->meta_description }}@stop
@@ -201,7 +205,18 @@
                         @endif
                         
                     </form>
+                    <div class="row mb-6">
+                        <div class="col-2 mt-3">
+                            Share :
+                    </div>
+                    <div class="col-10">
+                        <div id="share"></div>
+                    </div>  
+                    </div>
+                    
+                   
                 </div>
+                
             </div>
             {{-- Product detail part clean and clear --}}
             
@@ -430,6 +445,16 @@
         </div>
     </section>
     <!-- Product Listing Ends -->
+    <script type="text/javascript">
+          $(document).ready(function() {
+    		$('#share').jsSocials({
+    			showLabel: false,
+                showCount: false,
+                shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+    		});
+            getVariantPrice();
+    	});
+    </script>
 @endsection
 
 <style>

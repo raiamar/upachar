@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -111,5 +111,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
