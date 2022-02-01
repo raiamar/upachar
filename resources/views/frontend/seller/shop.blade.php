@@ -57,7 +57,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    <div class="row mb-3">
+                                    {{-- <div class="row mb-3">
                                         <div class="col-md-2">
                                             <label>{{__('Pickup Points')}} <span class="required-star"></span></label>
                                         </div>
@@ -72,7 +72,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Logo')}} <small>(120x120)</small></label>
@@ -134,13 +134,13 @@
                             @csrf
                             <div class="form-box bg-white mt-4">
                                 <div class="form-box-title px-3 py-2">
-                                    {{__('Slider Settings')}}
+                                    {{__('Banner Settings')}}
                                 </div>
                                 <div class="form-box-content p-3">
                                     <div id="shop-slider-images">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <label>{{__('Slider Images')}} <small>(1400x400)</small></label>
+                                                <label>{{__('Banner Images')}} <small></small></label>
                                             </div>
                                             <div class="offset-2 offset-md-0 col-10 col-md-10">
                                                 <div class="row">
@@ -232,10 +232,6 @@
             </div>
         </div>
     </section>
-
-@endsection
-
-@section('script')
     <script>
         var slide_id = 1;
         function add_more_slider_image(){
@@ -271,3 +267,40 @@
         });
     </script>
 @endsection
+
+{{-- @section('script')
+    <script>
+        var slide_id = 1;
+        function add_more_slider_image(){
+            var shopSliderAdd =  '<div class="row">';
+            shopSliderAdd +=  '<div class="col-2">';
+            shopSliderAdd +=  '<button type="button" onclick="delete_this_row(this)" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o"></i></button>';
+            shopSliderAdd +=  '</div>';
+            shopSliderAdd +=  '<div class="col-10">';
+            shopSliderAdd +=  '<input type="file" name="sliders[]" id="slide-'+slide_id+'" class="custom-input-file custom-input-file--4" data-multiple-caption="{count} files selected" multiple accept="image/*" />';
+            shopSliderAdd +=  '<label for="slide-'+slide_id+'" class="mw-100 mb-3">';
+            shopSliderAdd +=  '<span></span>';
+            shopSliderAdd +=  '<strong>';
+            shopSliderAdd +=  '<i class="fa fa-upload"></i>';
+            shopSliderAdd +=  "{{__('Choose image')}}";
+            shopSliderAdd +=  '</strong>';
+            shopSliderAdd +=  '</label>';
+            shopSliderAdd +=  '</div>';
+            shopSliderAdd +=  '</div>';
+            $('#shop-slider-images').append(shopSliderAdd);
+
+            slide_id++;
+            imageInputInitialize();
+        }
+        function delete_this_row(em){
+            $(em).closest('.row').remove();
+        }
+
+
+        $(document).ready(function(){
+            $('.remove-files').on('click', function(){
+                $(this).parents(".col-md-6").remove();
+            });
+        });
+    </script>
+@endsection --}}

@@ -3,9 +3,13 @@
 @section('content')
         <!-- Vendor Profile -->
         <section id="vendor-profile-wrapper">
-            <div class="vendor-banner">
-                <div class="image">
-                    <img src="{{asset('frontend/assets/images/banner/1.png')}}" class="img-fluid" alt="vendor-banner-image">
+            <div class="col-xl-12 col-lg-6 col-md-12 col-12">
+                <div class="slick-slider">
+                    @if($shop->sliders != null)
+                    @foreach(json_decode($shop->sliders) as $key => $slider)
+                    <img src="{{asset($slider)}}" class="img-fluid" alt="vendor-banner-image">
+                    @endforeach
+                    @endif
                 </div>
             </div>
             <div class="container custom-container">
