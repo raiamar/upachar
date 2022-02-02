@@ -7,7 +7,7 @@
                 <div class="slick-slider">
                     @if($shop->sliders != null)
                     @foreach(json_decode($shop->sliders) as $key => $slider)
-                    <img src="{{asset($slider)}}" class="img-fluid" alt="vendor-banner-image">
+                    <img src="{{asset($slider)}}" class="img-fluid" alt="vendor-banner-image" height="">
                     @endforeach
                     @endif
                 </div>

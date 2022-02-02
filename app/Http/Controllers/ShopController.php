@@ -7,8 +7,10 @@ use App\Shop;
 use App\User;
 use App\Seller;
 use App\BusinessSetting;
+use App\Mail\userRegisterMail;
 use Auth;
 use Hash;
+use Illuminate\Support\Facades\Mail;
 
 class ShopController extends Controller
 {
@@ -100,9 +102,23 @@ class ShopController extends Controller
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             if($shop->save()){
+                $user->sendEmailVerificationNotification();
                 auth()->login($user, false);
                 flash(__('Your Shop has been created successfully!'))->success();
-                return redirect()->route('shops.index');
+
+                $admins = User::where('user_type','admin')->get();
+                if(count($admins) > 0){
+                $details = [
+                    'id' => \Config::get('app.url').'/shops/visit/'.$shop->slug,
+                    'name' => $request->name,
+                    'address' => $request->address,
+                ];
+                foreach($admins as $a => $admin){
+                  Mail::to($admin->email)->send(new userRegisterMail(json_encode($details)));
+                }
+                  
+              }
+              return redirect()->route('shops.index');
             }
             else{
                 $seller->delete();
