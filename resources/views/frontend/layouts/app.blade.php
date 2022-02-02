@@ -224,6 +224,8 @@
     <!-- Toastr -->
     <script src="{{ asset('frontend/assets/toastr/toastr.min.js')}}"></script>
     <script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.aSimpleTour.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.scrollTo.js') }}"></script>
     <!-- Toastr Ends -->
     <!-- Custom Js Starts -->
     <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
