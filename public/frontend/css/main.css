@@ -17,7 +17,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 p:not(.lead) {
-    font-size: 0.8125rem;
+    font-size: 1.4125rem;
 }
 .body-wrap {
     z-index: auto;

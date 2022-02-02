@@ -132,7 +132,7 @@
     padding: 0 50px 0 0;
     font-size: 22px;
     color: #555;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     border: 0;
     background-color: transparent;
     background-image: none;
@@ -471,7 +471,7 @@
 .top-navbar .aux-text ul li a,
 .top-navbar .aux-text ul li a span {
     font-size: 0.75rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .top-navbar .top-navbar-menu {
@@ -492,7 +492,7 @@
     position: relative;
     float: left;
     display: inline-block;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .top-navbar .top-navbar-menu>ul.top-menu>li>a {
@@ -680,7 +680,7 @@
 }
 
 .top-navbar-currency-language li {
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     color: #a1a1a1;
 }
 
@@ -729,7 +729,7 @@
 .top-navbar .top-navbar-links .top-bar-date span,
 .top-navbar .top-navbar-links .top-bar-link a,
 .top-navbar .top-navbar-links .top-bar-link span {
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 0.625rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -757,7 +757,7 @@
 }
 
 .top-navbar .topbar-login>li a {
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 0.625rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -838,16 +838,15 @@
     }
 }
 
-
-/* .navbar-nav .nav-link {
+.navbar-nav .nav-link {
     font-size: 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-weight: 500;
     text-transform: none;
     letter-spacing: 0;
     color: #555;
     background: transparent;
-} */
+}
 
 .navbar-nav .nav-link:focus,
 .navbar-nav .nav-link:hover {
@@ -864,8 +863,6 @@
     margin-right: 0.625rem;
 }
 
-
-/* 
 @media (min-width: 992px) {
     .navbar {
         padding: 0;
@@ -884,7 +881,7 @@
         padding-top: 0.875rem !important;
         padding-bottom: 0.875rem !important;
     }
-} */
+}
 
 .navbar-light .navbar-nav .nav-link {
     color: rgba(0, 0, 0, 0.5);
@@ -2488,7 +2485,7 @@ a:hover {
 .stickyfill {
     position: -webkit-sticky;
     position: sticky;
-    top: 14%;
+    top: 0;
 }
 
 .stickyfill:before,
@@ -2714,26 +2711,26 @@ a:hover {
     top: 4px;
 }
 
-.st-btn btn-base-1-1.st-menu-open .st-pusher {
+.st-effect-1.st-menu-open .st-pusher {
     -webkit-transform: translate3d(-300px, 0, 0);
     transform: translate3d(-300px, 0, 0);
 }
 
-.st-btn btn-base-1-1.st-menu-open .st-pusher>.st-content {
+.st-effect-1.st-menu-open .st-pusher>.st-content {
     overflow: hidden;
 }
 
-.st-btn btn-base-1-1.st-menu {
+.st-effect-1.st-menu {
     z-index: 1;
 }
 
-.st-btn btn-base-1-1.st-menu-open .st-btn btn-base-1-1.st-menu {
+.st-effect-1.st-menu-open .st-effect-1.st-menu {
     visibility: visible;
     -webkit-transition: -webkit-transform 0.5s;
     transition: transform 0.5s;
 }
 
-.st-btn btn-base-1-1.st-menu::after {
+.st-effect-1.st-menu::after {
     display: none;
 }
 
@@ -2873,7 +2870,7 @@ h3,
 h4,
 h5,
 h6 {
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     line-height: 1.46;
 }
 
@@ -2881,7 +2878,7 @@ h6 {
     margin: 0 0 6px;
     padding: 0;
     text-transform: none;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-weight: 600;
     color: #111111;
     line-height: 1.46;
@@ -3585,7 +3582,7 @@ a>.block {
     padding: 6px 8px;
     font-weight: 500;
     font-size: 0.75rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .overlay-label.image-title--top {
@@ -4310,7 +4307,7 @@ a>.block {
     border-right: 1px solid #f1f1f1;
     font-size: 0.75rem;
     position: relative;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     color: #818a91;
 }
 
@@ -5805,7 +5802,7 @@ a>.block {
 
 .block-cell .block-text p.price {
     font-size: 1.25rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .block-cell .block-text:before {
@@ -5861,7 +5858,7 @@ a>.block {
 .btn {
     position: relative;
     font-size: 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-style: normal;
     text-align: center;
     border-radius: 2px;
@@ -7294,7 +7291,7 @@ a>.block {
 }
 
 
-/* Fade btn btn-base-1 */
+/* Fade effect */
 
 .card-overflow-fade {
     position: relative;
@@ -9765,7 +9762,7 @@ input:checked+.toggle-switch-slider:before {
 .custom-input-file--4+label:hover,
 .custom-input-file--4.has-focus+label,
 .custom-input-file--4:focus+label {
-    border-color: var(--main-color);
+    border-color: #0022e7;
     background: transparent;
 }
 
@@ -9789,13 +9786,12 @@ input:checked+.toggle-switch-slider:before {
     color: #FFF;
     display: inline-block;
     font-weight: 600;
-    background-color: var(--main-color);
 }
 
 .custom-input-file--4+label:hover strong,
 .custom-input-file--4.has-focus+label strong,
 .custom-input-file--4:focus+label strong {
-    background-color: var(--main-color);
+    background-color: #0022e7;
 }
 
 @media screen and (max-width: 456px) {
@@ -10509,7 +10505,7 @@ a>.feature--boxed-border p {
     line-height: 40px;
     display: inline-block;
     font-size: 20px;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .icon-block--style-3 .icon-block-subtext {
@@ -10953,7 +10949,7 @@ ul.categories>li>a {
     padding: 0.75rem 0;
     color: #818a91;
     font-size: 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     transition: 0.3s;
 }
 
@@ -10982,7 +10978,7 @@ ul.categories>li>ul>li>a {
     padding: 0.3125rem 0;
     color: #818a91;
     font-size: 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 ul.categories--style-1>li>a {
@@ -11740,7 +11736,7 @@ ul.list-border--dotted>li:last-child {
 .pagination .page-link,
 .pagination .page-item>span {
     padding: 0.625rem 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 0.7rem;
     color: #818a91;
     background-color: transparent;
@@ -11796,7 +11792,7 @@ ul.list-border--dotted>li:last-child {
 .pagination-lg .page-item .page-link,
 .pagination-lg .page-item>span {
     padding: 0.875rem 1.125rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 0.7rem;
     color: #818a91;
     background-color: transparent;
@@ -12848,7 +12844,7 @@ section.ss-slice::after {
 
 .section-title .section-title-inner {
     margin: 0 0 5px 0;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 2rem;
     font-weight: 500;
     text-transform: none;
@@ -12934,14 +12930,14 @@ section.ss-slice::after {
     color: rgba(0, 0, 0, 0.1);
     font-size: 50px;
     font-weight: 700;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     z-index: 1;
 }
 
 .section-title--style-1 .underlay-subtitle {
     font-size: 5rem;
     font-weight: 700;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     opacity: 0.5;
     line-height: 1;
 }
@@ -13367,7 +13363,7 @@ section.ss-slice::after {
 
 .table-profile>tbody>tr>td.td-label {
     font-size: 0.75rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-weight: 500;
     color: #818a91;
     text-transform: uppercase;
@@ -13672,7 +13668,7 @@ section.ss-slice::after {
     font-weight: 600;
     color: #111111;
     font-size: 1rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 @media (max-width: 991px) {
@@ -13730,7 +13726,7 @@ section.ss-slice::after {
         color: #2b2b2c;
         font-size: 16px;
         font-weight: 600;
-        /* font-family: "Bahnschrift"; */
+        font-family: 'Baloo Bhaijaan 2', cursive;
         z-index: 10;
     }
     .tabs .nav-pills.nav-pills--rounded>li>a>.nav-pill>.nav-pill-circle>i {
@@ -13786,7 +13782,7 @@ section.ss-slice::after {
     border: 1px solid #f1f1f1;
     color: #000;
     font-size: 13px;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     position: relative;
 }
 
@@ -13835,7 +13831,7 @@ section.ss-slice::after {
     color: #2b2b2c;
     padding: 1rem 0;
     font-size: 0.875rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .tabs--style-2>.nav-tabs>li>a>i {
@@ -14010,7 +14006,7 @@ section.ss-slice::after {
 .countdown .countdown-label {
     font-size: 2rem;
     font-weight: 300;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .countdown .countdown-label {
@@ -14054,7 +14050,7 @@ section.ss-slice::after {
     font-weight: 400;
     text-align: center;
     line-height: 60px;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .countdown--style-1 .countdown-label {
@@ -14063,7 +14059,7 @@ section.ss-slice::after {
     text-align: center;
     font-size: 13px;
     font-weight: 500;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     text-transform: uppercase;
 }
 
@@ -15788,7 +15784,7 @@ span.flatpickr-weekday {
 
 .milestone-counter .milestone-count {
     font-size: 60px;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     padding: 0;
     margin: 0;
     font-weight: 600;
@@ -15804,7 +15800,7 @@ span.flatpickr-weekday {
 }
 
 .milestone-counter .milestone-info {
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     padding: 0;
     margin: 0;
     font-size: 1rem;
@@ -16301,7 +16297,7 @@ span.flatpickr-weekday {
     border-style: none;
     border-width: 0;
     color: white;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 70px;
     font-style: normal;
     font-weight: 800;
@@ -16338,7 +16334,7 @@ span.flatpickr-weekday {
     line-height: 70px;
     font-weight: 700;
     font-style: normal;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     padding: 21px 30px 16px;
     text-decoration: none;
     text-align: left;
@@ -16356,7 +16352,7 @@ span.flatpickr-weekday {
     line-height: 20px;
     font-weight: 700;
     font-style: normal;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     padding: 21px 30px 16px;
     text-decoration: none;
     text-align: left;
@@ -16376,7 +16372,7 @@ span.flatpickr-weekday {
     border-style: solid;
     border-width: 0;
     color: white;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 70px;
     font-style: normal;
     font-weight: 400;
@@ -17696,7 +17692,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 1 */
+/* EFFECT 1 */
 
 .view-first img {
     -webkit-transition: all 0.2s linear;
@@ -17795,7 +17791,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 2 */
+/* EFFECT 2 */
 
 .view-second img {
     -webkit-transform: scaleY(1);
@@ -17891,7 +17887,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 3 */
+/* EFFECT 3 */
 
 .view-third img {
     -webkit-transition: all 0.2s ease-in;
@@ -18009,7 +18005,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 4 */
+/* EFFECT 4 */
 
 .view-fourth img {
     -webkit-transition: all 0.4s ease-in-out 0.2s;
@@ -18112,7 +18108,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 5 */
+/* EFFECT 5 */
 
 .view-fifth img {
     -webkit-transition: all 0.3s ease-in-out;
@@ -18173,7 +18169,7 @@ span.flatpickr-weekday {
 }
 
 
-/* btn btn-base-1 6 */
+/* EFFECT 6 */
 
 .view-sixth .mask {
     top: -200px;
@@ -18720,7 +18716,7 @@ span.flatpickr-weekday {
     margin: 0;
     padding: 0 1rem;
     font-size: 1rem;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-weight: 600;
     color: #111111;
 }
@@ -19180,7 +19176,7 @@ span.flatpickr-weekday {
     padding: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     color: #2b2b2c;
 }
 
@@ -20669,7 +20665,7 @@ body {
 .page-title.page-title--style-2 h2 {
     display: block;
     padding: 10px 0;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .page-title.page-title--style-2 .breadcrumb {
@@ -21502,7 +21498,7 @@ body {
     margin-bottom: 1rem;
     margin-top: 0;
     padding: 0;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
 }
 
 .sidebar .sidebar-search-widget {
@@ -21652,7 +21648,7 @@ body {
 
 .contacts .contact-info strong {
     color: #2b2b2c;
-    /* font-family: "Bahnschrift"; */
+    font-family: 'Baloo Bhaijaan 2', cursive;
     font-size: 0.875rem;
     font-weight: 500;
 }
@@ -22699,6 +22695,10 @@ pre {
     font-size: 0.75rem;
 }
 
+#dashboard-vendor-wrapper {
+    font-family: "Baloo Bhaijaan 2", cursive;
+}
+
 #dashboard-vendor-wrapper .footer-top-bar .row div {
     border-right: 1px s;
 }
@@ -22708,104 +22708,19 @@ pre {
     background-color: #ff6f6c;
 }
 
-
-
-#dashboard-vendor-wrapper #dashboard-rightside-content table tr .title-content {
-    padding: 10px 5px;
-    width: 8.4rem;
+#dashboard-vendor-wrapper table tr th,
+tr td {
+    padding: 10px 10px;
+    max-width: 50px;
+    min-width: 50px;
     overflow: hidden;
 }
 
-#dashboard-vendor-wrapper #dashboard-rightside-content table tr td img {
-    max-height: 75px;
-    min-height: 75px;
+#dashboard-vendor-wrapper table tr td img {
+    max-height: 150px;
+    min-height: 150px;
     object-fit: contain;
     object-position: center;
-}
-
-#dashboard-vendor-wrapper #dashboard-rightside-content .alert {
-    box-shadow: rgb(0 0 0 / 0%) 0px 60px 40px -7px;
-}
-
-#dashboard-vendor-wrapper #dashboard-rightside-content .alert .title {
-    color: var(--main-color);
-}
-
-#dashboard-vendor-wrapper #dashboard-rightside-content .first-price {
-    text-decoration: line-through;
-    color: var(--text-color);
-}
-
-#dashboard-vendor-wrapper #dashboard-rightside-content .second-price {
-    font-weight: 600;
-    font-size: 17px;
-    color: var(--third-color);
-}
-
-#dashboard-vendor-wrapper .switch {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 20px;
-}
-
-#dashboard-vendor-wrapper .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-#dashboard-vendor-wrapper .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-#dashboard-vendor-wrapper .slider:before {
-    position: absolute;
-    content: "";
-    height: 13px;
-    width: 13px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-#dashboard-vendor-wrapper input:checked+.slider {
-    background-color: var(--main-color);
-}
-
-#dashboard-vendor-wrapper input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-#dashboard-vendor-wrapper input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-}
-
-
-/* Rounded sliders */
-
-#dashboard-vendor-wrapper .slider.round {
-    border-radius: 34px;
-}
-
-#dashboard-vendor-wrapper .slider.round:before {
-    border-radius: 50%;
-}
-
-#dashboard-vendor-wrapper .alert-dismissible {
-    padding-right: unset;
 }
 
 

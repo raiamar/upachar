@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Paypal Credential')}}</h3>
@@ -89,9 +89,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Sslcommerz Credential')}}</h3>
@@ -139,9 +139,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Stripe Credential')}}</h3>
@@ -176,9 +176,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('RazorPay Credential')}}</h3>
@@ -213,9 +213,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Instamojo Credential')}}</h3>
@@ -263,9 +263,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('PayStack Credential')}}</h3>
@@ -309,10 +309,10 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-</div>
-<div class="row">
+{{-- </div> --}}
+{{-- <div class="row">
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -353,6 +353,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection

@@ -116,9 +116,9 @@
                                             <a class="nav-link" href="{{route('classified_products')}}">{{__('Classified Products')}}</a>
                                         </li>
                                     @endif
-                                    <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
                                         <a class="nav-link" href="{{route('digitalproducts.index')}}">{{__('Digital Products')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{__('Bulk Import')}}</a>
                                     </li>
@@ -342,6 +342,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
+
                                 <li class="{{ areActiveRoutes(['activation.index'])}}">
                                     <a class="nav-link" href="{{route('activation.index')}}">{{__('Activation')}}</a>
                                 </li>

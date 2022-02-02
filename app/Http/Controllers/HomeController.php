@@ -334,14 +334,37 @@ class HomeController extends Controller
         abort(404);
     }
 
-    public function shop($slug)
+    public function shop(Request $request,$slug)
     {
+        $sort_by = $request->sort_by;
+
         $shop  = Shop::where('slug', $slug)->first();
         if($shop!=null){
             $seller = Seller::where('user_id', $shop->user_id)->first();
             if ($seller->verification_status != 0){
                 // return view('frontend.seller_shop', compact('shop'));
-                return view('sellers.index', compact('shop'));
+                if($sort_by != null){
+                    switch ($sort_by) {
+                        case '1':
+                            $product->orderBy('created_at', 'desc');
+                            break;
+                        case '2':
+                            $product->orderBy('created_at', 'asc');
+                            break;
+                        case '3':
+                            $product->orderBy('unit_price', 'asc');
+                            break;
+                        case '4':
+                            $product->orderBy('unit_price', 'desc');
+                            break;
+                        default:
+                            // code...
+                            break;
+                    }
+                }
+                $id = $shop->user_id;
+                $product = Product::where('user_id', $id)->get();
+                return view('sellers.index', compact('shop','sort_by','product'));
             }
             else{
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));

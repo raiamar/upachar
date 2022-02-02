@@ -1,5 +1,9 @@
 @extends('frontend.layouts.app')
-
+<style>
+    .jssocials-share-link {
+    border-radius: 5px;
+    }
+</style>
 @section('title'){{ $detailedProduct->meta_title }}@stop
 
 @section('meta_description'){{ $detailedProduct->meta_description }}@stop
@@ -233,7 +237,18 @@
                         
                         
                     </form>
+                    <div class="row mb-6">
+                        <div class="col-2 mt-3">
+                            Share :
+                    </div>
+                    <div class="col-10">
+                        <div id="share"></div>
+                    </div>  
+                    </div>
+                    
+                   
                 </div>
+                
             </div>
             {{-- Product detail part clean and clear --}}
             
@@ -467,9 +482,6 @@
     </section>
     <!-- Product Listing Ends -->
 
-
-
-
     <div class="modal fade" id="chat_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
             <div class="modal-content position-relative">
@@ -605,6 +617,18 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+          $(document).ready(function() {
+    		$('#share').jsSocials({
+    			showLabel: false,
+                showCount: false,
+                shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+    		});
+            getVariantPrice();
+    	});
+    </script>
+
 @endsection
 
 <style>

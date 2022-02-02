@@ -70,6 +70,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}">
     <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard-responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard-two.css') }}">
 
     <!-- Bootstrap link Ends -->
     <!-- Font Awesome Link Starts -->
@@ -98,6 +100,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link href="{{ asset('frontend/assets/css/main.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+    <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+    <link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <!-- Custom Links Ends -->
 
     @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
@@ -219,6 +223,7 @@
     <!-- Bootstrap range slider js Ends-->
     <!-- Toastr -->
     <script src="{{ asset('frontend/assets/toastr/toastr.min.js')}}"></script>
+    <script src="{{ asset('frontend/js/jssocials.min.js') }}"></script>
     <!-- Toastr Ends -->
     <!-- Custom Js Starts -->
     <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
