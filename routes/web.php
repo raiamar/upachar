@@ -24,6 +24,8 @@ Route::get('clear', function () {
 });
 
 
+//location info
+Route::get('/seller/location', 'HomeController@filter_location')->name('filter.sellers');
 
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

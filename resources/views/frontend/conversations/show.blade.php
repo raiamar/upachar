@@ -49,22 +49,22 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 ml-5 pl-5">
-                                                        <div class="p-3 bg-gray rounded">
-                                                            {{ $message->message }}
-                                                        </div>
-                                                        <span class="comment-date alpha-7 small mt-1 d-block text-right">
-                                                            {{ date('h:i:m d-m-Y', strtotime($message->created_at)) }}
-                                                        </span>
+                                                        <div class="p-3 bg-gray rounded message_1">
+                                                            <h6>{{ $message->message }}</h6>
+                                                            <span class="comment-date alpha-7 small mt-1 d-block text-right">
+                                                                {{ date('h:i:m d-m-Y', strtotime($message->created_at)) }}
+                                                            </span>
+                                                        </div> 
                                                     </div>
                                                 </div>
                                             </div>
                                         @else
                                             <div class="block block-comment mb-3">
                                                 <div class="d-flex">
-                                                    <div class="pr-3">
+                                                    <div class="pl-3">
                                                         <div class="block-image">
                                                             @if ($message->user->avatar_original != null)
-                                                                <img src="{{ asset($message->user->avatar_original) }}" class="rounded-circle">
+                                                                <img src="{{ asset($message->user->avatar_original) }}" class="rounded-circle" style="height:61px">
                                                             @else
                                                                 <img src="{{ asset('frontend/images/user.png') }}" class="rounded-circle">
                                                             @endif
@@ -72,11 +72,11 @@
                                                     </div>
                                                     <div class="flex-grow-1 mr-5 pr-5">
                                                         <div class="p-3 bg-gray rounded">
-                                                            {{ $message->message }}
+                                                            <h6>{{ $message->message }}</h6>
+                                                            <span class="comment-date alpha-7 small mt-1 d-block">
+                                                                {{ date('h:i:m d-m-Y', strtotime($message->created_at)) }}
+                                                            </span>
                                                         </div>
-                                                        <span class="comment-date alpha-7 small mt-1 d-block">
-                                                            {{ date('h:i:m d-m-Y', strtotime($message->created_at)) }}
-                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,3 +118,9 @@
     }, 4000);
     </script>
 @endsection
+
+<style>
+    .message_1 h6{
+        text-align:right;
+    }
+</style>

@@ -96,6 +96,7 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Address')}}" name="address" value="{{ $shop->address }}" required>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Meta Title')}} <span class="required-star">*</span></label>
@@ -104,6 +105,7 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Meta Title')}}" name="meta_title" value="{{ $shop->meta_title }}" required>
                                         </div>
                                     </div>
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Map Location')}} <span class="required-star">*</span></label>
@@ -112,6 +114,34 @@
                                             <textarea name="location" rows="6" class="form-control mb-3" required placeholder="Enter src url only example: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14133.189959106749!2d85.33556682369992!3d27.67719887742239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19f2804a02bf%3A0x85468199859b2d8d!2sKoteshwor%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1643774926053!5m2!1sen!2snp">{{ $shop->location }}</textarea>
                                         </div>
                                     </div>
+                                    {{-- {{$locations}} --}}
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <label>{{__('Shop Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            @if (count($locations)>0)
+                                            <select name="shop_location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
+                                                @php
+                                                    $loc = \App\Shop::where('id', $shop->id)->first();
+                                                    $array = explode('!!', $loc->shop_location);
+                                                @endphp
+                                                    
+                                                    @foreach ($locations as $location)
+                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option>   
+                                                    @endforeach 
+                                                    
+                                            </select> 
+                                            @else
+                                            <select class="form-control mb-3">
+                                                <option value="" selected disabled>No Locations Available</option>
+                                            </select>
+                                            @endif
+                                            {{-- <input type="text" class="form-control mb-3" placeholder="{{__('Meta Title')}}" name="meta_title" value="{{ $shop->meta_title }}" required> --}}
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Meta Description')}} <span class="required-star">*</span></label>
@@ -232,7 +262,19 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function() {
+                $('.js-example-basic-multiple').select2({
+                    placeholder:'Select Locations'
+                });
+            });
 
+            $(document).ready(function() {
+                $('.selectpicker').select2({
+                    placeholder:'Select Locations'
+                });
+            });
+    </script>
 @endsection
 
 @section('script')
@@ -268,6 +310,6 @@
             $('.remove-files').on('click', function(){
                 $(this).parents(".col-md-6").remove();
             });
-        });
+        }); 
     </script>
 @endsection

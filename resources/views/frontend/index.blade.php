@@ -124,9 +124,8 @@ $flash_deals = \App\FlashDeal::where([
                                     <span class="product-discount-label">Rs{{$discount->discount}} Off</span>
                                 @endif
                             @endforeach
-                            
-                            
-                            </div>
+                        </div>
+                        
                         <div class="product-content">
                             <h3 class="title text-center fix-text"> <a href="{{ route('product', $flash_deal_product->slug) }}" class="font-weight-bold">{{$flash_deal_product->name}}</a></h3>
                             <div class="price text-center mb-3"> 
