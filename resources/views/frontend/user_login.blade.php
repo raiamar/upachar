@@ -1,6 +1,9 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+@if (Auth::check())
+    @dd('hello')
+@endif
     <!-- Login Register -->
     <div id="login-register-wrapper" class="py-5">
         <div class="container">
@@ -14,7 +17,7 @@
                         @endif
                         <div class="FormLeft text-center">
                             <h1 class="font-weight-bold mb-4">{{ __('Login') }}</h1>
-                            <div class="form-group position-relative mb-4">
+                            <div class="form-group position-relative mb-4 email">
                                 @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
                                     <input type="text"
                                         class="form-control form-control-sm {{ $errors->has('email') ? ' is-invalid' : '' }}"
@@ -29,7 +32,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group position-relative mb-4">
+                            <div class="form-group position-relative mb-4 password">
                                 <input type="password"
                                     class="form-control border-top-0 border-right-0 border-left-0 rounded-0
                                             shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}"
@@ -39,7 +42,7 @@
                             </div>
                             <div class="row mt-4 mb-4">
                                 <div class="col-md-6">
-                                    <div class="form-check text-left">
+                                    <div class="form-check text-left remember">
                                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
                                             name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="defaultCheck1">
@@ -47,28 +50,28 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 text-xl-right text-lg-right text-center mt-xl-0 mt-lg-0 mt-2">
+                                <div class="col-md-6 text-xl-right text-lg-right text-center mt-xl-0 mt-lg-0 mt-2 forgot">
                                     <a href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
                                 </div>
                             </div>
 
-                            <button class="effect anchor-btn" type="submit">
+                            <button class="effect anchor-btn submit" type="submit">
                                 {{ __('Login') }}
                             </button>
 
-                            <p class="text-center mt-4">
+                            <p class="text-center mt-4 register">
                                 Don't have an account?
                                 <span>
                                     <a href="{{ route('user.registration') }}">{{ __('Register') }}</a>
                                 </span>
                             </p>
-                            <div class="row mb-4 px-3 justify-content-center">
+                            <div class="row mb-4 px-3 justify-content-center social">
                                 <h6 class="mb-xl-0 mb-lg-0 mb-3 mr-2 mt-2">Sign in with</h6>
-                                <div class="social-media d-flex">
-                                    <div class="facebook text-center mr-3">
+                                <div class="social-media d-flex ">
+                                    <div class="facebook text-center mr-3 ">
                                         <div><a href="{{url('auth/facebook/redirect')}}" class="fa fa-facebook text-white" aria-hidden="true"></a></div>
                                     </div>
-                                    <div class="twitter text-center mr-3">
+                                    <div class="twitter text-center mr-3 ">
                                         <div><a href="{{url('auth/google/redirect')}}" class="fa fa-google text-white" aria-hidden="true"></a></div>
                                     </div>
                                     {{-- <div class="linkedin text-center mr-3">
@@ -83,6 +86,80 @@
         </div>
     </div>
     <!-- Login Register Ends -->
+    <script>
+       var tour = {
+        autoStart: false,
+        data: [{
+            element: '.email',
+            tooltip: 'Enter your email here',
+            position: 'TL'
+        }, {
+            element: '.password',
+            tooltip: 'Enter your password here',
+            position: 'TL',
+            
+        },
+        {
+            element: '.remember',
+            tooltip: 'Check this box if you want to save info',
+            position: 'TL',
+            
+        }, 
+        {
+            element: '.forgot',
+            tooltip: 'Click this if you forgot your password',
+            position: 'TL',
+            
+        }, 
+         {
+            element: '.submit',
+            tooltip: 'Press this button to login',
+            position: 'T'
+        }, 
+        {
+            element: '.register',
+            tooltip: 'Click here if you are new user',
+            position: 'T',
+            
+        }, 
+        {
+            element: '.social',
+            tooltip: 'Click one of these for social media login',
+            position: 'T',
+            
+        }
+    ],
+        controlsPosition: 'TR',
+        buttons: {
+            next: {
+                text: 'Next &rarr;',
+                class: 'btn btn-default text-white'
+            },
+            prev: {
+                text: '&larr; Previous',
+                class: 'btn btn-default text-white'
+            },
+            start: {
+                text: 'Start',
+                class: 'effect btn-md'
+            },
+            end: {
+                text: 'End',
+                class: 'effect'
+            }
+        },
+        controlsCss: {
+            background: '#2dbdef',
+            color: '#fff',
+            width: '400px',
+            'border-radius': 0
+        }
+    };
+    $(document).ready(function() {   
+            $.aSimpleTour(tour);
+    })
+
+    </script>
 @endsection
 
 @section('script')
