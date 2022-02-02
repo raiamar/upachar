@@ -69,15 +69,19 @@ $flash_deals = \App\FlashDeal::where([
                             <h2 class="font-weight-bold">{{__('Today Flash Sale')}}</h2>
                             <span class="demo"></span>
                         </div>
-                        {{-- slug is not defined --}}
-                        <div class="navigator"> <a href="#">See all</a> </div> 
-                        {{-- <div class="navigator"> <a href="{{ route('flash-deal-details', $flash_deals->slug) }}">See all</a> </div> --}}
+                        @php
+                            foreach($flash_deals as $key => $flash_deal_slug){
+                                $slug_deal = $flash_deal_slug->slug;
+                            }
+                        @endphp
+                        <div class="navigator"> <a href="{{ route('flash-deal-details', $slug_deal) }}">See all</a> </div>
                     </div>
                 </div>
             @foreach ($flash_deals as $key => $flash_deal)
                 @php
                     $enddate=$flash_deal->end_date;
                     $data_of_time=date('m/d/Y', $enddate);
+                    $slug = $flash_deal->slug;
                 @endphp
                 @foreach ($flash_deal->flash_deal_products as $product)
                 @php

@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.oldapp')
 
 @section('content')
 
@@ -11,7 +11,6 @@
             <div class="container">
                 <div class="text-center my-4 text-{{ $flash_deal->text_color }}">
                     <h1 class="h3">{{ $flash_deal->title }}</h1>
-                    <span class="demo" style="color: red"></span>
                     <div class="countdown countdown-sm countdown--style-1" data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
                 </div>
                 <div class="gutters-5 row">

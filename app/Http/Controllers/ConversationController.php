@@ -75,8 +75,8 @@ class ConversationController extends Controller
         $message->message = $request->message;
         $message->save();
 
-        // flash(__('Message has been send to seller'))->success();
-        return back()->withSuccess('Message has been send to seller');
+        flash(__('Message has been send to seller'))->success();
+        return back();
     }
 
     /**
