@@ -46,8 +46,134 @@
         </div>
     </div>
 </section>
-
 <!-- Banner Categories Slider Ends-->
+
+{{-- Flash deals --}}
+@php
+$data_of_time =[];
+$flash_deals = \App\FlashDeal::where([
+                              ['status', 1],
+                              ['featured', 1],
+                              ['start_date','<=',strtotime(now())],
+                              ['end_date','>=',strtotime(now())],
+                  ])->with('flash_deal_products')->get();
+@endphp
+@if(!($flash_deals->isEmpty()))
+<section id="product-listing-wrapper" class="position-relative py-5">
+    <div class="container">
+        <div class="product-lists">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="head">
+                            <h2 class="font-weight-bold">{{__('Today Flash Sale')}}</h2>
+                            <span class="demo"></span>
+                        </div>
+                        {{-- slug is not defined --}}
+                        <div class="navigator"> <a href="#">See all</a> </div> 
+                        {{-- <div class="navigator"> <a href="{{ route('flash-deal-details', $flash_deals->slug) }}">See all</a> </div> --}}
+                    </div>
+                </div>
+            @foreach ($flash_deals as $key => $flash_deal)
+                @php
+                    $enddate=$flash_deal->end_date;
+                    $data_of_time=date('m/d/Y', $enddate);
+                @endphp
+                @foreach ($flash_deal->flash_deal_products as $product)
+                @php
+                     $flash_deal_product = \App\Product::find($product->product_id);
+                @endphp
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
+                    <div class="product-grid-item2">
+                        <div class="product-grid-image2">
+                             <a href="{{ route('product', $flash_deal_product->slug) }}"> 
+                                @php
+                                    $filepath = $flash_deal_product->featured_img;
+                                @endphp
+                                @if(isset($filepath))
+                                    <img src="{{ asset( $flash_deal_product->featured_img) }}" alt="{{ $flash_deal_product->name }}" data-src="{{ asset($flash_deal_product->thumbnail_img) }}" class="img-fluid pic-1"> </a>  
+                                @else
+                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" data-src="{{ asset($flash_deal_product->thumbnail_img) }}" class="img-fluid pic-1">
+                                @endif
+                            <ul class="social">
+                                <li>
+                                    <a class="fa fa-heart-o addToWishList" data-id="{{ $flash_deal_product->id }}"></a>    
+                                </li>
+                                <li>
+                                    <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $flash_deal_product->id }})"></a>
+                                </li>
+                                <li>
+                                    <a class="fa fa-exchange" onclick="addToCompare({{ $flash_deal_product->id }})"></a>
+                                </li>
+                            </ul> 
+                            
+                            @php
+                                $flash_deal_discount = \App\FlashDealProduct::where('product_id', $flash_deal_product->id)->get();
+                            @endphp
+                            
+                            @foreach ($flash_deal_discount as $key => $discount)
+                                @if($flash_deal_product->current_stock <= 0)
+                                    <span class="product-discount-label">Out of stock</span>
+                                @elseif ($discount->discount > 0 && $discount->discount_type=='percent')
+                                    <span class="product-discount-label">{{$discount->discount}}% Off</span>
+                                @elseif($discount->discount_type=='amount'  &&  $discount->discount > 0)
+                                    <span class="product-discount-label">Rs{{$discount->discount}} Off</span>
+                                @endif
+                            @endforeach
+                            
+                            
+                            </div>
+                        <div class="product-content">
+                            <h3 class="title text-center fix-text"> <a href="{{ route('product', $flash_deal_product->slug) }}" class="font-weight-bold">{{$flash_deal_product->name}}</a></h3>
+                            <div class="price text-center mb-3"> 
+                                @if(home_base_price($flash_deal_product->id) != home_discounted_base_price($flash_deal_product->id))
+                                    <del class="old-product-price strong-400">{{ home_base_price($flash_deal_product->id) }}</del>
+                                @endif
+                                {{ home_discounted_base_price($flash_deal_product->id) }}
+                                 </div> <a class="all-deals effect"
+                                href="{{ route('product', $flash_deal_product->slug) }}">View Product
+                                <i class="fa fa-angle-right icon"></i> </a>
+                            </div>
+                    </div>
+                </div>
+                @endforeach 
+                @endforeach 
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var data=@json($data_of_time);
+var countDownDate = new Date(data).getTime();
+// Update the count down every 1 second
+var x = setInterval(function() {
+// Get today's date and time
+var now = new Date().getTime();
+//   alert(countDownDate);
+// Find the distance between now and the count down date
+var distance = countDownDate - now;
+// Time calculations for days, hours, minutes and seconds
+var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+// console.log(document.getElementsByClassName("demo"));
+// Output the result in an element with id="demo"
+$('.demo').text(days + " days : " + hours + " hours : "+ minutes + " minutes : " + seconds + " seconds");
+//document.getElementsByClassName("demo").innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+// If the count down is over, write some text
+if (distance < 0) {
+clearInterval(x);
+$('.demo').text("EXPIRED");
+//document.getElementsByClassName("demo").innerHTML = "EXPIRED";
+}
+}, 1000);
+</script>
+@endif
+{{-- Flash deals end --}}
+
+
 <!-- Product Listing -->
 <section id="product-listing-wrapper" class="position-relative py-5">
     <div class="container">

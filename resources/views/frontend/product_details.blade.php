@@ -127,6 +127,23 @@
                         </div>
                     </div>
 
+
+                    <div class="row align-items-center">
+                        <div class="sold-by col-auto">
+                            <small class="mr-2">{{__('Sold by')}}: </small><br>
+                            @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" style="color:red;">{{ $detailedProduct->user->shop->name }}</a>
+                            @else
+                                {{ __('Inhouse product') }}
+                            @endif
+                        </div>
+                        @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+                            <div class="col-auto">
+                                <button class="btn btn-secondary" onclick="show_chat_modal()">{{__('Message Seller')}}</button>
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="mt-2" >
                         <h5>{{__('Description')}}</h5>
                         <p>
@@ -449,6 +466,145 @@
         </div>
     </section>
     <!-- Product Listing Ends -->
+
+
+
+
+    <div class="modal fade" id="chat_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+            <div class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title strong-600 heading-5">{{__('Any query about this product')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="" action="{{ route('conversations.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $detailedProduct->id }}">
+                    <div class="modal-body gry-bg px-3 pt-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control mb-3" name="title" value="{{ $detailedProduct->name }}" placeholder="Product Name" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="8" name="message" required placeholder="Your Question"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">{{__('Cancel')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('Send')}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-zoom" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="exampleModalLabel">{{__('Login')}}</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body px-4">
+                                   
+                                    <div id="login-register-wrapper" class="py-5">
+                                        <div class="container">
+                                            <div class="row justify-content-center align-items-center position-relative">
+                                                <div class="col-xl-9 col-lg-12 col-md-9 col-12 login-wrap">
+                                                    <form class="px-xl-5 px-lg-5 px-md-4 px-3 pt-5 pb-2" role="form" action="{{ route('login') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                                                            <span>{{ __('Use country code before number') }}</span>
+                                                        @endif
+                                                        <div class="FormLeft text-center">
+                                                            <h1 class="font-weight-bold mb-4">{{ __('Login') }}</h1>
+                                                            <div class="form-group position-relative mb-4">
+                                                                @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                                                        value="{{ old('email') }}" placeholder="{{ __('Email Or Phone') }}" name="email"
+                                                                        id="email">
+                                                                @else
+                                                                    <input type="text"
+                                                                        class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none bg-transparent{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                                                        type="email" value="{{ old('email') }}" placeholder="{{ __('Email') }}"
+                                                                        name="email">
+                                                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                                                @endif
+                                                            </div>
+                                
+                                                            <div class="form-group position-relative mb-4">
+                                                                <input type="password"
+                                                                    class="form-control border-top-0 border-right-0 border-left-0 rounded-0
+                                                                            shadow-none bg-transparent {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                                                    placeholder="{{ __('Password') }}" name="password" id="password">
+                                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                
+                                                            </div>
+                                                            <div class="row mt-4 mb-4">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-check text-left">
+                                                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
+                                                                            name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                                        <label class="form-check-label" for="defaultCheck1">
+                                                                            {{ __('Remember Me') }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 text-xl-right text-lg-right text-center mt-xl-0 mt-lg-0 mt-2">
+                                                                    <a href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
+                                                                </div>
+                                                            </div>
+                                
+                                                            <button class="effect anchor-btn" type="submit">
+                                                                {{ __('Login') }}
+                                                            </button>
+                                
+                                                            <p class="text-center mt-4">
+                                                                Don't have an account?
+                                                                <span>
+                                                                    <a href="{{ route('user.registration') }}">{{ __('Register') }}</a>
+                                                                </span>
+                                                            </p>
+                                                            <div class="row mb-4 px-3 justify-content-center">
+                                                                <h6 class="mb-xl-0 mb-lg-0 mb-3 mr-2 mt-2">Sign in with</h6>
+                                                                <div class="social-media d-flex">
+                                                                    <div class="facebook text-center mr-3">
+                                                                        <div><a href="{{url('auth/facebook/redirect')}}" class="fa fa-facebook text-white" aria-hidden="true"></a></div>
+                                                                    </div>
+                                                                    <div class="twitter text-center mr-3">
+                                                                        <div><a href="{{url('auth/google/redirect')}}" class="fa fa-google text-white" aria-hidden="true"></a></div>
+                                                                    </div>
+                                                                    {{-- <div class="linkedin text-center mr-3">
+                                                                        <div class="fa fa-linkedin" aria-hidden="true"></div>
+                                                                    </div> --}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 <style>
@@ -467,6 +623,15 @@
     overflow: auto;
     }
 
-
-
 </style>
+
+
+<script>
+    function show_chat_modal(){
+            @if (Auth::check())
+                $('#chat_modal').modal('show');
+            @else
+                $('#login_modal').modal('show');
+            @endif
+        }
+</script>

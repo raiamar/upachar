@@ -31,6 +31,25 @@
             <a href="{{ route('wishlists.index') }}"><span class="mr-2"><i class="fa fa-heart"
                         aria-hidden="true"></i></span>{{__('Wishlist')}}</a>
         </li>
+
+        @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
+            @php
+                $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
+            @endphp
+            <li class="mb-3 p-2">
+                <a href="{{ route('conversations.index') }}" class="{{ areActiveRoutesHome(['conversations.index', 'conversations.show'])}}">
+                    <i class="fa fa-comment" aria-hidden="true"></i>
+                    <span class="category-name">
+                        {{__('Conversations')}}
+                        @if (count($conversation) > 0)
+                            <span class="ml-2" style="color:green"><strong>({{ count($conversation) }})</strong></span>
+                        @endif
+                    </span>
+                </a>
+            </li>
+        @endif
+
+
         <li class="mb-3 p-2">
             <a href="/compare"><span class="mr-2"><i class="fa fa-exchange"
                         aria-hidden="true"></i></span>{{__('Compare-list')}}</a>

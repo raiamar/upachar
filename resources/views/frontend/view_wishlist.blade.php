@@ -52,6 +52,7 @@
                         <div class="shopping-cart">
                             <div class="shopping-cart-table">
                                 <div class="table-responsive-lg">
+                                    @if(!($wishlists->isEmpty()))
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -63,9 +64,9 @@
                                             </tr>
                                         </thead>
                                         <!-- /thead -->
+                                         
                                         <tbody>
-                                            @foreach ($wishlists as $key => $wishlist)
-                                            @if ($wishlist->product != null)
+                                            @foreach ($wishlists as $key => $wishlist)   
                                             <tr>
                                                 <td class="cart-image">
                                                     <a class="entry-thumbnail" href="{{ route('product', $wishlist->product->slug) }}">
@@ -99,12 +100,15 @@
                                                     <button class="effect" onclick="showAddToCartModal({{ $wishlist->product->id }})">{{__('Add to Cart')}}</button>
                                                 </td>
                                             </tr>
-                                            @endif
                                             @endforeach
                                         </tbody>
                                         <!-- /tbody -->
                                     </table>
-
+                                    @else
+                                    <div class="col-lg-8 col-md-9 col-9">
+                                        <h6 style="margin: 30px 0 60px 0; text-align: center; width:450px">{{__('Your Wishlist is empty')}}</h6>
+                                    </div> 
+                                    @endif
                                 </div>
                             </div>
 

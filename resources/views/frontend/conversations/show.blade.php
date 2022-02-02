@@ -91,8 +91,8 @@
                                             <textarea class="form-control" rows="4" name="message" placeholder="Type your reply" required></textarea>
                                         </div>
                                     </div>
-                                    <div class="text-right">
-                                        <button type="submit" class="btn btn-base-1 mt-3">{{__('Send')}}</button>
+                                    <div class="text-right mt-1">
+                                        <button type="submit" class="btn btn-primary ">{{__('Send')}}</button>
                                     </div>
                                 </form>
                             </div>

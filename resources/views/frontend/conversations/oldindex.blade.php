@@ -1,20 +1,6 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-
-<!-- Breadcrumbs -->
-<section id="breadcrumb-wrapper" class="position-relative">
-    <div class="image">
-
-        <?php $bredcrum_image = \App\Bredcrum::where('page', 'conversation')->where('published', 1)->first(); ?>
-        @include('frontend.inc.bredcrum_conditions');
-    </div>
-    <div class="overlay position-absolute">
-        <a class="title p-4" href="/dashboard">{{Auth::user()->name}} > {{__('Conversations')}}</a>
-    </div>
-</section>
-<!-- Breadcrumbs Ends -->
-
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
@@ -27,6 +13,27 @@
                 </div>
 
                 <div class="col-lg-9">
+                    <div class="main-content">
+                        <!-- Page title -->
+                        <div class="page-title">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h2 class="heading heading-6 text-capitalize strong-600 mb-0 d-inline-block">
+                                        {{__('Conversations')}}
+                                    </h2>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="float-md-right">
+                                        <ul class="breadcrumb">
+                                            <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
+                                            <li><a href="{{ route('dashboard') }}">{{__('Dashboard')}}</a></li>
+                                            <li><a href="{{ route('conversations.index') }}">{{__('Conversations')}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card no-border mt-4 p-3">
                             <div class="py-4">
                                 @foreach ($conversations as $key => $conversation)
