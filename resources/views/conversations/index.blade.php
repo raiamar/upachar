@@ -47,7 +47,8 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{route('conversations.admin_show', encrypt($conversation->id))}}">{{__('View')}}</a></li>
-                                    <li><a onclick="confirm_modal('{{route('conversations.destroy', encrypt($conversation->id))}}');">{{__('Delete')}}</a></li>
+                                    {{-- <li><a onclick="confirm_modal('{{route('conversations.destroy', encrypt($conversation->id))}}');">{{__('Delete')}}</a></li> --}}
+                                    <li><a href="conversations/destroy/{{$conversation->id}}">{{__('Delete')}}</a></li>
                                 </ul>
                             </div>
                         </td>

@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sidebarcus col-xl-12 col-lg-12 col-md-6 mt-xl-0 mt-lg-0 mt-md-5 mt-1">
+                                    {{-- <div class="sidebarcus col-xl-12 col-lg-12 col-md-6 mt-xl-0 mt-lg-0 mt-md-5 mt-1">
                                         <div class="sidebar-contents mb-xl-5 mb-lg-5 mb-3">
                                             <div class="title">
                                                 <h5 class="mb-0"> Contact Us</h5>
@@ -85,7 +85,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

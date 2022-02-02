@@ -15,6 +15,10 @@ Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')-
 Route::post('/mark-as-read', 'HomeController@markNotification')->name('markNotification')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
 
+	//Route for locations
+	Route::resource('/locations','LocationController');
+
+
 
 	// This is route for testimonials
 		Route::get('/testimonial/view', function (){

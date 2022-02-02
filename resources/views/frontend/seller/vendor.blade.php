@@ -26,12 +26,12 @@
                         {{__('Showing all Vendors')}}
                     </li>
                     {{-- <li class="p-3 d-flex align-items-center">
-                        <select class="form-control mx-2" name="sort_by" onchange="filter()">
-                            <option selected="">Choose a Filter</option>
-                            <option value="1" @isset($sort_by) @if ($sort_by == '1') selected @endif @endisset>{{__('Recently Added')}}</option>
-                            <option value="2" @isset($sort_by) @if ($sort_by == '2') selected @endif @endisset>{{__('Oldest')}}</option>
+                        <select class="form-control mx-2" name="shop_location" onchange="filter_location()">
+                            <option selected="">Choose location</option>
+                            @foreach ($locations as $location)
+                                <option value="{{$location->name}}" >{{$location->state}} > {{$location->name}}</option>
+                            @endforeach
                         </select>
-
                     </li> --}}
                 </ul>
             </div>
@@ -99,8 +99,8 @@
     </div>
 </section>
 <!-- Product Listing Ends -->
-<form class="" id="search-form-vendor" action="{{ route('search') }}" method="GET">
-    @csrf
+<form class="" id="search-form-vendor-location" action="{{ route('filter.sellers') }}" method="GET">
+    {{-- @csrf --}}
 </form>
 @endsection
 
@@ -115,7 +115,7 @@
 </style>
 
 <script type="text/javascript">
-function filter(){
-        $('#search-form-vendor').submit();
+function filter_location(){
+        $('#search-form-vendor-location').submit();
     }
 </script>

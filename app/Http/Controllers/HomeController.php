@@ -23,6 +23,7 @@ use App\Contact;
 use App\Shop;
 use App\Color;
 use App\Order;
+use App\Location;
 use App\Models\Cart;
 use App\BusinessSetting;
 use App\Http\Controllers\SearchController;
@@ -804,7 +805,13 @@ class HomeController extends Controller
 
 
     public function vendors(){
-        return view('frontend.seller.vendor');
+        $locations=Location::all();
+        return view('frontend.seller.vendor', compact('locations'));
+    }
+
+    public function filter_location(Request $request){
+        $locations=Shop::where('shop_location', $request->shop_location)->get();
+        return view('frontend.seller.vendor', compact('locations'));
     }
 
     public function vendor_dashboard(){

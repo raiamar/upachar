@@ -47,14 +47,19 @@
 
 @section('content')
 
+
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="{{asset('frontend/assets/images/banner/1.png')}}" alt="breadcrumb-image" class="img-fluid">
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'featured')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        {{-- {{ ($bread_crumb->name) }} --}}
-        <div class="title p-4">{{__('Home')}}>{{ __('Featued Products') }}</div>
+        @if(isset($bread_crumb))
+        <div class="title p-4">{{$bread_crumb->name}}</div>
+        @else
+        <div class="title p-4">{{__('Home')}} > {{ __('Featued Products') }}</div>
+        @endif
     </div>
 </section>
 <!-- Breadcrumbs Ends -->

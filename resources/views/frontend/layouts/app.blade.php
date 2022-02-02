@@ -233,6 +233,12 @@
     <!-- Popup Search Modal -->
     
 
+    <!--Select2 [ OPTIONAL ]-->
+    <script src="{{ asset('plugins/select2/js/select2.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
+
+
+
     @include('frontend.partials.modal')
 
 

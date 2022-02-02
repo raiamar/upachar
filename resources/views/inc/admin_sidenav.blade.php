@@ -601,6 +601,15 @@
                         </li>
                         @endif
 
+
+
+                        <li class="{{ areActiveRoutes(['locations.index'])}}">
+                            <a class="nav-link" href="{{ route('locations.index') }}">
+                                <i class="fa fa-map-marker"></i>
+                                <span class="menu-title">{{__('Location Settings')}} @if($support_ticket > 0)<span class="pull-right badge badge-info">{{ $support_ticket }}</span>@endif</span>
+                            </a>
+                        </li>
+
                         @if(Auth::user()->user_type == 'admin' || in_array('11', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['seosetting.index'])}}">
                             <a class="nav-link" href="{{ route('seosetting.index') }}">

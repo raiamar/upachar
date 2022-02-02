@@ -38,7 +38,8 @@
                 <div class="profile-side-detail-edit">
                     <div class="dashboard-content d-flex align-items-center">
                         <div class="shopping-cart-table">
-                            <div class="table-responsive-xl">   
+                            <div class="table-responsive-xl"> 
+                                @if(!($order->isEmpty()))  
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -69,7 +70,11 @@
                                     @endforeach
                                     <!-- /tbody -->
                                 </table>
-                                
+                                @else
+                                    <div class="col-lg-8 col-md-9 col-9">
+                                        <h6 style="margin: 30px 0 60px 0; text-align: center; width:450px">{{__('Your order status is empty')}}</h6>
+                                    </div> 
+                                    @endif
                             </div>
                         </div>
                     </div>

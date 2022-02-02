@@ -1,3 +1,4 @@
+
 @extends('frontend.layouts.app')
 
 @section('content')
@@ -131,10 +132,36 @@
 
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>{{__('Shop Location')}} <span class="required-star">*</span></label>
+                                            <label>{{__('Map Location')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <textarea name="location" rows="6" class="form-control mb-3" placeholder="{{__('Paste iframe src link here')}}" required></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label>{{__('Shop Location')}} <span class="required-star">*</span></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            @if (count($locations)>0)
+                                            <select name="shop_location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
+                                                @php
+                                                    $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
+                                                    $array = explode('!!', $loc->location);
+                                                @endphp
+
+                                                    @foreach ($locations as $location)
+                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option>   
+                                                    @endforeach 
+                                                    
+                                            </select> 
+                                            @else
+                                            <select class="form-control mb-3">
+                                                <option value="" selected disabled>No Locations Available</option>
+                                            </select>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -148,5 +175,13 @@
             </div>
         </div>
     </section>
-
+    <script>
+        $(document).ready(function() {
+                $('.js-example-basic-multiple').select2({
+                    placeholder:'Select Locations'
+                });
+            });
+    </script>
 @endsection
+
+

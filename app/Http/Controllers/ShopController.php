@@ -7,6 +7,7 @@ use App\Shop;
 use App\User;
 use App\Seller;
 use App\BusinessSetting;
+use App\Location;
 use App\Mail\userRegisterMail;
 use Auth;
 use Hash;
@@ -28,7 +29,8 @@ class ShopController extends Controller
     public function index()
     {
         $shop = Auth::user()->shop;
-        return view('frontend.seller.shop', compact('shop'));
+        $locations=Location::all();
+        return view('frontend.seller.shop', compact('shop', 'locations'));
     }
 
     /**
@@ -38,12 +40,13 @@ class ShopController extends Controller
      */
     public function create()
     {
+        $locations=Location::all();
         if(Auth::check() && Auth::user()->user_type == 'admin'){
             flash(__('Admin can not be a seller'))->error();
             return back();
         }
         else{
-            return view('frontend.seller_form');
+            return view('frontend.seller_form',compact('locations'));
         }
     }
 
@@ -99,6 +102,8 @@ class ShopController extends Controller
             $shop->logo = $request->logo;
             $shop->address = $request->address;
             $shop->location = $request->location;
+            // $shop->shop_location=json_encode($request['shop_location']);
+            $shop->shop_location=implode('!!', $request['shop_location']);
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             if($shop->save()){
@@ -174,6 +179,7 @@ class ShopController extends Controller
 
             $shop->meta_title = $request->meta_title;
             $shop->location = $request->location;
+            $shop->shop_location=implode('!!', $request['shop_location']);
             $shop->meta_description = $request->meta_description;
 
             if($request->hasFile('logo')){
