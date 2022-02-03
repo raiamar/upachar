@@ -1,9 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-@if (Auth::check())
-    @dd('hello')
-@endif
+
     <!-- Login Register -->
     <div id="login-register-wrapper" class="py-5">
         <div class="container">
@@ -64,6 +62,7 @@
                                 <span>
                                     <a href="{{ route('user.registration') }}">{{ __('Register') }}</a>
                                 </span>
+                                
                             </p>
                             <div class="row mb-4 px-3 justify-content-center social">
                                 <h6 class="mb-xl-0 mb-lg-0 mb-3 mr-2 mt-2">Sign in with</h6>
@@ -79,6 +78,13 @@
                                     </div> --}}
                                 </div>
                             </div>
+                            <p class="text-center mt-4 register">
+                                Start tour of login?
+                                <span>
+                                    <a class="tour">{{ __('Start') }}</a>
+                                </span>
+                                
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -155,9 +161,11 @@
             'border-radius': 0
         }
     };
-    $(document).ready(function() {   
+    $(document).ready(function() {
+        $('.tour').on('click', function() {
             $.aSimpleTour(tour);
-    })
+        });
+    });
 
     </script>
 @endsection

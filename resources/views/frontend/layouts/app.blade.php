@@ -54,7 +54,7 @@
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
 @endif
 
-<script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+
 {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
 <!-- Favicon -->
@@ -68,7 +68,7 @@
     <!-- Bootstrap link Starts -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/bootstrap-4.3.1/css/bootstrap.min.css.map') }}">
-    <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+    {{-- <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard-responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard-two.css') }}">
@@ -103,7 +103,8 @@
     <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
     <!-- Custom Links Ends -->
-
+    <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" /> --}}
     @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
      <!-- RTL -->
     <link type="text/css" href="{{ asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
@@ -227,6 +228,8 @@
     <script src="{{ asset('js/jquery.aSimpleTour.min.js') }}"></script>
     <script src="{{ asset('js/jquery.scrollTo.js') }}"></script>
     <!-- Toastr Ends -->
+    <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> --}}
     <!-- Custom Js Starts -->
     <script src="https://k1ngzed.com/dist/swiper/swiper.min.js"></script>
     <script src="https://k1ngzed.com/dist/EasyZoom/easyzoom.js"></script>
@@ -262,6 +265,9 @@
 
 
 <style>
+    .Swal-wide{
+    width:450px !important;
+}
     .c-preloader {
     position: absolute;
     height: 100%;
@@ -290,24 +296,43 @@
     }
     
 </style>
+<script>
+    function showFrontendAlert(type, message){
+        if(type == 'danger'){
+            type = 'error';
+        }
+        swal({
+            position: 'top-end',
+            type: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }
+</script>
 
+@foreach (session('flash_notification', collect())->toArray() as $message)
+    <script>
+        showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
+    </script>
+@endforeach
 
     <script>
 
-function showFrontendAlert(type, message){
-            if(type == 'danger'){
-                type = 'error';
-                icon = 'error';
-            }
-            Swal.fire({
-                position: 'top-end',
-                type: type,
-                icon: 'success',
-                title: message,
-                showConfirmButton: false,
-                timer: 3000
-            });
-        }
+// function showFrontendAlert(type, message){
+//             if(type == 'danger'){
+//                 type = 'error';
+//                 icon = 'error';
+//             }
+//             Swal.fire({
+//                 position: 'top-end',
+//                 type: type,
+//                 icon: 'success',
+//                 title: message,
+//                 showConfirmButton: false,
+//                 timer: 3000
+//             });
+//         }
 
 
         $(".addToWishList").click(function(){
