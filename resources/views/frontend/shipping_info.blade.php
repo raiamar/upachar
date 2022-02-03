@@ -28,10 +28,12 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        <img src="frontend/assets/images/banner/1.png" alt="breadcrumb-image" class="img-fluid">
+
+        <?php $bredcrum_image = \App\Bredcrum::where('page', 'checkout')->where('published', 1)->first(); ?>
+        @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">Checkout</div>
+        <a class="title p-4" href="/dashboard">{{Auth::user()->name}} > {{__('Checkout')}}</a>
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
@@ -307,7 +309,7 @@
                                     <div class="col-md-6">
         
                                         <label>
-                                          {{-- <input type="radio" name="product" class="card-input-element" /> --}}
+                                        
                                 
                                             <input type="radio" class="card-input-element"  name="address_id" value="{{ $address->id }}" @if ($address->set_default) checked @endif required>
                                         <span class="d-flex p-3 aiz-megabox-elem card-input">

@@ -166,9 +166,9 @@
                                                         <li>
                                                             <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $products->id }})"></a>
                                                         </li>
-                                                        {{-- <li>
-                                                            <a href="" class="fa fa-exchange"></a>
-                                                        </li> --}}
+                                                        <li>
+                                                            <a class="fa fa-exchange" onclick="addToCompare({{ $products->id }})"></a>
+                                                        </li>
                                                     </ul>
                                                     @if (! $products->discount == 0)
                                                             <span class="product-discount-label">-{{$products->discount}}%</span>
@@ -240,7 +240,7 @@
                                             <a class="fa fa-shopping-cart" onclick="showAddToCartModal({{ $product->id }})"></a>
                                         </li>
                                         <li>
-                                            <a href="" class="fa fa-exchange"></a>
+                                            <a class="fa fa-exchange" onclick="addToCompare({{ $product->id }})"></a>
                                         </li>
                                     </ul>
                                     @if (! $product->discount == 0)
