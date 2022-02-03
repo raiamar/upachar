@@ -67,7 +67,7 @@ $flash_deals = \App\FlashDeal::where([
                     <div class="heading d-flex justify-content-between align-items-center flex-wrap">
                         <div class="head">
                             <h2 class="font-weight-bold">{{__('Today Flash Sale')}}</h2>
-                            <span class="demo"></span>
+                            <span class="demo" style="background: red"></span>
                         </div>
                         @php
                             foreach($flash_deals as $key => $flash_deal_slug){

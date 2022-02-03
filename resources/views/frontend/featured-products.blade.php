@@ -1,5 +1,4 @@
 @extends('frontend.layouts.app')
-
 @if(isset($subsubcategory_id))
     @php
         $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
@@ -210,14 +209,13 @@
                     <!-- Mobile Filter Ends -->
                 </div> --}}
 
-                <div class="col-xl-9 col-lg-9 col-12 text-center">
+                <div class="col-xl-12 col-lg-12 col-12 text-center">
                     <ul class="show-filter d-flex justify-content-between align-items-center">
                         <li class="p-3">
                             {{__('Showing all products')}}
                         </li>
                         <li class="p-3 d-flex align-items-center">
                             <select class="form-control sortSelect" data-minimum-results-for-search="Infinity" name="sort_by" onchange="filter()">
-                                {{-- <select class="form-control sortSelect" data-minimum-results-for-search="Infinity" name="sort_by" onchange="filter()"> --}}
                                 <option>{{__('Choose a Filter')}}</option>
                                 <option value="1" @isset($sort_by) @if ($sort_by == '1') selected @endif @endisset>{{__('Newest')}}</option>
                                 <option value="2" @isset($sort_by) @if ($sort_by == '2') selected @endif @endisset>{{__('Oldest')}}</option>
@@ -231,7 +229,7 @@
                             $currency = App\Currency::where('status', 1)->first();
                         @endphp
                         @foreach ($products as $key => $product)
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mt-4">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 mt-4">
                             <div class="product-grid-item">
                                 <div class="product-grid-image">
                                     <a href="{{ route('product', $product->slug) }}">
@@ -256,7 +254,7 @@
                                         </li>
                                     </ul>
                                     @if (! $product->discount == 0)
-                                        <span class="product-discount-label">-{{$product->discount}}%</span>
+                                        <span class="product-discount-label">{{$product->discount}}%</span>
                                     @endif
                                 </div>
                                 <div class="product-content">

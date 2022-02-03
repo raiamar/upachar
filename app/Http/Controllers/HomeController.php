@@ -804,14 +804,36 @@ class HomeController extends Controller
 
 
 
-    public function vendors(){
+    public function vendors(Request $request){
+        // if($request){
+        //     $this.filter_location($request);
+        // }
         $locations=Location::all();
         return view('frontend.seller.vendor', compact('locations'));
     }
 
     public function filter_location(Request $request){
-        $locations=Shop::where('shop_location', $request->shop_location)->get();
-        return view('frontend.seller.vendor', compact('locations'));
+        $locations=Location::all();
+        $shop_location = $request->shop_location;
+        $seller = Shop::all();
+        $array = [];
+        foreach($seller as $vendors){
+            $address = explode('!!', $vendors->shop_location);
+            for($i = 0; $i < count($address); $i++) {
+                $a = $address[$i];
+                if($shop_location == $a){
+                     array_push($array, $vendors->id);
+                }
+                // else{
+                //     return 'no match';
+                // }
+                
+               }
+        }
+        $vendor = Shop::whereIn('id', $array)->get();
+        // return $locations;
+        
+        return view('frontend.seller.filter_vendor', compact('locations', 'vendor'));
     }
 
     public function vendor_dashboard(){

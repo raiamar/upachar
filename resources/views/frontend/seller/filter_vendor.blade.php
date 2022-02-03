@@ -40,12 +40,8 @@
                 </ul>
             </div>
 
-            @php
-                $vendor = App\User::where('user_type', 'seller')->get();
-                $seller = App\Seller::where('verification_status', 1)->get();
-            @endphp
-
-            @foreach ($seller as $vendors)
+            @if($vendor->isNotEmpty())
+            @foreach ($vendor as $vendors)
             <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-4">
                 <a href="{{ route('shop.visit', $vendors->user->shop->slug) }}">
                     <div class="vendor-wrap d-flex align-items-center">
@@ -75,32 +71,18 @@
                                     Address: {{__('N/A')}}
                                 @endif
                             </div>
-               
-          
-                            {{-- <ul class="d-flex">
-                                <li class="mr-1">
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li class="mr-1">
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li class="mr-1">
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li class="mr-1">
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li class="mr-1">
-                                    <i class="fa fa-star"></i>
-                                </li>
-                            </ul> --}}
-                            {{-- change --}}
 
                         </div>
                     </div>
                 </a>
             </div>
             @endforeach
+            @else
+            <div class="search_message">
+                <h6>No search result found</h6>
+            </div>
+            @endif
+            
             {{-- <div class="col-12 text-center mt-4">
                 <button type="button" class="effect mx-auto">View More</button>
             </div> --}}
@@ -119,6 +101,11 @@
     object-fit: cover;
     object-position: center;
     width: 100%;
+    }
+    div.search_message{
+        text-align: center;
+        color:red;
+        width: 100%;
     }
 </style>
 
