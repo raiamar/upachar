@@ -61,6 +61,7 @@
                     <!-- Swiper and EasyZoom plugins start -->
                     <div class="swiper-container gallery-top" style="height:400px">
                         <div class="swiper-wrapper">
+
                             @if (is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                 <div class="swiper-slide easyzoom easyzoom--overlay">
@@ -69,8 +70,9 @@
                                     </a>
                                 </div>
                                 @endforeach
+                                @else
+                                <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" alt="slider-image" class="img-fluid" />
                             @endif
-                            
                         </div>
                         <!-- Add Arrows -->
                         <div class="swiper-button-next swiper-button-white"></div>
@@ -78,12 +80,15 @@
                     </div>
                     <div class="swiper-container gallery-thumbs">
                         <div class="swiper-wrapper">
-                            
+                            @if($detailedProduct->photos)
                                 @foreach (json_decode($detailedProduct->photos) as $key => $photo)
                                 <div class="swiper-slide">
                                     <img src="{{ asset($photo) }}" alt="slider-image" class="img-fluid" />
                                 </div>
                                 @endforeach
+                                @else
+                                    <img src="https://infosecmonkey.com/wp-content/themes/InfoSecMonkey/assets/img/No_Image.jpg" alt="slider-image" class="img-fluid" />
+                            @endif    
                             
                         </div>
                     </div>
