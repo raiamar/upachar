@@ -502,9 +502,9 @@ $('.demo').text("EXPIRED");
                     <div class="product-content">
                         <h3 class="title text-center fix-text"> 
                             @if(! empty($seller->user->shop->name))
-                                <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a>
+                            <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a>
                             @else
-                                <a href="" class="font-weight-bold">{{ __('Name not assigned')}}</a>
+                            <a href="" class="font-weight-bold">{{ __('Name not assigned')}}</a>
                             @endif
                         </h3>
                         {{-- <div class="price text-center mb-3">

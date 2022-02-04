@@ -277,9 +277,10 @@ class HomeController extends Controller
         return view('frontend.about_us');
     }
 
-    public function flash_deal_details($slug)
+    public function flash_deal_details()
     {
-        $flash_deal = FlashDeal::where('slug', $slug)->first();
+        $flash_deal = FlashDeal::all();
+        // $flash_deal = FlashDeal::where('slug', $slug)->first();
         if($flash_deal != null)
             return view('frontend.flash_deal_details', compact('flash_deal'));
         else {

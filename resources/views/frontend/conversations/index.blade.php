@@ -32,11 +32,13 @@
                                     <div class="block block-comment border-bottom">
                                         <div class="row">
                                             <div class="col-1">
-                                                <div class="block-image">
+                                                <div class="rsImage">
+                                                    {{-- <div class="block-image"> --}}
                                                     @if (Auth::user()->id == $conversation->sender_id)
-                                                        <img @if ($conversation->receiver->avatar_original == null) src="{{ asset('frontend/images/user.png') }}" @else src="{{ asset($conversation->receiver->avatar_original) }}" @endif class="rounded-circle">
+                                                        <img @if ($conversation->receiver->avatar_original == null) src="{{ asset('frontend/images/user.png') }}" @else src="{{ asset($conversation->receiver->avatar_original) }}" @endif >
+                                                        {{-- class="rounded-circle" --}}
                                                     @else
-                                                        <img @if ($conversation->sender->avatar_original == null) src="{{ asset('frontend/images/user.png') }}" @else src="{{ asset($conversation->sender->avatar_original) }}" @endif class="rounded-circle">
+                                                        <img @if ($conversation->sender->avatar_original == null) src="{{ asset('frontend/images/user.png') }}" @else src="{{ asset($conversation->sender->avatar_original) }}" @endif >
                                                     @endif
                                                 </div>
                                             </div>
@@ -92,3 +94,11 @@
         </div>
     </section>
 @endsection
+
+<style>
+    .rsImage img{
+        border-radius: 25px; 
+  width: 60px;
+  height: 60px;
+    }
+</style>

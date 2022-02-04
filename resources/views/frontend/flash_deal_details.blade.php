@@ -4,17 +4,25 @@
 <!-- Breadcrumbs -->
 <section id="breadcrumb-wrapper" class="position-relative">
     <div class="image">
-        @if(isset($flash_deal->banner))
-            <img src="{{asset($flash_deal->banner)}}" alt="breadcrumb-image" class="img-fluid">
+        <?php $bredcrum_images = \App\FlashDeal::where([['status', 1],['featured', 1]])->latest()->get(); 
+        $bredcrum_image_all = \App\Bredcrum::where('page', 'all')->where('published', 1)->first();
+        ?>
+        @if(isset($bredcrum_images))
+            @foreach ($bredcrum_images as $bredcrum_image)
+                <img src="{{asset($bredcrum_image->banner)}}" alt="breadcrumb-image" class="img-fluid">
+            @endforeach
         @else
-            @include('frontend.inc.bredcrum_conditions');
+            <img src="{{asset($bredcrum_image_all->photo)}}" alt="breadcrumb-image" class="img-fluid">
         @endif
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">{{__('Home')}} > {{ __('Flash Deal') }} > {{$flash_deal->title}}</div>
+        @foreach ($bredcrum_images as $flash_deal)
+            <div class="title p-4">{{__('Home')}} > {{ __('Flash Deal') }} > {{$flash_deal->title}}</div>
+        @endforeach
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
+
 
 
 <div class="col-12">

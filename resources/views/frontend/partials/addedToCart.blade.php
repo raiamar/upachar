@@ -39,3 +39,4 @@
         <a href="{{ route('cart') }}" class="effect anchor-btn">{{__('Proceed to Checkout')}}</a>
     </div>
 </div>
+

@@ -67,7 +67,8 @@ Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_sect
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
 Route::get('/php/{id}','HomeController@showBlogs')->name('blogs.show');
 //Flash Deal Details Page
-Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('flash-deal-details');
+Route::get('/flash-deal', 'HomeController@flash_deal_details')->name('flash-deal-details');
+// Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('flash-deal-details');
 
 Route::get('/sitemap.xml', function(){
 	return base_path('sitemap.xml');

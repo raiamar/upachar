@@ -10,7 +10,7 @@
         @include('frontend.inc.bredcrum_conditions');
     </div>
     <div class="overlay position-absolute">
-        <div class="title p-4">{{__('Home')}} > {{__('Vendor Listing')}}</div>
+        <a href="/all_sellers" class="title p-4">{{__('Home')}} > {{__('Vendor Listing')}}</a href="all_sellers">
     </div>
 </section>
 <!-- Breadcrumbs Ends -->
