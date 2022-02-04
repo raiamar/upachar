@@ -500,7 +500,13 @@ $('.demo').text("EXPIRED");
                             
                         </div>
                     <div class="product-content">
-                        <h3 class="title text-center fix-text"> <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a></h3>
+                        <h3 class="title text-center fix-text"> 
+                            @if(! empty($seller->user->shop->name))
+                                <a href="" class="font-weight-bold">{{ __($seller->user->shop->name) }}</a>
+                            @else
+                                <a href="" class="font-weight-bold">{{ __('Name not assigned')}}</a>
+                            @endif
+                        </h3>
                         {{-- <div class="price text-center mb-3">
                             
                             @if ($total > 0)
