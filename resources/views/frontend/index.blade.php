@@ -67,7 +67,11 @@ $flash_deals = \App\FlashDeal::where([
                     <div class="heading d-flex justify-content-between align-items-center flex-wrap">
                         <div class="head">
                             <h2 class="font-weight-bold">{{__('Today Flash Sale')}}</h2>
-                            <span class="demo" style="background: red"></span>
+                            <span class="demo" style="
+                             background-color: #2dbdef;
+                            color: white;
+                            border-radius: 3px;
+                            padding: 8px 15px 10px;"></span>
                         </div>
                         @php
                             foreach($flash_deals as $key => $flash_deal_slug){

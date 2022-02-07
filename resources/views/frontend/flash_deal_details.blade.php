@@ -96,6 +96,10 @@ $('.demo').text("EXPIRED");
                                 <div class="product-grid-item2">
 
                                         <div class="product-grid-image2">
+                                            @php
+                                            $product = \App\Product::find($product->product_id);
+                                            dd($product);
+                                        @endphp
                                             <a href="{{ route('product', $product->slug) }}"> 
                                                @php
                                                    $filepath = $product->featured_img;
@@ -203,7 +207,7 @@ $('.demo').text("EXPIRED");
                                 <div class="product-grid-item2">
 
                                         <div class="product-grid-image2">
-                                            <a href="{{ route('product', $product->slug) }}"> 
+                                            <a href=""> 
                                                @php
                                                    $filepath = $product->featured_img;
                                                @endphp
@@ -242,7 +246,7 @@ $('.demo').text("EXPIRED");
 
 
                                        <div class="product-content">
-                                        <h3 class="title text-center fix-text"> <a href="{{ route('product', $product->slug) }}" class="font-weight-bold">{{$product->name}}</a></h3>
+                                        <h3 class="title text-center fix-text"> <a href="" class="font-weight-bold">{{$product->name}}</a></h3>
                                         <div class="price text-center mb-3"> 
                                             @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                                 <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
