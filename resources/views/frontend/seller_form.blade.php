@@ -147,14 +147,16 @@
                                         <div class="col-md-10">
                                             @if (count($locations)>0)
                                             <select name="shop_location[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
-                                                @php
+                                                {{-- @php
                                                     $loc = \App\Shop::where('user_id', Auth::user()->id)->first();
                                                     $array = explode('!!', $loc->location);
-                                                @endphp
-
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{$location->name}}" <?php if(in_array($location->name,$array)) echo 'selected' ?> >{{$location->state}} > {{$location->name}}</option>   
-                                                    @endforeach 
+                                                @endphp --}}
+                                                 {{-- if(in_array($location->name,$array)) echo 'selected'  --}}
+                                                    @if (isset($locations) && !empty($locations))
+                                                        @foreach ($locations as $location)
+                                                            <option value="{{$location->name}}">{{$location->state}} > {{$location->name}}</option>   
+                                                        @endforeach                                                         
+                                                    @endif
                                                     
                                             </select> 
                                             @else
