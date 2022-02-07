@@ -98,7 +98,6 @@ $('.demo').text("EXPIRED");
                                         <div class="product-grid-image2">
                                             @php
                                             $product = \App\Product::find($product->product_id);
-                                            dd($product);
                                         @endphp
                                             <a href="{{ route('product', $product->slug) }}"> 
                                                @php
