@@ -279,6 +279,7 @@ class HomeController extends Controller
 
     public function flash_deal_details()
     {
+        
         $flash_deal = FlashDeal::all();
         // $flash_deal = FlashDeal::where('slug', $slug)->first();
         if($flash_deal != null)
