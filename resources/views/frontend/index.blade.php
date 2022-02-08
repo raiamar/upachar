@@ -121,7 +121,7 @@ $flash_deals = \App\FlashDeal::where([
                             
                             @foreach ($flash_deal_discount as $key => $discount)
                                 @if($flash_deal_product->current_stock <= 0)
-                                    <span class="product-discount-label">Out of stock</span>
+                                    <span class="product-discount-label" style = "background-color : red">Out of stock</span>
                                 @elseif ($discount->discount > 0 && $discount->discount_type=='percent')
                                     <span class="product-discount-label">{{$discount->discount}}% Off</span>
                                 @elseif($discount->discount_type=='amount'  &&  $discount->discount > 0)
